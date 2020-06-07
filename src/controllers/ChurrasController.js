@@ -3,6 +3,7 @@ const connection = require('../database/connection');
 module.exports = {
   async list (request, response) {
     const { page = 1 } = request.query;
+    const { id } = request.query;
 
     const [count] = await connection('churras')
     .count();
@@ -11,6 +12,7 @@ module.exports = {
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .limit(5)
     .offset((page - 1) * 5)
+    // .where('churras.id', id)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 
@@ -18,7 +20,6 @@ module.exports = {
     'usuarios.idade']);
 
     response.header('X-Total-Count', count['count(*)']);
-
     return response.json(churras);
   },
 
