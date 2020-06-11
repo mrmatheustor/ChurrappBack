@@ -3,7 +3,6 @@ const connection = require('../database/connection');
 module.exports = {
   async list (request, response) {
     const { page = 1 } = request.query;
-    const { id } = request.query;
 
     const [count] = await connection('churras')
     .count();
@@ -11,18 +10,69 @@ module.exports = {
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .limit(5)
+    .orderBy('data')
     .offset((page - 1) * 5)
-    // .where('churras.id', id)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 
     'usuarios.cidade', 
     'usuarios.idade']);
 
+    
+
     response.header('X-Total-Count', count['count(*)']);
     return response.json(churras);
   },
 
+  async logado (request, response) {
+    const { page = 1 } = request.query;
+    const { usuario_id } = request.params;
+
+    const [count] = await connection('churras').where('usuario_id', usuario_id)
+    .count();
+
+    const churras = await connection('churras')
+    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+    .limit(5)
+    .orderBy('data', 'desc')
+    .offset((page - 1) * 5)
+    .where('usuario_id', usuario_id)
+    .select(['churras.*', 
+    'usuarios.nome', 
+    'usuarios.email', 
+    'usuarios.cidade', 
+    'usuarios.idade']);
+
+    response.header('Total-Meu', count['count(*)']);
+    return response.json(churras);
+  },
+
+  async dataPassado(request, response) {
+    const { page = 1 } = request.query;
+    const { data } = request.query;
+
+    const [count] = await connection('churras').where('data', data)
+    .count();
+
+
+    const churras = await connection('churras')
+    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+    .limit(5)
+    .offset((page - 1) * 5)
+    .orderBy('data')
+    .where('data', data)
+    .select(['churras.*', 
+    'usuarios.nome', 
+    'usuarios.email', 
+    'usuarios.cidade', 
+    'usuarios.idade']);
+
+    
+
+
+    response.header('Total-Passado', count['count(*)']);
+    return response.json(churras);
+  },
 
   async create(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, convidados } = request.body;
