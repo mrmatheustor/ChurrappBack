@@ -10,7 +10,7 @@ module.exports = {
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .limit(5)
-    .orderBy('data')
+    .orderBy('nome')
     .offset((page - 1) * 5)
     .select(['churras.*', 
     'usuarios.nome', 
@@ -57,10 +57,37 @@ module.exports = {
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .limit(5)
+    .where('data', data)
     .offset((page - 1) * 5)
     .orderBy('data')
+    .limit(5)
+    .select(['churras.*', 
+    'usuarios.nome', 
+    'usuarios.email', 
+    'usuarios.cidade', 
+    'usuarios.idade']);
+
+    
+
+
+    response.header('Total-Passado', count['count(*)']);
+    return response.json(churras);
+  },
+
+  async dataFuturo(request, response) {
+    const { page = 1 } = request.query;
+    const { data } = request.query;
+
+    const [count] = await connection('churras').where('data', data)
+    .count();
+
+
+    const churras = await connection('churras')
+    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .where('data', data)
+    .offset((page - 1) * 5)
+    .orderBy('data')
+    .limit(5)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 
