@@ -5,6 +5,7 @@ const UsuarioController = require('./controllers/UsuarioController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
+const ItemsController = require('./controllers/ItemsController');
 
 
 const routes = express.Router();
@@ -22,5 +23,9 @@ routes.get('/churraspassados', ChurrasController.dataPassado);
 routes.get('/churrasfuturo', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
 routes.delete('/churras/:id', ChurrasController.delete);
+
+routes.get('/item', ItemsController.list);
+routes.post('/item', ItemsController.create);
+routes.delete('/item/:id', ItemsController.delete);
 
 module.exports = routes;

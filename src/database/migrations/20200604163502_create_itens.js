@@ -5,6 +5,8 @@ exports.up = function(knex) {
 
     table.string('nomeItem').notNullable();
     table.string('descricao');
+    table.integer('tipo');
+    table.double('quantidade');
     table.string('unidade').notNullable();
 
   });
