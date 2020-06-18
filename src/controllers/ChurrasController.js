@@ -118,6 +118,7 @@ module.exports = {
       usuario_id,
       churrasCode
     })
+    
     response.json({ id });
   },
 
