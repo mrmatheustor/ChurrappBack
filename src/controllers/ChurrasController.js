@@ -1,4 +1,5 @@
 const connection = require('../database/connection');
+const crypto = require('crypto');
 
 module.exports = {
   async list (request, response) {
@@ -104,6 +105,7 @@ module.exports = {
   async create(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, convidados } = request.body;
     const usuario_id = request.headers.authorization;
+    const churrasCode = crypto.randomBytes(3).toString('HEX');
 
     const [id] = await connection('churras').insert({
       nomeChurras,
@@ -114,6 +116,7 @@ module.exports = {
       descricao,
       convidados,
       usuario_id,
+      churrasCode
     })
     response.json({ id });
   },

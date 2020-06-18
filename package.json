@@ -17,5 +17,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrmatheustor/ChurrappBack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mrmatheustor/ChurrappBack/issues"
+  },
+  "homepage": "https://github.com/mrmatheustor/ChurrappBack#readme"
 }

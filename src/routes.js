@@ -24,7 +24,8 @@ routes.get('/churrasfuturo', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
 routes.delete('/churras/:id', ChurrasController.delete);
 
-routes.get('/item', ItemsController.list);
+routes.get('/itemdochurras', ItemsController.list);
+routes.get('/item', ItemsController.listAll);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);
 

@@ -6,7 +6,7 @@ module.exports = {
   async list (request, response) {
     const {id} = request.query;
     const usuarios = await connection('usuarios')
-    .where('id', id)
+    // .where('id', id)
     .select('*');
 
     return response.json(usuarios);

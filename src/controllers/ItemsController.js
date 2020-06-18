@@ -3,15 +3,35 @@ const connection = require('../database/connection');
 
 module.exports = {
   async list (request, response) {
+    const {churras_code} = request.query;
 
     const item = await connection('itens')
-    .orderBy('tipo');
+    .join('churras', 'churras.churrasCode', '=', 'itens.churras_code')
+    .where('churras_code', churras_code)
+    .orderBy('tipo')
+    .select(['itens.*',
+    'churras.nomeChurras',
+    'churras.local',
+    'churras.hrInicio']);
+
+
+    return response.json(item);
+  },
+  async listAll (request, response) {
+
+    const item = await connection('itens')
+    .join('churras', 'churras.churrasCode', '=', 'itens.churras_code')
+    .orderBy('tipo')
+    .select(['itens.*',
+    'churras.nomeChurras',
+    'churras.local',
+    'churras.hrInicio']);
 
 
     return response.json(item);
   },
   async create(request, response) {
-    const { nomeItem, descricao, tipo, unidade, quantidade} = request.body;
+    const { nomeItem, descricao, tipo, unidade, quantidade, churras_code} = request.body;
 
     const [id] = await connection('itens').insert({
         nomeItem,
@@ -19,6 +39,7 @@ module.exports = {
         tipo,
         unidade,
         quantidade,
+        churras_code
     })
     response.json({ id });
   },

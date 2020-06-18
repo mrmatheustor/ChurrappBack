@@ -9,6 +9,10 @@ exports.up = function(knex) {
     table.double('quantidade');
     table.string('unidade').notNullable();
 
+    table.string('churras_code').notNullable();
+
+    table.foreign('churras_code').references('churrasCode').inTable('churras');
+
   });
 };
 

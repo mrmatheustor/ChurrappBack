@@ -4,12 +4,13 @@ exports.up = function(knex) {
     table.increments();
 
     table.string('nomeChurras').notNullable();
-    table.date('data').notNullable();
-    table.time('hrInicio').notNullable();
-    table.time('hrFim');
+    table.string('data').notNullable();
+    table.string('hrInicio').notNullable();
+    table.string('hrFim');
     table.string('local').notNullable();
     table.string('descricao');
     table.integer('convidados');
+    table.string('churrasCode').notNullable();
 
     table.string('usuario_id').notNullable();
 
