@@ -28,6 +28,9 @@ module.exports = {
   async logado (request, response) {
     const { page = 1 } = request.query;
     const { usuario_id } = request.params;
+    var dateTime = require('node-datetime');
+    var dt = dateTime.create();
+    var formatted = dt.format('d/m/Y');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', '19/06/2020')
     .count();
@@ -35,10 +38,10 @@ module.exports = {
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .limit(5)
-    .orderBy('data', 'desc')
+    .orderBy('data')
     .offset((page - 1) * 5)
     .where('usuario_id', usuario_id)
-    .where('data', '>=', '19/06/2020')
+    .where('data', '>=', formatted)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 
@@ -52,6 +55,9 @@ module.exports = {
   async dataPassado(request, response) {
     const { page = 1 } = request.query;
     // const { data } = request.query;
+    var dateTime = require('node-datetime');
+    var dt = dateTime.create();
+    var formatted = dt.format('d/m/Y');
 
     // const [count] = await connection('churras').where('data', data)
     // .count();
@@ -59,7 +65,7 @@ module.exports = {
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .where('data', '<', '19/06/2020')
+    .where('data', '<', formatted)
     .offset((page - 1) * 10)
     .orderBy('data')
     .limit(10)
@@ -78,11 +84,14 @@ module.exports = {
 
   async dataFuturo(request, response) {
     const { page = 1 } = request.query;
+    var dateTime = require('node-datetime');
+    var dt = dateTime.create();
+    var formatted = dt.format('d/m/Y');
 
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .where('data', '>=', '19/06/2020')
+    .where('data', '>=', formatted)
     .offset((page - 1) * 5)
     .orderBy('data')
     .limit(5)
