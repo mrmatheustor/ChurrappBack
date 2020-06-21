@@ -11,7 +11,7 @@ exports.up = function(knex) {
     table.string('foto');
 
     //foreingKeys
-    table.integer('usuario_id').notNullable();
+    table.string('usuario_id').notNullable();
 
     table.foreign('usuario_id').references('id').inTable('usuarios');
 

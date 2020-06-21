@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable('usuarios', function(table){
-    table.integer('id').primary();
+    table.string('id').primary();
     table.string('nome').notNullable();
     table.string('sobrenome').notNullable();
     table.string('email').notNullable();
@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.string('uf', 2).notNullable();
     table.integer('idade').notNullable();
     table.string('joined').notNullable();
-    table.integer('celular').notNullable();
+    table.string('celular').notNullable();
     table.string('foto');
     table.string('apelido').notNullable();
 

@@ -5,7 +5,7 @@ exports.up = function (knex) {
         table.double('valorPagar').notNullable();
 
         //foreingKeys
-        table.integer('usuario_id').notNullable();
+        table.string('usuario_id').notNullable();
         table.integer('churras_id').notNullable();
 
         table.foreign('usuario_id').references('id').inTable('usuarios');
