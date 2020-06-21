@@ -17,9 +17,7 @@ module.exports = {
     'usuarios.nome', 
     'usuarios.email', 
     'usuarios.cidade', 
-    'usuarios.idade']);
-
-    
+    'usuarios.idade']);  
 
     response.header('X-Total-Count', count['count(*)']);
     return response.json(churras);
@@ -54,14 +52,9 @@ module.exports = {
 
   async dataPassado(request, response) {
     const { page = 1 } = request.query;
-    // const { data } = request.query;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
-
-    // const [count] = await connection('churras').where('data', data)
-    // .count();
-
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
@@ -75,10 +68,6 @@ module.exports = {
     'usuarios.cidade', 
     'usuarios.idade']);
 
-    
-
-
-    // response.header('Total-Passado', count['count(*)']);
     return response.json(churras);
   },
 
@@ -87,7 +76,6 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
-
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
@@ -99,28 +87,26 @@ module.exports = {
     'usuarios.nome', 
     'usuarios.email', 
     'usuarios.cidade', 
-    'usuarios.idade']);
-
-    
+    'usuarios.idade']);    
 
     return response.json(churras);
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, convidados } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto,} = request.body;
     const usuario_id = request.headers.authorization;
-    const churrasCode = crypto.randomBytes(3).toString('HEX');
+    const id = crypto.randomBytes(8).toString('HEX');
 
-    const [id] = await connection('churras').insert({
+    await connection('churras').insert({
+      id,
       nomeChurras,
       data,
       hrInicio,
       hrFim,
       local,
       descricao,
-      convidados,
       usuario_id,
-      churrasCode
+      foto
     })
     
     response.json({ id });
