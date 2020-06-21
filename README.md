@@ -1,1 +1,16 @@
 # ChurrappBack
+
+
+Migrations up ordem:
+knex migrate:up
+20200621012021_create_pontoCarne.js
+20200621011603_create_tipos.js
+20200621011720_create_quantidadeCome.js
+20200621011937_create_unidades.js
+20200604163502_create_itens.js
+20200621011820_create_sugestao.js
+20200604160413_create_usuarios.js
+20200604161832_create_churras.js
+20200621011016_create_convidados.js
+20200621011344_create_listaChurrasco.js
+20200621012136_create_estoque.js
