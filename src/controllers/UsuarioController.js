@@ -13,27 +13,30 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nome, sobrenome, email, cidade, uf, idade, joined, foto, celular, apelido } = request.body;
+    const { nome, sobrenome, email, cidade, uf, idade, joined, foto, celular, apelido,
+      pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
 
     const id = crypto.randomBytes(8).toString('HEX');
 
-    try {
-      await connection('usuarios').insert({
-        id,
-        nome,
-        sobrenome,
-        email,
-        cidade,
-        uf,
-        idade,
-        joined,
-        foto,
-        celular,
-        apelitdo
-      })
-    } catch (erro) {
-      return response(erro)
-    }
+
+    await connection('usuarios').insert({
+      id,
+      nome,
+      sobrenome,
+      email,
+      cidade,
+      uf,
+      idade,
+      joined,
+      foto,
+      celular,
+      apelido,
+      pontoCarne_id,
+      carnePreferida_id,
+      quantidadeCome_id,
+      bebidaPreferida_id,
+      acompanhamentoPreferido_id
+    })
 
 
     return response.json({ id });
