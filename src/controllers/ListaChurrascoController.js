@@ -10,7 +10,7 @@ module.exports = {
     .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
     .where('churras_id', churras_id)
     .select(['listaChurrasco.*', 
-    'churras.churrasNome']).catch(function(err) {
+    'churras.nomeChurras']).catch(function(err) {
     console.error(err);
     });
 
