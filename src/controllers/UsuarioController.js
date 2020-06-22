@@ -11,7 +11,7 @@ module.exports = {
   },
   
   async listLogado(request, response) {
-    const { id } = request.query;
+    const { id } = request.params;
     const usuarios = await connection('usuarios')
     .where('id', id)
     .select(['*'])
