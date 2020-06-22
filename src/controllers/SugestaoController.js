@@ -5,7 +5,12 @@ module.exports = {
 
   async list(request, response) {
     const sugestao = await connection('sugestao')
-      .select('*');
+    .join('unidades', 'unidades.id', '=', 'sugestao.unidade_id')
+    .join('itens', 'itens.id', '=', 'sugestao.item_id')
+    .select(['sugestao.quantidade','unidades.unidade', 'itens.nomeItem'])
+    .catch(function(err) {
+      console.error(err);
+      });
 
     return response.json(sugestao);
   },
