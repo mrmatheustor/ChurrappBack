@@ -6,7 +6,7 @@ module.exports = {
     const {churras_code} = request.query;
 
     const item = await connection('itens')
-    .join('churras', 'churras.churrasCode', '=', 'itens.churras_code')
+    .join('churras', 'churras.id', '=', 'itens.churras_code')
     .where('churras_code', churras_code)
     .orderBy('tipo')
     .select(['itens.*',
@@ -20,12 +20,8 @@ module.exports = {
   async listAll (request, response) {
 
     const item = await connection('itens')
-    .join('churras', 'churras.churrasCode', '=', 'itens.churras_code')
     .orderBy('tipo')
-    .select(['itens.*',
-    'churras.nomeChurras',
-    'churras.local',
-    'churras.hrInicio']);
+    .select(['itens.*']);
 
 
     return response.json(item);
