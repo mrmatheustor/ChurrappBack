@@ -14,7 +14,7 @@ module.exports = {
     const { id } = request.query;
     const usuarios = await connection('usuarios')
     .where('id', id)
-    .select(['usuarios.id'])
+    .select(['*'])
     .catch(function(err) {
       console.error(err);
       });
