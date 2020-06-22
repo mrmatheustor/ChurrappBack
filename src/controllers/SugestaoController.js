@@ -8,7 +8,7 @@ module.exports = {
     .join('unidades', 'unidades.id', '=', 'sugestao.unidade_id')
     .join('itens', 'itens.id', '=', 'sugestao.item_id')
     .join('tipos', 'tipos.id', '=', 'itens.tipo_id')
-    .select(['sugestao.quantidade','unidades.unidade', 'itens.nomeItem', 'tipos.tipo'])
+    .select(['sugestao.quantidade','unidades.unidade', 'itens.nomeItem', 'tipos.tipo', 'itens.tipo_id'])
     .catch(function(err) {
       console.error(err);
       });
