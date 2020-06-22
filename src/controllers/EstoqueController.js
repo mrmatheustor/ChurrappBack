@@ -7,7 +7,7 @@ module.exports = {
     const {usuario_id} = request.params;
 
     const estoque = await connection('estoque')
-    .join('usuarios', 'usuarios.id', '=', 'estoque.churras_id')
+    .join('usuarios', 'usuarios.id', '=', 'estoque.usuario_id')
     .join('unidades', 'unidades.id', '=', 'estoque.unidade_id')
     .join('itens', 'itens.id', '=', 'estoque.item_id')
     .where('usuario_id', usuario_id)
