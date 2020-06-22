@@ -21,7 +21,9 @@ module.exports = {
 
     const item = await connection('itens')
     .orderBy('tipo')
-    .select(['itens.*']);
+    .select(['itens.*']).catch(function(err) {
+      console.error(err);
+    });
 
 
     return response.json(item);
