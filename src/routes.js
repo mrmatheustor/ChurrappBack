@@ -19,6 +19,7 @@ const routes = express.Router();
 routes.post('/session', SessionController.create);
 
 routes.get('/usuarios', UsuarioController.list);
+routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.post('/usuarios', UsuarioController.create);
 
 routes.get('/perfil', ProfileController.list);
@@ -30,7 +31,6 @@ routes.get('/churrasfuturo', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
 routes.delete('/churras/:id', ChurrasController.delete);
 
-routes.get('/itemdochurras', ItemsController.list);
 routes.get('/item', ItemsController.listAll);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);

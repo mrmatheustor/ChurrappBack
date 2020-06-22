@@ -4,9 +4,20 @@ const crypto = require('crypto');
 module.exports = {
 
   async list(request, response) {
-    const { id } = request.query;
     const usuarios = await connection('usuarios')
       .select('*');
+
+    return response.json(usuarios);
+  },
+  
+  async listLogado(request, response) {
+    const { id } = request.query;
+    const usuarios = await connection('usuarios')
+    .where('id', id)
+    .select(['usuarios.id'])
+    .catch(function(err) {
+      console.error(err);
+      });
 
     return response.json(usuarios);
   },

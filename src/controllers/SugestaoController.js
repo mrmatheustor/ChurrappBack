@@ -7,7 +7,8 @@ module.exports = {
     const sugestao = await connection('sugestao')
     .join('unidades', 'unidades.id', '=', 'sugestao.unidade_id')
     .join('itens', 'itens.id', '=', 'sugestao.item_id')
-    .select(['sugestao.quantidade','unidades.unidade', 'itens.nomeItem'])
+    .join('tipos', 'tipos.id', '=', 'itens.tipo_id')
+    .select(['sugestao.quantidade','unidades.unidade', 'itens.nomeItem', 'tipos.tipo'])
     .catch(function(err) {
       console.error(err);
       });
