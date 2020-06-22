@@ -94,7 +94,7 @@ module.exports = {
 
   async create(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto,} = request.body;
-    const usuario_id = "dcca00a6fb1c45a8";
+    const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
     const churras = await connection('churras').insert({
