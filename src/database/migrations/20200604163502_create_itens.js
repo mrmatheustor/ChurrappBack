@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable('itens', function(table){
-    table.integer('id').primary();
+    table.increments();
     table.string('nomeItem').notNullable();
     table.string('descricao');
     table.string('foto');

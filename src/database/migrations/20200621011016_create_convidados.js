@@ -1,12 +1,12 @@
 
 exports.up = function (knex) {
     return knex.schema.createTable('convidados', function (table) {
-        table.integer('id').primary();
+        table.increments();
         table.double('valorPagar').notNullable();
 
         //foreingKeys
         table.string('usuario_id').notNullable();
-        table.integer('churras_id').notNullable();
+        table.string('churras_id').notNullable();
 
         table.foreign('usuario_id').references('id').inTable('usuarios');
         table.foreign('churras_id').references('id').inTable('churras');

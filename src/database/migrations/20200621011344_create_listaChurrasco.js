@@ -1,11 +1,11 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('listaChurrasco', function(table){
-        table.integer('id').primary();
+        table.increments();
         table.double('quantidade').notNullable();
 
         //foreingKeys
-        table.integer('churras_id').notNullable();
+        table.string('churras_id').notNullable();
         table.integer('unidade_id').notNullable();
         table.integer('item_id').notNullable();
         
