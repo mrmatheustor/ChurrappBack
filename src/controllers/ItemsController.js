@@ -20,7 +20,7 @@ module.exports = {
   async listAll (request, response) {
 
     const item = await connection('itens')
-    .orderBy('tipo')
+    .orderBy('tipo_id')
     .select(['itens.*']).catch(function(err) {
       console.error(err);
     });
