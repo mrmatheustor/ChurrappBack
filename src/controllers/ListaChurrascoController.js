@@ -7,7 +7,7 @@ module.exports = {
     const {churras_id} = request.params;
 
     const listaChurrasco = await connection('listaChurrasco')
-    .join('unidades', 'unidades.id', '=', 'listaChurraso.unidade_id')
+    .join('unidades', 'unidades.id', '=', 'listaChurrasco.unidade_id')
     .join('itens', 'itens.id', '=', 'listaChurrasco.item_id')
     .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
     .where('churras_id', churras_id)
