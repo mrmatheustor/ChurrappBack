@@ -12,8 +12,12 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nome, sobrenome, email, cidade, uf, idade, joined, foto, celular, apelido,
+    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
+      var dateTime = require('node-datetime');
+      var dt = dateTime.create();
+      var formatted = dt.format('d/m/Y');
+      const joined = formatted;
 
     const id = crypto.randomBytes(8).toString('HEX');
 
