@@ -43,7 +43,7 @@ routes.get('/tipo', TiposController.list);
 
 routes.get('/unidade', UnidadesController.list);
 
-routes.get('/estoque', EstoqueController.list);
+routes.get('/estoque/:usuario_id', EstoqueController.list);
 
 routes.get('/sugestao', SugestaoController.list);
 
