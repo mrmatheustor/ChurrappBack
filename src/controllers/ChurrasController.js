@@ -107,7 +107,9 @@ module.exports = {
       descricao,
       usuario_id,
       foto
-    }).catch(erro)
+    }).catch(function(err) {
+      console.error(err);
+    });
     
     response.json(churras);
   },

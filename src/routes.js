@@ -6,6 +6,7 @@ const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
 const ItemsController = require('./controllers/ItemsController');
+const PontoCarneController = require('./controllers/PontoCarneController');
 
 
 const routes = express.Router();
@@ -28,5 +29,7 @@ routes.get('/itemdochurras', ItemsController.list);
 routes.get('/item', ItemsController.listAll);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);
+
+routes.get('/pontoCarne', PontoCarneController.list);
 
 module.exports = routes;
