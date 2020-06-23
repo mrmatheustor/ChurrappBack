@@ -34,6 +34,9 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
+    var formattedY = dt.format('Y');
+    var formattedM = dt.format('m');
+    var formattedD = dt.format('d');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
     .count();
@@ -44,7 +47,10 @@ module.exports = {
     .orderBy('data')
     .offset((page - 1) * 5)
     .where('usuario_id', usuario_id)
-    .where('data', '>=', formatted)
+    .where('data', '>=', formattedY)
+    .where('data', '>=', formattedM)
+    .where('data', '>=', formattedD)
+    .where('data', formatted)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 

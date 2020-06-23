@@ -3,7 +3,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('quantidadeCome', function(table){
         table.increments();
         table.double('quantidade').notNullable();
-        table.string('nome').notNullable();
+        table.string('nomeQuantidadeCome').notNullable();
     });
   
 };
