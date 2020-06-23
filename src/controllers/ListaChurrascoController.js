@@ -22,7 +22,7 @@ module.exports = {
   },
   async create(request, response) {
     const { quantidade, unidade_id, item_id} = request.body;
-    const {churras_id} = request.params;
+    const {churras_id} = request.body;
 
     const listaChurrasco = await connection('listaChurrasco').insert({
       quantidade,
