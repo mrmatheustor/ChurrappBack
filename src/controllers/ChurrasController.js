@@ -43,7 +43,7 @@ module.exports = {
     .limit(5)
     .orderBy('data')
     .offset((page - 1) * 5)
-    .where('data', formatted)
+    .where('data', '>=', formatted)
     .select(['churras.*', 
     'usuarios.nome', 
     'usuarios.email', 
