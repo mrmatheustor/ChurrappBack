@@ -38,6 +38,7 @@ routes.delete('/item/:id', ItemsController.delete);
 routes.get('/pontoCarne', PontoCarneController.list);
 
 routes.get('/listadochurras/:churras_id', ListaChurrascoController.list);
+routes.post('/listadochurras', ListaChurrascoController.create);
 
 routes.get('/tipo', TiposController.list);
 
