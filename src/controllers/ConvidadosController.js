@@ -1,5 +1,6 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
+const { create } = require('./UsuarioController');
 
 module.exports = {
 
@@ -22,5 +23,20 @@ module.exports = {
       });
 
       return response.json(convidados);
+  },
+  async create(request, response){
+    const {valorPagar, churras_id} = request.body;
+    const {usuario_id} = request.params;
+
+    const [id] = await connection('convidados').insert({
+        valorPagar,
+        churras_id,
+        usuario_id
+    }).catch(function(err) {
+      console.error(err);
+    });
+
+    return response.json({id});
+
   },
 };
