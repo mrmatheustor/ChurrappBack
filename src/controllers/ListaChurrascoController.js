@@ -12,6 +12,7 @@ module.exports = {
     .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
     .where('churras_id', churras_id)
     .select(['listaChurrasco.quantidade',
+    'listaChurrasco.id',
     'itens.nomeItem',
     'unidades.unidade', 
     'churras.nomeChurras']).catch(function(err) {
@@ -35,4 +36,11 @@ module.exports = {
 
     return response.json({listaChurrasco});
   },
+  async delete(request, response) {
+    const {id} = request.params;
+
+    await connection('listaChurrasco').where('id', id).delete();  
+    
+    return response.status(204).send();
+  }
 };
