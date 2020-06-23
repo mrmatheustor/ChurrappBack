@@ -35,7 +35,7 @@ module.exports = {
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
 
-    const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', '19/06/2020')
+    const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
     .count();
 
     const churras = await connection('churras')

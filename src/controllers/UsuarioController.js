@@ -59,7 +59,7 @@ module.exports = {
   async update(request, response) {
     const {id} = request.params;
     const { nome, sobrenome, email, cidade, uf, idade, foto, celular, apelido,
-      pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
+      pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
       nome,
