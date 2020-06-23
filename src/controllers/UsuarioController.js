@@ -7,7 +7,9 @@ module.exports = {
   async list(request, response) {
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
-    .select('*');
+    .select('*').catch(function(err) {
+      console.error(err);
+      });
 
     return response.json(usuarios);
   },
@@ -16,7 +18,7 @@ module.exports = {
     const { id } = request.params;
     const usuarios = await connection('usuarios')
     .where('id', id)
-    .select(['usuarios.*', 'pontoCarne.*'])
+    .select('*')
     .catch(function(err) {
       console.error(err);
       });
