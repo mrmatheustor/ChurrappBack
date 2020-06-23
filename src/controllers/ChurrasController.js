@@ -6,7 +6,9 @@ module.exports = {
     const { page = 1 } = request.query;
 
     const [count] = await connection('churras')
-    .count();
+    .count().catch(function(err) {
+      console.error(err);
+      });;
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
