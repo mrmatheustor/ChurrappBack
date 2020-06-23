@@ -18,9 +18,25 @@ module.exports = {
     return response.json(item);
   },
   async listAll (request, response) {
+    const 
 
     const item = await connection('itens')
     .orderBy('tipo_id')
+    .select(['itens.*']).catch(function(err) {
+      console.error(err);
+    });
+
+
+    return response.json(item);
+  },
+
+  async listLimit (request, response) {
+    const {min, max} = request.query;
+
+    const item = await connection('itens')
+    .orderBy('tipo_id')
+    .where('tipo_id', '>=', min)
+    .where('tipo_id', '<=', max)
     .select(['itens.*']).catch(function(err) {
       console.error(err);
     });

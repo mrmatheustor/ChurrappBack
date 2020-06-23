@@ -34,6 +34,7 @@ routes.post('/churras', ChurrasController.create);
 routes.delete('/churras/:id', ChurrasController.delete);
 
 routes.get('/item', ItemsController.listAll);
+routes.get('/item', ItemsController.listLimit);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);
 
