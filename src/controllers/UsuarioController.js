@@ -14,8 +14,9 @@ module.exports = {
   async listLogado(request, response) {
     const { id } = request.params;
     const usuarios = await connection('usuarios')
+    .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .where('id', id)
-    .select(['*'])
+    .select(['usuarios.*', 'pontoCarne.*'])
     .catch(function(err) {
       console.error(err);
       });
