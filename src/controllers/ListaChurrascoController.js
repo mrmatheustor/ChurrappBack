@@ -21,7 +21,8 @@ module.exports = {
     return response.json(listaChurrasco);
   },
   async create(request, response) {
-    const { quantidade, churras_id, unidade_id, item_id} = request.body;
+    const { quantidade, unidade_id, item_id} = request.body;
+    const {churras_id} = request.params;
 
     const listaChurrasco = await connection('listaChurrasco').insert({
       quantidade,
