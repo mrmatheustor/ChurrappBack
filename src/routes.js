@@ -13,6 +13,7 @@ const UnidadesController = require('./controllers/UnidadesController');
 const EstoqueController = require('./controllers/EstoqueController');
 const SugestaoController = require('./controllers/SugestaoController');
 const QuantidadeComeController = require('./controllers/QuantidadeComeControle');
+const ConvidadosController = require('./controllers/ConvidadosController');
 
 const routes = express.Router();
 
@@ -51,6 +52,8 @@ routes.get('/estoque/:usuario_id', EstoqueController.list);
 routes.get('/sugestao', SugestaoController.list);
 
 routes.get('/quantidadecome', QuantidadeComeController.list);
+
+routes.get('/convidados', ConvidadosController.list);
 
 
 
