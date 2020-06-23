@@ -18,7 +18,6 @@ module.exports = {
     return response.json(item);
   },
   async listAll (request, response) {
-    const 
 
     const item = await connection('itens')
     .orderBy('tipo_id')

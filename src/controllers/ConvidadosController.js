@@ -14,7 +14,7 @@ module.exports = {
       const {churras_id} = request.params;
 
       const convidados = await connection('convidados')
-      .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
+      .join('usuarios')
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
       .select(['*'])
