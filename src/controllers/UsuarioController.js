@@ -1,5 +1,6 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
+const { update } = require('../database/connection');
 
 module.exports = {
 
@@ -54,5 +55,32 @@ module.exports = {
 
 
     return response.json({ id });
+  },
+  async update(request, response) {
+    const {id} = request.params;
+    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, apelido,
+      pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
+
+    const usuarios = await connection('usuarios').where('id', id).update({
+      nome,
+      sobrenome,
+      email,
+      cidade,
+      uf,
+      idade,
+      joined,
+      foto,
+      celular,
+      apelido,
+      pontoCarne_id,
+      carnePreferida_id,
+      quantidadeCome_id,
+      bebidaPreferida_id,
+      acompanhamentoPreferido_id
+    }).catch(function(err) {
+      console.error(err);
+      });
+
+    return response.status(200).send()
   }
 };

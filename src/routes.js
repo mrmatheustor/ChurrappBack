@@ -21,6 +21,7 @@ routes.post('/session', SessionController.create);
 routes.get('/usuarios', UsuarioController.list);
 routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.post('/usuarios', UsuarioController.create);
+routes.put('/usuarios/:id', UsuarioController.update);
 
 routes.get('/perfil', ProfileController.list);
 
