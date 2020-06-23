@@ -6,7 +6,6 @@ module.exports = {
 
   async list(request, response) {
     const usuarios = await connection('usuarios')
-    .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .select('*').catch(function(err) {
       console.error(err);
       });
@@ -17,6 +16,7 @@ module.exports = {
   async listLogado(request, response) {
     const { id } = request.params;
     const usuarios = await connection('usuarios')
+    .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .where('id', id)
     .select('*')
     .catch(function(err) {
