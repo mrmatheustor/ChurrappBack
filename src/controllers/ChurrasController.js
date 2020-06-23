@@ -40,9 +40,9 @@ module.exports = {
 
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .limit(5)
+    .limit(15)
     .orderBy('data')
-    .offset((page - 1) * 5)
+    .offset((page - 1) * 15)
     .where('data', '>=', formatted)
     .select(['churras.*', 
     'usuarios.nome', 
