@@ -43,6 +43,7 @@ module.exports = {
     .limit(15)
     .orderBy('data')
     .offset((page - 1) * 15)
+    .where('usuario_id', usuario_id)
     .where('data', '>=', formatted)
     .select(['churras.*', 
     'usuarios.nome', 

@@ -56,7 +56,7 @@ routes.get('/quantidadecome', QuantidadeComeController.list);
 
 routes.get('/convidados', ConvidadosController.list);
 routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
-routes.post('/convidados', ConvidadosController.create);
+routes.post('/convidadosChurras', ConvidadosController.create);
 
 
 
