@@ -17,7 +17,10 @@ module.exports = {
     'usuarios.nome', 
     'usuarios.email', 
     'usuarios.cidade', 
-    'usuarios.idade']);  
+    'usuarios.idade'])
+    .catch(function(err) {
+    console.error(err);
+    });  
 
     response.header(['X-Total-Count'], count['count(*)']);
     return response.json(churras);
