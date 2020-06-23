@@ -17,6 +17,7 @@ module.exports = {
     const { id } = request.params;
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
+    .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
     .where('usuarios.id', id)
     .select('*')
     .catch(function(err) {
