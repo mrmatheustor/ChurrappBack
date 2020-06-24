@@ -17,7 +17,8 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
-      .select(['*'])
+      .select(['churras.*', 'convidados.*', 'usuarios.nome',
+      'usuarios.apelido'])
       .catch(function(err) {
         console.error(err);
       });
@@ -30,11 +31,11 @@ module.exports = {
 
     const [condicao] = await connection('convidados').select('churras_id');
 
-    for(i = 0; i < condicao.length; i++) {
-      if(condicao.churras_id !== churras_id) {
-        return response.status(401).json({error: 'Este churrasco não existe.' })
-      }
-    }
+    // for(i = 0; i < condicao.length; i++) {
+    //   if(condicao.churras_id !== churras_id) {
+    //     return response.status(401).json({error: 'Este churrasco não existe.' })
+    //   }
+    // }
     
 
     const [id] = await connection('convidados').insert({
