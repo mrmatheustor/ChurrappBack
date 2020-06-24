@@ -12,6 +12,7 @@ exports.up = function(knex) {
     table.string('celular').notNullable();
     table.string('foto');
     table.string('apelido').notNullable();
+    table.boolean('cadastrado').defaultTo(false);
 
 
     //foreignKeys

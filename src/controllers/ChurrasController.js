@@ -118,7 +118,7 @@ module.exports = {
       console.error(err);
     });
     
-    return response.json({churras});
+    return response.send({churras});
   },
 
   async delete(request, response) {
