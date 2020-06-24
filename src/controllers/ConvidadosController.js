@@ -28,7 +28,7 @@ module.exports = {
     const {valorPagar, churras_id} = request.body;
     const {usuario_id} = request.query;
 
-    const condicao = await connection('convidados').where('churras_id', churras_id).select('churras_id').first()
+    const condicao = await connection('convidados').select('churras_id')
 
     if(condicao.churras_id != churras_id) {
       return response.status(401).json({error: 'Este churrasco não existe.' })
