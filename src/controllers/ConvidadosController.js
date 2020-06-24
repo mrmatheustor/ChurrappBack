@@ -30,9 +30,12 @@ module.exports = {
 
     const condicao = await connection('convidados').select('churras_id');
 
-    if(condicao.churras_id !== churras_id) {
-      return response.status(401).json({error: 'Este churrasco não existe.' })
-    } else {
+    for(i = 0; i < condicao.length; i++) {
+      if(condicao.churras_id !== churras_id) {
+        return response.status(401).json({error: 'Este churrasco não existe.' })
+      }
+    }
+    
 
     const [id] = await connection('convidados').insert({
         valorPagar,
@@ -41,7 +44,7 @@ module.exports = {
     }).catch(function(err) {
       console.error(err);
     });
-    }
+    
 
     return response.json({id});
 
