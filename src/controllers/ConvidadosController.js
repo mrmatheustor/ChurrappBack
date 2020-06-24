@@ -27,7 +27,7 @@ module.exports = {
   },
   async create(request, response){
     const {valorPagar, churras_id} = request.body;
-    const {usuario_id} = request.query;
+    const {usuario_id} = request.params;
 
     const [condicao] = await connection('convidados').select('churras_id');
 
