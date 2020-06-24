@@ -32,7 +32,7 @@ module.exports = {
 
     if(condicao.churras_id != churras_id) {
       return response.status(401).json({error: 'Este churrasco não existe.' })
-    }
+    } else {
 
     const [id] = await connection('convidados').insert({
         valorPagar,
@@ -41,6 +41,7 @@ module.exports = {
     }).catch(function(err) {
       console.error(err);
     });
+    }
 
     return response.json({id});
 
