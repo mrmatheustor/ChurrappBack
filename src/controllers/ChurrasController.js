@@ -100,7 +100,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto,} = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto,valorTotal, valorPago} = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
@@ -113,12 +113,14 @@ module.exports = {
       local,
       descricao,
       usuario_id,
-      foto
+      foto,
+      valorTotal,
+      valorPago
     }).catch(function(err) {
       console.error(err);
     });
     
-    return response.json({churras});
+    return response.send({churras});
   },
 
   async delete(request, response) {

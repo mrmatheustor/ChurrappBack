@@ -9,6 +9,8 @@ exports.up = function(knex) {
     table.string('local').notNullable();
     table.string('descricao');
     table.string('foto');
+    table.double('valorTotal');
+    table.double('valorPago');
 
     //foreingKeys
     table.string('usuario_id').notNullable();

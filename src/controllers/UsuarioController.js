@@ -28,7 +28,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, apelido,
+    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, cadastrado, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
       var dateTime = require('node-datetime');
       var dt = dateTime.create();
@@ -54,15 +54,17 @@ module.exports = {
       carnePreferida_id,
       quantidadeCome_id,
       bebidaPreferida_id,
-      acompanhamentoPreferido_id
+      acompanhamentoPreferido_id,
+      cadastrado
     })
 
+    response.send({id});
 
     return response.json({ id });
   },
   async update(request, response) {
     const {id} = request.params;
-    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, apelido,
+    const { nome, sobrenome, email, cadastrado,cidade, uf, idade, foto, celular, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
@@ -80,7 +82,8 @@ module.exports = {
       carnePreferida_id,
       quantidadeCome_id,
       bebidaPreferida_id,
-      acompanhamentoPreferido_id
+      acompanhamentoPreferido_id,
+      cadastrado
     }).catch(function(err) {
       console.error(err);
       });

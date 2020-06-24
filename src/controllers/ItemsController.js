@@ -44,7 +44,7 @@ module.exports = {
     return response.json(item);
   },
   async create(request, response) {
-    const { nomeItem, descricao, tipo, unidade, quantidade, churras_code} = request.body;
+    const { nomeItem, descricao, tipo, unidade, quantidade, precoMedio} = request.body;
 
     const [id] = await connection('itens').insert({
         nomeItem,
@@ -52,7 +52,7 @@ module.exports = {
         tipo,
         unidade,
         quantidade,
-        churras_code
+        precoMedio
     })
     response.json({ id });
   },

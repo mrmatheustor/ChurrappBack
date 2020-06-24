@@ -3,6 +3,7 @@ exports.up = function (knex) {
     return knex.schema.createTable('convidados', function (table) {
         table.increments();
         table.double('valorPagar').notNullable();
+        table.boolean('confirmado').defaultTo(false);
 
         //foreingKeys
         table.string('usuario_id').notNullable();
