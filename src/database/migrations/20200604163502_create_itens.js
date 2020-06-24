@@ -5,7 +5,7 @@ exports.up = function(knex) {
     table.string('nomeItem').notNullable();
     table.string('descricao');
     table.string('foto');
-    table.double('preco');
+    table.double('precoMedio');
 
     //foreingKeys
     table.integer('tipo_id').notNullable();
