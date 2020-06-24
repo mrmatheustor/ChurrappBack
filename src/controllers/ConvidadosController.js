@@ -28,7 +28,7 @@ module.exports = {
     const {valorPagar, churras_id} = request.body;
     const {usuario_id} = request.query;
 
-    const condicao = await connection('convidados').select('churras_id');
+    const [condicao] = await connection('convidados').select('churras_id');
 
     for(i = 0; i < condicao.length; i++) {
       if(condicao.churras_id !== churras_id) {
