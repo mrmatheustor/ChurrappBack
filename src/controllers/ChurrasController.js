@@ -50,7 +50,7 @@ module.exports = {
     'usuarios.cidade', 
     'usuarios.idade']);
 
-    response.setHeader('Total-Meu', count['count(*)']);
+    response.header('Total-Meu', 10);
     return response.json(churras);
   },
 
