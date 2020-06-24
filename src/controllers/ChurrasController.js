@@ -36,7 +36,7 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
-    .count();
+    .count('usuario_id');
     const churras = await connection('churras')
     .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
     .limit(15)
@@ -48,9 +48,12 @@ module.exports = {
     'usuarios.nome', 
     'usuarios.email', 
     'usuarios.cidade', 
-    'usuarios.idade']);
+    'usuarios.idade'])
+    .catch(function(err) {
+      console.error(err);
+      }); 
 
-    response.header('Total-Meu', 10);
+    response.header('Total-Meu', count['count(*)']);
     return response.json(churras);
   },
 
