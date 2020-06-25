@@ -61,6 +61,7 @@ module.exports = {
     });
 
     return response.json({ id });
+    
   },
   async update(request, response) {
     const {id} = request.params;
