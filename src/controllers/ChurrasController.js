@@ -120,7 +120,7 @@ module.exports = {
       console.error(err);
     });
     
-    return response.json(churras).send();
+    return response.json({id});
   },
 
   async delete(request, response) {
