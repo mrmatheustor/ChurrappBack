@@ -120,7 +120,7 @@ module.exports = {
       console.error(err);
     });
     
-    return response.json({id});
+    return response.json({id : id});
   },
 
   async delete(request, response) {
