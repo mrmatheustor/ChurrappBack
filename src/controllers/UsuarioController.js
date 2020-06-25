@@ -60,7 +60,7 @@ module.exports = {
       console.error(err);
     });
 
-    return response.json({ id: id });
+    return response.json({ id });
   },
   async update(request, response) {
     const {id} = request.params;
