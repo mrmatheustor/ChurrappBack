@@ -104,7 +104,7 @@ module.exports = {
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
-    const churras = await connection('churras').insert({
+    await connection('churras').insert({
       id,
       nomeChurras,
       data,
@@ -120,7 +120,7 @@ module.exports = {
       console.error(err);
     });
     
-    return response.json({churras});
+    return response.json({id});
   },
 
   async delete(request, response) {
