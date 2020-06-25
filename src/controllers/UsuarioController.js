@@ -60,10 +60,6 @@ module.exports = {
       console.error(err);
     });
 
-    console.log("id novo usuario: "+ { id })
-
-    response.send({id})
-
     return response.json({ id });
   },
   async update(request, response) {
