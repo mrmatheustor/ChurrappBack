@@ -56,9 +56,13 @@ module.exports = {
       bebidaPreferida_id,
       acompanhamentoPreferido_id,
       cadastrado
-    })
+    }).catch(function(err) {
+      console.error(err);
+    });
 
-    response.send({id});
+    console.log("id novo usuario: "+ { id })
+
+    response.send({id})
 
     return response.json({ id });
   },
