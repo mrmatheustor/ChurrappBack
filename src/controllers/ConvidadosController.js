@@ -1,6 +1,5 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
-const { create } = require('./UsuarioController');
 
 module.exports = {
 
@@ -29,7 +28,7 @@ module.exports = {
     const {valorPagar, churras_id} = request.body;
     const {usuario_id} = request.params;
 
-    const [condicao] = await connection('convidados').select('churras_id');
+    // const [condicao] = await connection('convidados').select('churras_id');
 
     // for(i = 0; i < condicao.length; i++) {
     //   if(condicao.churras_id !== churras_id) {
@@ -38,7 +37,7 @@ module.exports = {
     // }
     
 
-    const [id] = await connection('convidados').insert({
+    const id = await connection('convidados').insert({
         valorPagar,
         churras_id,
         usuario_id
@@ -47,7 +46,7 @@ module.exports = {
     });
     
 
-    return response.json({id});
+    return response.json(id);
 
   },
 };
