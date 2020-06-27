@@ -37,7 +37,7 @@ module.exports = {
     // }
     
 
-    const [id] = await connection('convidados').insert({
+    await connection('convidados').insert({
         valorPagar,
         churras_id,
         usuario_id
@@ -46,7 +46,7 @@ module.exports = {
     });
     
 
-    return response.json(id);
+    return response.json({valorPagar, churras_id, usuario_id});
 
   },
 };
