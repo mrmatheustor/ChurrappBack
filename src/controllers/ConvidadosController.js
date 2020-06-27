@@ -1,6 +1,5 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
-const { create } = require('./UsuarioController');
 
 module.exports = {
 
