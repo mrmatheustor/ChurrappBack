@@ -34,7 +34,7 @@ module.exports = {
       console.error(err);
       });
 
-    return response.json({listaChurrasco});
+    return response.json(listaChurrasco);
   },
   async delete(request, response) {
     const {id} = request.params;
