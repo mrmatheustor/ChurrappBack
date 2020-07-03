@@ -15,9 +15,13 @@ module.exports = {
   
   async listLogado(request, response) {
     const { id } = request.params;
+    const { page = 1 } = request.query;
+
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
+    .limit(1)
+    .offset((page - 1) * 1)
     .where('usuarios.id', id)
     .select('*')
     .catch(function(err) {
