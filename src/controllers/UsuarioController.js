@@ -14,10 +14,10 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const { celularUser } = request.params;
+    const { celular } = request.params;
     const usuarioLogado = await connection('usuarios')
     .select('*')
-    .where('celular', celularUser)
+    .where('usuarios.celular', celular)
     .catch(function(err) {
       console.error(err);
       });
