@@ -14,7 +14,7 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const { celular } = request.params;
+    const { celular } = request.query;
     const usuarioLogado = await connection('usuarios')
     .select('*')
     .where('usuarios.celular', celular)
