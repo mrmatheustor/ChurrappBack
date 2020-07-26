@@ -14,15 +14,16 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const { celular } = request.query;
-    const usuarioLogado = await connection('usuarios')
-    .where('usuarios.celular', celular)
+    const celular = request.query;
+
+    const pessoa = await connection('usuarios')
+    .where('celular', celular)
     .select('*')
     .catch(function(err) {
       console.error(err);
       });
-
-    return response.json(usuarioLogado);
+      
+    return response.json(pessoa);
   },
   
   async listLogado(request, response) {
