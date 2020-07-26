@@ -12,6 +12,18 @@ module.exports = {
 
     return response.json(usuarios);
   },
+
+  async listCelularUsuario(request, response) {
+    const { celular } = request.params;
+    const usuarioLogado = await connection('usuarios')
+    .select('*')
+    .where('celular' = celular)
+    .catch(function(err) {
+      console.error(err);
+      });
+
+    return response.json(usuarioLogado);
+  },
   
   async listLogado(request, response) {
     const { id } = request.params;
