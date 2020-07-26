@@ -17,7 +17,7 @@ module.exports = {
     const { celular } = request.query;
     const usuarioLogado = await connection('usuarios')
     .select('*')
-    .where('celular' = celular)
+    .where('celular', celular)
     .catch(function(err) {
       console.error(err);
       });
