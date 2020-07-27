@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.string('uf', 2).notNullable();
     table.integer('idade').notNullable();
     table.string('joined').notNullable();
-    table.string('celular').notNullable();
+    table.string('celular').unique().notNullable();
     table.string('foto');
     table.string('apelido').notNullable();
     table.boolean('cadastrado').defaultTo(false);

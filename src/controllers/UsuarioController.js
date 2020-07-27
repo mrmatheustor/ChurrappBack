@@ -15,7 +15,7 @@ module.exports = {
 
   async listCelularUsuario(request, response) {
     const celular = request.query;
-
+    
     const pessoa = await connection('usuarios')
     .where('celular', celular)
     .select('*')
@@ -23,7 +23,7 @@ module.exports = {
       console.error(err);
       });
       
-    return response.json(pessoa);
+    return response.json(celular);
   },
   
   async listLogado(request, response) {
