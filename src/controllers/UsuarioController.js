@@ -6,7 +6,8 @@ module.exports = {
 
   async list(request, response) {
     const usuarios = await connection('usuarios')
-    .select('*').catch(function(err) {
+    .select('*')
+    .catch(function(err) {
       console.error(err);
       });
 
@@ -14,11 +15,11 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const {celular} = request.params;
+    const {celular} = request.query;
 
     const pessoa = await connection('usuarios')
     .where('celular', celular)
-    .select(['usuarios.*'])
+    .select('*')
     .catch(function(err) {
       console.error(err);
       });
