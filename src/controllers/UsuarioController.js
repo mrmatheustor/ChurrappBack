@@ -18,7 +18,7 @@ module.exports = {
 
     const pessoa = await connection('usuarios')
     .where('celular', celular)
-    .select('*')
+    .select(['usuarios.*'])
     .catch(function(err) {
       console.error(err);
       });
