@@ -23,7 +23,7 @@ module.exports = {
       console.error(err);
       });
       
-    return response.json({pessoa:pessoa, celular:celular});
+    return response.json(pessoa);
   },
   
   async listLogado(request, response) {
