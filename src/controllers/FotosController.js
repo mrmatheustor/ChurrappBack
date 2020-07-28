@@ -7,7 +7,7 @@ module.exports = {
     async posts(request, response) {
         const { originalname: nomeImg, key, location: url=''} = request.file;
 
-        console.log("==================================  ",request.file)
+        console.log(request.file)
 
         const foto = await connection('fotos').insert({
             nomeImg,
@@ -17,7 +17,7 @@ module.exports = {
             console.error(err);
         });
 
-        return response.json({originalname: nomeImg, key, location: url=''});
+        return response.json(foto);
 
     },
 }
