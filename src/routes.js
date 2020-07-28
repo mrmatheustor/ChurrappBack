@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer');
+const multerConfig = require('./config/multer')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
@@ -22,7 +24,7 @@ routes.post('/session', SessionController.create);
 routes.get('/usuarios', UsuarioController.list);
 routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
-routes.post('/usuarios', UsuarioController.create);
+routes.post('/usuarios',multer(multerConfig).single("file"), UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
 
 routes.get('/perfil', ProfileController.list);

@@ -46,8 +46,9 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nome, sobrenome, email, cidade, uf, idade, foto, celular, cadastrado, apelido,
+      const { nome, sobrenome, email, cidade, uf, idade, celular, foto_id, cadastrado, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
+      const {location:url = ""} = request.file;
       var dateTime = require('node-datetime');
       var dt = dateTime.create();
       var formatted = dt.format('d/m/Y');
@@ -65,7 +66,7 @@ module.exports = {
       uf,
       idade,
       joined,
-      foto,
+      foto_id,
       celular,
       apelido,
       pontoCarne_id,
@@ -87,7 +88,7 @@ module.exports = {
       uf:uf,
       idade:idade,
       joined:joined,
-      foto:foto,
+      foto_id:foto_id,
       celular:celular,
       apelido:apelido,
       pontoCarne_id:pontoCarne_id,
@@ -101,7 +102,7 @@ module.exports = {
   },
   async update(request, response) {
     const {id} = request.params;
-    const { nome, sobrenome, email, cadastrado,cidade, uf, idade, foto, celular, apelido,
+    const { nome, sobrenome, email, cadastrado,cidade, uf, idade, foto_id, celular, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
@@ -112,7 +113,7 @@ module.exports = {
       uf,
       idade,
       joined,
-      foto,
+      foto_id,
       celular,
       apelido,
       pontoCarne_id,

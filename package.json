@@ -11,11 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.722.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "knex": "^0.21.1",
-    "pg": "^8.2.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "node-datetime": "^2.1.2",
+    "pg": "^8.2.1",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {

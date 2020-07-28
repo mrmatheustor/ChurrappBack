@@ -10,7 +10,6 @@ exports.up = function(knex) {
     table.integer('idade').notNullable();
     table.string('joined').notNullable();
     table.string('celular').unique().notNullable();
-    table.string('foto');
     table.string('apelido').notNullable();
     table.boolean('cadastrado').defaultTo(false);
 
@@ -21,12 +20,14 @@ exports.up = function(knex) {
     table.integer('quantidadeCome_id');
     table.integer('bebidaPreferida_id');
     table.integer('acompanhamentoPreferido_id');
+    table.integer('foto_id');
 
     table.foreign('pontoCarne_id').references('id').inTable('pontoCarne');
     table.foreign('carnePreferida_id').references('id').inTable('tipos');
     table.foreign('bebidaPreferida_id').references('id').inTable('tipos');
     table.foreign('acompanhamentoPreferido_id').references('id').inTable('tipos');
     table.foreign('quantidadeCome_id').references('id').inTable('quantidadeCome');
+    table.foreign('foto_id').references('id').inTable('fotos');
   });
 };
 

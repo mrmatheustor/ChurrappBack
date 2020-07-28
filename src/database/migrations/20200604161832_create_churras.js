@@ -8,14 +8,15 @@ exports.up = function(knex) {
     table.string('hrFim');
     table.string('local').notNullable();
     table.string('descricao');
-    table.string('foto');
     table.double('valorTotal');
     table.double('valorPago');
 
     //foreingKeys
     table.string('usuario_id').notNullable();
+    table.integer('foto_id');
 
     table.foreign('usuario_id').references('id').inTable('usuarios');
+    table.foreign('foto_id').references('id').inTable('fotos');
 
   });
 };

@@ -7,6 +7,7 @@ knex migrate:up
 20200621011603_create_tipos.js
 20200621011720_create_quantidadeCome.js
 20200621011937_create_unidades.js
+20200728164131_create_fotos.js
 20200604163502_create_itens.js
 20200621011820_create_sugestao.js
 20200604160413_create_usuarios.js
