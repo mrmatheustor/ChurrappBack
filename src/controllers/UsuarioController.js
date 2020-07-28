@@ -52,13 +52,11 @@ module.exports = {
       var dt = dateTime.create();
       var formatted = dt.format('d/m/Y');
       const joined = formatted;
-      console.log("-----------------------------------------------------------------------------",nome, sobrenome, email, cidade, uf, idade, foto, celular, cadastrado, apelido,
-      pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id)
 
     const id = crypto.randomBytes(8).toString('HEX');
 
 
-    await connection('usuarios').insert({
+    const usuarios = await connection('usuarios').insert({
       id,
       nome,
       sobrenome,
@@ -80,7 +78,7 @@ module.exports = {
       console.error(err);
     });
 
-    return response.json({ id });
+    return response.json(usuarios);
     
   },
   async update(request, response) {
