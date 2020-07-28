@@ -4,6 +4,7 @@ const multerConfig = require('./config/multer')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
+const FotosController = require('./controllers/FotosController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
@@ -24,8 +25,10 @@ routes.post('/session', SessionController.create);
 routes.get('/usuarios', UsuarioController.list);
 routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
-routes.post('/usuarios',multer(multerConfig).single("file"), UsuarioController.create);
+routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
+
+routes.post('/fotos',multer(multerConfig).single("file"), FotosController.posts);
 
 routes.get('/perfil', ProfileController.list);
 
