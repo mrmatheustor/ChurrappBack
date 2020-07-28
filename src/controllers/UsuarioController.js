@@ -48,7 +48,7 @@ module.exports = {
   async create(request, response) {
       const { nome, sobrenome, email, cidade, uf, idade, celular, foto_id, cadastrado, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
-      const {location:url = ""} = request.file;
+      //const {location:url = ""} = request.file;
       var dateTime = require('node-datetime');
       var dt = dateTime.create();
       var formatted = dt.format('d/m/Y');
