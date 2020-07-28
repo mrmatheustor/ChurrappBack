@@ -28,7 +28,7 @@ routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
 
-routes.post('/fotos',multer(multerConfig).single("file"), FotosController.posts);
+routes.post('/fotos',multer(multerConfig).single('file'), FotosController.posts);
 
 routes.get('/perfil', ProfileController.list);
 
