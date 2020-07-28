@@ -5,10 +5,10 @@ const { update } = require('../database/connection');
 module.exports = {
 
     async posts(request, response) {
-        const { originalname: nomeFoto, key, location: url=''} = request.file;
+        const { originalname: nomeimg, key, location: url=''} = request.file;
 
         const foto = await connection('fotos').insert({
-            nomeFoto,
+            nomeIMG,
             key,
             url,
         }).catch(function (err) {
