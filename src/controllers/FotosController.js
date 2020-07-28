@@ -7,18 +7,18 @@ const s3 = new aws.S3();
 
 module.exports = {
 
-    async list(req, res){
+    async list(req, res) {
         const fotos = await connection('fotos')
-        .select('*')
-        .catch(function(err) {
-          console.error(err);
-          });
-        
+            .select('*')
+            .catch(function (err) {
+                console.error(err);
+            });
+
         return res.json(fotos)
     },
 
     async create(request, response) {
-        const { originalname: nomeImg, key, location: url=''} = request.file;
+        const { originalname: nomeImg, key, location: url = '' } = request.file;
         console.log(request.file)
 
         await connection('fotos').insert({
@@ -32,22 +32,24 @@ module.exports = {
         return response.json({
             nomeImg: request.file.originalname,
             key: request.file.key,
-            url: request.file.location,});
+            url: request.file.location,
+        });
 
     },
 
     async delete(request, response) {
-        const { key  } = request.params;
-    
-        s3.deleteObject({
-            Bucket: "churrappuploadteste",
-            key: key
-        }).promise()
+        const { key } = request.params;
 
         await connection('fotos')
-        .where('key', key)
-        .delete();
-    
+            .where('key', key)
+            .delete()
+            .then(function () {
+                s3.deleteObject({
+                    Bucket: "churrappuploadteste",
+                    key: key
+                })
+            });
+
         return response.status(204).send();
-      },
+    },
 }
