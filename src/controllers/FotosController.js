@@ -39,21 +39,14 @@ module.exports = {
 
     async delete(request, response) {
         const { key } = request.params;
-        
-        await deleteS3(key)
 
         await connection('fotos')
             .where('key', key)
             .delete()
 
-        return response.status(204).send();
-    },
-
-    deleteS3(key){
-        console.log("Tamo aqui pelo menos ================")
         return s3.deleteObject({
             Bucket: "churrappuploadteste",
             key: key
         })
-    }
+    },
 }
