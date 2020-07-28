@@ -6,7 +6,7 @@ const multerS3 = require('multer-s3')
 module.exports = {
     dest: path.resolve(__dirname,'..','..','tmp','uploads'),
     storage: multerS3({
-        s3: new aws.s3(),
+        s3: new aws.S3(),
         bucket:'churrappuploadteste',
         contentType:multerS3.AUTO_CONTENT_TYPE,
         acl:'public-read',
