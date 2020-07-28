@@ -15,7 +15,7 @@ module.exports = {
             console.error(err);
         });
 
-        return response.json(foto);
+        return response.json({originalname: nomeImg, key, location: url=''});
 
     },
 }
