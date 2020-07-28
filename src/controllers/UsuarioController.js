@@ -78,7 +78,25 @@ module.exports = {
       console.error(err);
     });
 
-    return response.json(usuarios);
+    return response.json({
+      id:id,
+      nome:nome,
+      sobrenome:sobrenome,
+      email:email,
+      cidade:cidade,
+      uf:uf,
+      idade:idade,
+      joined:joined,
+      foto:foto,
+      celular:celular,
+      apelido:apelido,
+      pontoCarne_id:pontoCarne_id,
+      carnePreferida_id:carnePreferida_id,
+      quantidadeCome_id:quantidadeCome_id,
+      bebidaPreferida_id:bebidaPreferida_id,
+      acompanhamentoPreferido_id:acompanhamentoPreferido_id,
+      cadastrado:cadastrado,    
+    });
     
   },
   async update(request, response) {
