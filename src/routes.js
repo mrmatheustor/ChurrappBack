@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
-const multerConfig = require('./config/multer')
+const multerConfigPerfil = require('./config/multerPerfil')
+const multerConfigChurrasco = require('./config/multerChurrasco')
+const multerConfigItens = require('./config/multerItens')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
@@ -28,9 +30,17 @@ routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
 
-routes.get('/fotos', FotosController.list);
-routes.post('/fotos',multer(multerConfig).single('file'), FotosController.create);
-routes.delete('/fotos/:key', FotosController.delete);
+routes.get('/fotosPerfil', FotosController.list);
+routes.post('/fotosPerfil',multer(multerConfigPerfil).single('file'), FotosController.create);
+routes.delete('/fotosPerfil/:key', FotosController.delete);
+
+routes.get('/fotosChurrasco', FotosController.list);
+routes.post('/fotosChurrasco',multer(multerConfigChurrasco).single('file'), FotosController.create);
+routes.delete('/fotosChurrasco/:key', FotosController.delete);
+
+routes.get('/fotosItens', FotosController.list);
+routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosController.create);
+routes.delete('/fotosItens/:key', FotosController.delete);
 
 routes.get('/perfil', ProfileController.list);
 
