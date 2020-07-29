@@ -7,7 +7,7 @@ module.exports = {
     dest: path.resolve(__dirname,'..','..','tmp','uploads'),
     storage: multerS3({
         s3: new aws.S3(),
-        bucket:'churrappuploadteste',
+        bucket:'churrappuploadteste/perfil',
         contentType:multerS3.AUTO_CONTENT_TYPE,
         acl:'public-read',
         key: (require, file, callBack) =>{
