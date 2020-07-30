@@ -11,6 +11,7 @@ module.exports = {
         contentType:multerS3.AUTO_CONTENT_TYPE,
         acl:'public-read',
         key: (require, file, callBack) =>{
+            console.log("========================="+file)
             crypto.randomBytes(16,(error,hash)=>{
                 if(error) {
                     callBack(error);
