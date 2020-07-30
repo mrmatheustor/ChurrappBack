@@ -32,6 +32,7 @@ module.exports = {
     const { page = 1 } = request.query;
 
     const usuarios = await connection('usuarios')
+    .where('usuarios.id', id)
     .select('*')
     .catch(function(err) {
       console.error(err);
