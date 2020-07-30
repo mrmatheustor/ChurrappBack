@@ -33,7 +33,6 @@ module.exports = {
 
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
-    .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
     .where('usuarios.id', id)
     .limit(1)
     .offset((page - 1) * 1)
