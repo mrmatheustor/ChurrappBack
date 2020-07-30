@@ -38,7 +38,7 @@ module.exports = {
     .limit(1)
     .offset((page - 1) * 1)
     .where('usuarios.id', id)
-    .select(['usuarios.*','fotos.url'])
+    .select('*')
     .catch(function(err) {
       console.error(err);
       });
