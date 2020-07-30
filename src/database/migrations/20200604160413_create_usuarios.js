@@ -15,12 +15,12 @@ exports.up = function(knex) {
 
 
     //foreignKeys
-    table.integer('pontoCarne_id');
-    table.integer('carnePreferida_id');
-    table.integer('quantidadeCome_id');
-    table.integer('bebidaPreferida_id');
-    table.integer('acompanhamentoPreferido_id');
-    table.integer('foto_id');
+    table.integer('pontoCarne_id').defaultTo(0);
+    table.integer('carnePreferida_id').defaultTo(0);
+    table.integer('quantidadeCome_id').defaultTo(0);
+    table.integer('bebidaPreferida_id').defaultTo(0);
+    table.integer('acompanhamentoPreferido_id').defaultTo(0);
+    table.integer('foto_id').defaultTo(1);
 
     table.foreign('pontoCarne_id').references('id').inTable('pontoCarne');
     table.foreign('carnePreferida_id').references('id').inTable('tipos');
