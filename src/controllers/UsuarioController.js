@@ -31,15 +31,11 @@ module.exports = {
     const { id } = request.params;
     const { page = 1 } = request.query;
 
-    console.log("====================="+id)
-
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
     .join('fotos', 'fotos.id', '=', 'usuarios.foto_id')
     .where('usuarios.id', id)
-    .limit(1)
-    .offset((page - 1) * 1)
     .select(['usuarios.*','fotos.url'])
     .catch(function(err) {
       console.error(err);
