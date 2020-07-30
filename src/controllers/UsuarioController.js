@@ -35,8 +35,10 @@ module.exports = {
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
     .join('fotos', 'fotos.id', '=', 'usuarios.foto_id')
+    .limit(1)
+    .offset((page - 1) * 1)
     .where('usuarios.id', id)
-    .select(['usuarios.*','fotos.url'])
+    .select(['usuarios.*','fotos.*'])
     .catch(function(err) {
       console.error(err);
       });
