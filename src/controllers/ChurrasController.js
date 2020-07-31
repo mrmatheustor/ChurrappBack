@@ -40,7 +40,6 @@ module.exports = {
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('fotos', 'usuarios.foto_id', '=', 'fotos.id')
-      .as('usuarioFoto')
       .limit(15)
       .orderBy('data')
       .offset((page - 1) * 15)
@@ -48,7 +47,7 @@ module.exports = {
       .where('data', '>=', formatted)
       .select(['churras.*',
         'usuarios.*',
-        'usuarioFoto.url'])
+        'fotos.*'])
       .catch(function (err) {
         console.error(err);
       });
