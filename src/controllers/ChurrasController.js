@@ -2,33 +2,33 @@ const connection = require('../database/connection');
 const crypto = require('crypto');
 
 module.exports = {
-  async list (request, response) {
+  async list(request, response) {
     const { page = 1 } = request.query;
 
     const [count] = await connection('churras')
-    .count().catch(function(err) {
-      console.error(err);
+      .count().catch(function (err) {
+        console.error(err);
       });;
 
     const churras = await connection('churras')
-    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .limit(5)
-    .orderBy('nome')
-    .offset((page - 1) * 5)
-    .select(['churras.*', 
-    'usuarios.nome', 
-    'usuarios.email', 
-    'usuarios.cidade', 
-    'usuarios.idade'])
-    .catch(function(err) {
-    console.error(err);
-    });  
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .limit(5)
+      .orderBy('nome')
+      .offset((page - 1) * 5)
+      .select(['churras.*',
+        'usuarios.nome',
+        'usuarios.email',
+        'usuarios.cidade',
+        'usuarios.idade'])
+      .catch(function (err) {
+        console.error(err);
+      });
 
     response.header('X-Total-Count', count['count(*)']);
     return response.json(churras);
   },
 
-  async logado (request, response) {
+  async logado(request, response) {
     const { page = 1 } = request.query;
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
@@ -36,22 +36,21 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
-    .count('usuario_id');
+      .count('usuario_id');
     const churras = await connection('churras')
-    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .limit(15)
-    .orderBy('data')
-    .offset((page - 1) * 15)
-    .where('usuario_id', usuario_id)
-    .where('data', '>=', formatted)
-    .select(['churras.*', 
-    'usuarios.nome', 
-    'usuarios.email', 
-    'usuarios.cidade', 
-    'usuarios.idade'])
-    .catch(function(err) {
-      console.error(err);
-      }); 
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .join('fotos', 'usuarios.foto_id', '=', 'fotos.id')
+      .limit(15)
+      .orderBy('data')
+      .offset((page - 1) * 15)
+      .where('usuario_id', usuario_id)
+      .where('data', '>=', formatted)
+      .select(['churras.*',
+        'usuarios.*',
+        'fotos.*'])
+      .catch(function (err) {
+        console.error(err);
+      });
 
     response.header('Total-Meu', count['count(*)']);
     return response.json(churras);
@@ -64,16 +63,16 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
-    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .where('data', '<', formatted)
-    .offset((page - 1) * 10)
-    .orderBy('data')
-    .limit(10)
-    .select(['churras.*', 
-    'usuarios.nome', 
-    'usuarios.email', 
-    'usuarios.cidade', 
-    'usuarios.idade']);
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .where('data', '<', formatted)
+      .offset((page - 1) * 10)
+      .orderBy('data')
+      .limit(10)
+      .select(['churras.*',
+        'usuarios.nome',
+        'usuarios.email',
+        'usuarios.cidade',
+        'usuarios.idade']);
 
     return response.json(churras);
   },
@@ -85,22 +84,22 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
-    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-    .where('data', '>=', formatted)
-    .offset((page - 1) * 5)
-    .orderBy('data')
-    .limit(5)
-    .select(['churras.*', 
-    'usuarios.nome', 
-    'usuarios.email', 
-    'usuarios.cidade', 
-    'usuarios.idade']);    
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .where('data', '>=', formatted)
+      .offset((page - 1) * 5)
+      .orderBy('data')
+      .limit(5)
+      .select(['churras.*',
+        'usuarios.nome',
+        'usuarios.email',
+        'usuarios.cidade',
+        'usuarios.idade']);
 
     return response.json(churras);
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto_id,valorTotal, valorPago} = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto_id, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
@@ -116,11 +115,11 @@ module.exports = {
       foto_id,
       valorTotal,
       valorPago
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.error(err);
     });
-    
-    return response.json({id : id});
+
+    return response.json({ id: id });
   },
 
   async delete(request, response) {
@@ -129,7 +128,7 @@ module.exports = {
 
     const churras = await connection('churras').where('id', id).select('usuario_id').first();
 
-    if(churras.usuario_id !== usuario_id) {
+    if (churras.usuario_id !== usuario_id) {
       return response.status(401).json({ error: 'Operação não permitida.' });
 
     }
