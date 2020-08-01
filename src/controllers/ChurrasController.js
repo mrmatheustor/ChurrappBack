@@ -39,10 +39,7 @@ module.exports = {
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .join('fotos', function (){
-        this.on('fotos.id','=','usuarios.foto_id')
-        this.andOn('fotos.id','=','churras.foto_id')
-      })
+      .join('fotos', 'usuarios.foto_id', '=', 'fotos.id')
       .limit(15)
       .orderBy('data')
       .offset((page - 1) * 15)
@@ -50,7 +47,7 @@ module.exports = {
       .where('data', '>=', formatted)
       .select(['churras.*',
         'usuarios.*',
-        'fotos.*'])
+        'fotos.url'])
       .catch(function (err) {
         console.error(err);
       });
