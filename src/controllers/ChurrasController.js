@@ -40,7 +40,8 @@ module.exports = {
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('fotos', function (){
-        this.on('fotos.id','=','usuarios.foto_id').andOn('fotos.id','=','churras.foto_id')
+        this.on('fotos.id','=','usuarios.foto_id')
+        //this.andOn('fotos.id','=','churras.foto_id')
       })
       .limit(15)
       .orderBy('data')
