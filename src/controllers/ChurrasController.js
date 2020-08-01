@@ -41,7 +41,7 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('fotos', function (){
         this.on('fotos.id','=','usuarios.foto_id')
-        //this.andOn('fotos.id','=','churras.foto_id')
+        this.andOn('fotos.id','=','churras.foto_id')
       })
       .limit(15)
       .orderBy('data')
