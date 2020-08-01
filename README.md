@@ -6,7 +6,9 @@ knex migrate:up 20200621012021_create_pontoCarne.js
 knex migrate:up 20200621011603_create_tipos.js
 knex migrate:up 20200621011720_create_quantidadeCome.js
 knex migrate:up 20200621011937_create_unidades.js
-knex migrate:up 20200728164131_create_fotos.js
+knex migrate:up 20200801175605_create_fotosChurras.js
+knex migrate:up 20200728164131_create_fotosUsuarios.js
+knex migrate:up 20200801175810_create_fotosItens.js
 knex migrate:up 20200604163502_create_itens.js
 knex migrate:up 20200621011820_create_sugestao.js
 knex migrate:up 20200604160413_create_usuarios.js

@@ -8,7 +8,7 @@ const s3 = new aws.S3();
 module.exports = {
 
     async list(req, res) {
-        const fotos = await connection('fotos')
+        const fotos = await connection('fotosUsuarios')
             .select('*')
             .catch(function (err) {
                 console.error(err);
@@ -21,18 +21,18 @@ module.exports = {
         const { originalname: nomeImg, key, location: url = '' } = request.file;
         console.log(request.file)
 
-        await connection('fotos').insert({
-            nomeImg,
-            key,
-            url,
+        await connection('fotosUsuarios').insert({
+            nomeImgU:nomeImg,
+            keyU: key,
+            urlU:url,
         }).catch(function (err) {
             console.error(err);
         });
 
         return response.json({
-            nomeImg: request.file.originalname,
-            key: request.file.key,
-            url: request.file.location,
+            nomeImgU: request.file.originalname,
+            keyU: request.file.key,
+            urlU: request.file.location,
         });
 
     },
@@ -45,7 +45,7 @@ module.exports = {
             key: key,
         })
 
-        await connection('fotos')
+        await connection('fotosUsuarios')
             .where('key', key)
             .delete()
 

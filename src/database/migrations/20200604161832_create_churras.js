@@ -16,7 +16,7 @@ exports.up = function(knex) {
     table.integer('foto_id');
 
     table.foreign('usuario_id').references('id').inTable('usuarios');
-    table.foreign('foto_id').references('id').inTable('fotos');
+    table.foreign('foto_id').references('id').inTable('fotosChurras');
 
   });
 };

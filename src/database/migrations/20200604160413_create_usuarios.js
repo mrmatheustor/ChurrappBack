@@ -27,7 +27,7 @@ exports.up = function(knex) {
     table.foreign('bebidaPreferida_id').references('id').inTable('tipos');
     table.foreign('acompanhamentoPreferido_id').references('id').inTable('tipos');
     table.foreign('quantidadeCome_id').references('id').inTable('quantidadeCome');
-    table.foreign('foto_id').references('id').inTable('fotos');
+    table.foreign('foto_id').references('id').inTable('fotosUsuarios');
   });
 };
 

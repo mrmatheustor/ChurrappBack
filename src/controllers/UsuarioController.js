@@ -34,11 +34,11 @@ module.exports = {
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
-    .join('fotos', 'fotos.id', '=', 'usuarios.foto_id')
+    .join('fotosUsuarios', 'fotosUsuarios.id', '=', 'usuarios.foto_id')
     .limit(1)
     .offset((page - 1) * 1)
     .where('usuarios.id', id)
-    .select(['usuarios.*','fotos.url','pontoCarne.ponto','quantidadeCome.nomeQuantidadeCome'])
+    .select(['usuarios.*','fotosUsuarios.urlU','pontoCarne.ponto','quantidadeCome.nomeQuantidadeCome'])
     .catch(function(err) {
       console.error(err);
       });

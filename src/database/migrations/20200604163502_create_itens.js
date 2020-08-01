@@ -13,7 +13,7 @@ exports.up = function(knex) {
 
     table.foreign('tipo_id').references('id').inTable('tipos');
     table.foreign('unidade_id').references('id').inTable('unidades');
-    table.foreign('foto_id').references('id').inTable('fotos');
+    table.foreign('foto_id').references('id').inTable('fotosItens');
   });
 };
 

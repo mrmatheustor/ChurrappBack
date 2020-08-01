@@ -6,7 +6,9 @@ const multerConfigItens = require('./config/multerItens')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
-const FotosController = require('./controllers/FotosController');
+const FotosItensController = require('./controllers/FotosItensController');
+const FotosChurrasController = require('./controllers/FotosChurrasController');
+const FotosUsuariosController = require('./controllers/FotosUsuariosController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
@@ -29,18 +31,6 @@ routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
-
-routes.get('/fotosPerfil', FotosController.list);
-routes.post('/fotosPerfil',multer(multerConfigPerfil).single('file'), FotosController.create);
-routes.delete('/fotosPerfil/:key', FotosController.delete);
-
-routes.get('/fotosChurrasco', FotosController.list);
-routes.post('/fotosChurrasco',multer(multerConfigChurrasco).single('file'), FotosController.create);
-routes.delete('/fotosChurrasco/:key', FotosController.delete);
-
-routes.get('/fotosItens', FotosController.list);
-routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosController.create);
-routes.delete('/fotosItens/:key', FotosController.delete);
 
 routes.get('/perfil', ProfileController.list);
 
@@ -77,5 +67,21 @@ routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
 routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 
 
+
+
+
+// Rotas para tratamento das fotos itens usuarios churrascos
+
+routes.get('/fotosUsuarios', FotosUsuariosController.list);
+routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosUsuariosController.create);
+routes.delete('/fotosUsuarios/:key', FotosUsuariosController.delete);
+
+routes.get('/fotosChurras', FotosChurrasController.list);
+routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), FotosChurrasController.create);
+routes.delete('/fotosChurras/:key', FotosChurrasController.delete);
+
+routes.get('/fotosItens', FotosItensController.list);
+routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosItensController.create);
+routes.delete('/fotosItens/:key', FotosItensController.delete);
 
 module.exports = routes;
