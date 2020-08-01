@@ -50,7 +50,7 @@ module.exports = {
       .where('data', '>=', formatted)
       .select(['churras.*',
         'usuarios.*',
-        'fotoUsuario'])
+        'fotos.*'])
       .catch(function (err) {
         console.error(err);
       });
