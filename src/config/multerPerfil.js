@@ -15,7 +15,7 @@ module.exports = {
                 if(error) {
                     callBack(error);
                 }
-                const fileName = `${hash.toString('hex')}-${file.originalname}`
+                const fileName = `${hash.toString('hex')}`
     
                 callBack(null, fileName)
             })
