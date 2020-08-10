@@ -18,17 +18,15 @@ module.exports = {
     },
 
     async create(request, response) {
-        const { originalname: nomeImg, key, location: url = '' } = request.file;
-
-        await connection('fotosUsuarios').insert({
-            nomeImgU:nomeImg,
-            keyU: key,
-            urlU:url,
+        const [id] = await connection('fotosUsuarios').insert({
+            nomeImgU:req.file.key,
+            keyU: req.file.key,
+            urlU:req.file.location,
         }).catch(function (err) {
             console.error(err);
         });
 
-        return response.json(request.file);
+        return response.json(id);
 
     },
 

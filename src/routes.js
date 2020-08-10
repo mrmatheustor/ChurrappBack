@@ -74,9 +74,7 @@ routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 // Rotas para tratamento das fotos itens usuarios churrascos
 
 routes.get('/fotosUsuarios', FotosUsuariosController.list);
-routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), (req, res, next) => {
-    res.json(req.file)
-  });
+routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosUsuariosController.create);
 routes.delete('/fotosUsuarios/:key', FotosUsuariosController.delete);
 
 routes.get('/fotosChurras', FotosChurrasController.list);
