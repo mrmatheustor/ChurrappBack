@@ -38,7 +38,7 @@ module.exports = {
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
       .count('usuario_id');
     const churras = await connection('churras')
-      // .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .join('usuarios')
       .join('fotosUsuarios', 'usuarios.foto_id', '=', 'fotosUsuarios.id')
       .join('fotosChurras', 'churras.foto_id', '=', 'fotosChurras.id')
       .limit(15)
@@ -47,7 +47,10 @@ module.exports = {
       .where('usuario_id', usuario_id)
       .where('data', '>=', formatted)
       .select(['churras.*',
-        // 'usuarios.*',
+        'usuarios.nome',
+        'usuarios.celular',
+        'usuarios.apelido',
+        'usuarios.idade',
         'fotosUsuarios.urlU',
         'fotosChurras.urlC',
       ])
