@@ -47,7 +47,7 @@ module.exports = {
 
   async uploadFotoS3(request, response) {
 
-    return response.json(request.file);
+    response.json(request.file);
 
   },
 
