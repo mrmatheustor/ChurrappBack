@@ -18,7 +18,7 @@ module.exports = {
     }).catch(function(err) {
       console.error(err);
     });
-    response.json({ id: id });
+    response.json({ unidade });
 
   },
 
