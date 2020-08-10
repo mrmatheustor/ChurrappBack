@@ -47,7 +47,7 @@ module.exports = {
       .where('usuario_id', usuario_id)
       .where('data', '>=', formatted)
       .select(['churras.*',
-        'usuarios.*',
+        // 'usuarios.*',
         'fotosUsuarios.urlU',
         'fotosChurras.urlC',
       ])
