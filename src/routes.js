@@ -6,9 +6,7 @@ const multerConfigItens = require('./config/multerItens')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
-const FotosItensController = require('./controllers/FotosItensController');
-const FotosChurrasController = require('./controllers/FotosChurrasController');
-const FotosUsuariosController = require('./controllers/FotosUsuariosController');
+const FotosController = require('./controllers/FotosController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
@@ -72,10 +70,10 @@ routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 
 
 // Rotas para tratamento das fotos itens usuarios churrascos
-routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosUsuariosController.create);
+routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosController.create);
 
-routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), FotosChurrasController.create);
+routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), FotosController.create);
 
-routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosItensController.create);
+routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosController.create);
 
 module.exports = routes;
