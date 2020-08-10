@@ -19,9 +19,9 @@ module.exports = {
 
     async create(request, response) {
         const foto = await connection('fotosUsuarios').insert({
-            nomeImgU:req.file.key,
-            keyU: req.file.key,
-            urlU:req.file.location,
+            nomeImgU:request.file.key,
+            keyU: request.file.key,
+            urlU:request.file.location,
         }).catch(function (err) {
             console.error(err);
         });
