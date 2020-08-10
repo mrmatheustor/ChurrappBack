@@ -46,7 +46,7 @@ module.exports = {
       .offset((page - 1) * 15)
       .where('usuario_id', usuario_id)
       .where('data', '>=', formatted)
-      .select(['churras.*',
+      .select(['churras.id','churras.*',
         'usuarios.*',
         'fotosUsuarios.urlU',
         'fotosChurras.urlC',
