@@ -17,24 +17,23 @@ module.exports = {
         return res.json(fotos)
     },
 
-    async create(req, res) {
-        res.json(req.file)
-        // const { originalname: nomeImg, key, location: url = '' } = request.file;
-        // console.log(request.file)
+    async create(request, response) {
+        const { originalname: nomeImg, key, location: url = '' } = request.file;
+        console.log(request.file)
 
-        // await connection('fotosUsuarios').insert({
-        //     nomeImgU:nomeImg,
-        //     keyU: key,
-        //     urlU:url,
-        // }).catch(function (err) {
-        //     console.error(err);
-        // });
+        await connection('fotosUsuarios').insert({
+            nomeImgU:nomeImg,
+            keyU: key,
+            urlU:url,
+        }).catch(function (err) {
+            console.error(err);
+        });
 
-        // return response.json({
-        //     nomeImgU: request.file.originalname,
-        //     keyU: request.file.key,
-        //     urlU: request.file.location,
-        // });
+        return response.json({
+            nomeImgU: request.file.originalname,
+            keyU: request.file.key,
+            urlU: request.file.location,
+        });
 
     },
 
