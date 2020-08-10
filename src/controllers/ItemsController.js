@@ -44,7 +44,7 @@ module.exports = {
     return response.json(item);
   },
   async create(request, response) {
-    const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, fotoUrlI } = request.body;
+    const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, fotoUrlI = "https://churrappuploadteste.s3.amazonaws.com/default/usuario_default.png" } = request.body;
 
     const [id] = await connection('itens').insert({
       nomeItem,
