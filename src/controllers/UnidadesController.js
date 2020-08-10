@@ -10,16 +10,16 @@ module.exports = {
 
     return response.json(unidades);
   },
-    async create(request, response)
-    {
-      const {unidade} = request.body;
-      
-      const [id] = await connection('unidades').insert({
-        unidade
+  async create(request, response) {
+    const {unidade} = request.body;
+    
+    const [id] = await connection('unidades').insert({
+      unidade
     }).catch(function(err) {
       console.error(err);
     });
-    response.json({ id });
+    response.json({ id: id });
 
-    },
+  },
+
 };
