@@ -30,7 +30,7 @@ module.exports = {
 
         console.log("id  " + id);
 
-        return response.json(request.file);
+        return response.json({idU:id,urlU:url});
 
     },
 
