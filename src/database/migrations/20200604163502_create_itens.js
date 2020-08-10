@@ -5,15 +5,14 @@ exports.up = function(knex) {
     table.string('nomeItem').notNullable();
     table.string('descricao');
     table.double('precoMedio');
+    table.integer('fotoUrlI');
 
     //foreingKeys
     table.integer('tipo_id').notNullable();
     table.integer('unidade_id').notNullable();
-    table.integer('foto_id');
 
     table.foreign('tipo_id').references('id').inTable('tipos');
     table.foreign('unidade_id').references('id').inTable('unidades');
-    table.foreign('foto_id').references('id').inTable('fotosItens');
   });
 };
 
