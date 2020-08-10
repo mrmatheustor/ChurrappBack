@@ -49,9 +49,9 @@ module.exports = {
     const [id] = await connection('itens').insert({
         nomeItem,
         descricao,
-        tipo,
-        unidade,
-        quantidade,
+        tipo_id,
+        unidade_id,
+        foto_id,
         precoMedio
     })
     response.json({ id });
