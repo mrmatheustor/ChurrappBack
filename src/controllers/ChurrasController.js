@@ -107,7 +107,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC = "https://churrappuploadteste.s3.amazonaws.com/default/usuario_default.png", valorTotal, valorPago } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
