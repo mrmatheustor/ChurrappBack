@@ -45,6 +45,12 @@ module.exports = {
     return response.json(usuarios);
   },
 
+  async uploadFotoS3(request, response) {
+
+    return response.json(request.file);
+
+  },
+
   async create(request, response) {
     const { nome, sobrenome, email, cidade, uf, idade, celular, fotoUrlU = "https://churrappuploadteste.s3.amazonaws.com/default/usuario_default.png", cadastrado, apelido,
       pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, acompanhamentoPreferido_id } = request.body;
