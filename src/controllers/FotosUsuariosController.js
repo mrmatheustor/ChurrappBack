@@ -18,7 +18,7 @@ module.exports = {
     },
 
     async create(request, response) {
-        const [id] = await connection('fotosUsuarios').insert({
+        const foto = await connection('fotosUsuarios').insert({
             nomeImgU:req.file.key,
             keyU: req.file.key,
             urlU:req.file.location,
@@ -26,7 +26,7 @@ module.exports = {
             console.error(err);
         });
 
-        return response.json(id);
+        response.json(request.file);
 
     },
 
