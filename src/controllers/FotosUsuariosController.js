@@ -28,7 +28,7 @@ module.exports = {
             console.error(err);
         });
 
-        return response.json({id:id});
+        return response.json(request.file);
 
     },
 
