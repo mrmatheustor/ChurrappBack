@@ -4,11 +4,11 @@ const aws = require('aws-sdk')
 const multerS3 = require('multer-s3')
 
 module.exports = {
-    dest: path.resolve(__dirname,'..','..','tmp','uploads'),
+    //dest: path.resolve(__dirname,'..','..','tmp','uploads'),
     storage: multerS3({
         s3: new aws.S3(),
         bucket:'churrappuploadteste/perfil',
-        contentType:multerS3.AUTO_CONTENT_TYPE,
+        //contentType:multerS3.AUTO_CONTENT_TYPE,
         acl:'public-read',
         metadata(req,file,cb){
             cb(null, {fieldName: file.fieldname});
