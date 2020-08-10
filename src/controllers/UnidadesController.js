@@ -13,7 +13,7 @@ module.exports = {
   async create(request, response) {
     const {unidade} = request.body;
     
-    const [id] = await connection('unidades').insert({
+    await connection('unidades').insert({
       unidade
     }).catch(function(err) {
       console.error(err);
