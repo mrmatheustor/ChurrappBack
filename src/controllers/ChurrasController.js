@@ -38,7 +38,7 @@ module.exports = {
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
       .count('usuario_id');
     const churras = await connection('churras')
-      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      // .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('fotosUsuarios', 'usuarios.foto_id', '=', 'fotosUsuarios.id')
       .join('fotosChurras', 'churras.foto_id', '=', 'fotosChurras.id')
       .limit(15)
@@ -46,7 +46,7 @@ module.exports = {
       .offset((page - 1) * 15)
       .where('usuario_id', usuario_id)
       .where('data', '>=', formatted)
-      .select(['churras.id','churras.*',
+      .select(['churras.*',
         'usuarios.*',
         'fotosUsuarios.urlU',
         'fotosChurras.urlC',
