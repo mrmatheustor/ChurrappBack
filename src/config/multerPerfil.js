@@ -15,7 +15,7 @@ module.exports = {
                 if(error) {
                     callBack(error);
                 }
-                const fileName = `${hash.toString('hex')}.png`
+                const fileName = `${hash.toString('hex')}-perfil.png`
     
                 callBack(null, fileName)
             })
