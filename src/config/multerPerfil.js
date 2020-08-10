@@ -8,8 +8,11 @@ module.exports = {
     storage: multerS3({
         s3: new aws.S3(),
         bucket:'churrappuploadteste/perfil',
-        contentType:multerS3.AUTO_CONTENT_TYPE,
+        //contentType:multerS3.AUTO_CONTENT_TYPE,
         acl:'public-read',
+        metadata(req,file,cb){
+            cb(null, {fieldName: file.fieldname});
+        },
         key: (require, file, callBack) =>{
             crypto.randomBytes(16,(error,hash)=>{
                 if(error) {
