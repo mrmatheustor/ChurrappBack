@@ -4,7 +4,7 @@ const aws = require('aws-sdk')
 const multerS3 = require('multer-s3')
 
 module.exports = {
-    dest: path.resolve(__dirname,'..','..','tmp','uploads'),
+    //dest: path.resolve(__dirname,'..','..','tmp','uploads'),
     storage: multerS3({
         s3: new aws.S3(),
         bucket:'churrappuploadteste/perfil',
@@ -24,22 +24,22 @@ module.exports = {
             })
         }
     }),
-    limits:{
-        //aqui estamos pegando imagens de ate 5mb
-        fileSize: 5*1024*1024,
-    },
-    fileFilter:(require,file,callBack)=>{
-        const allowedMimes =[
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png',
-            'image/gif',
-        ]
+    // limits:{
+    //     //aqui estamos pegando imagens de ate 5mb
+    //     fileSize: 5*1024*1024,
+    // },
+    // fileFilter:(require,file,callBack)=>{
+    //     const allowedMimes =[
+    //         'image/jpeg',
+    //         'image/pjpeg',
+    //         'image/png',
+    //         'image/gif',
+    //     ]
 
-        if(allowedMimes.includes(file.mimetype)){
-            callBack(null,true)
-        }else{
-            callBack(new Error("Invalid file type."))
-        }
-    }
+    //     if(allowedMimes.includes(file.mimetype)){
+    //         callBack(null,true)
+    //     }else{
+    //         callBack(new Error("Invalid file type."))
+    //     }
+    // }
 }
