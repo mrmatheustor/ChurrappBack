@@ -53,7 +53,9 @@ module.exports = {
         unidade_id,
         foto_id,
         precoMedio
-    })
+    }).catch(function(err) {
+      console.error(err);
+    });
     response.json({ id });
   },
 
