@@ -10,12 +10,13 @@ exports.up = function(knex) {
     table.string('descricao');
     table.double('valorTotal');
     table.double('valorPago');
-    table.string('fotoUrlC');
 
     //foreingKeys
     table.string('usuario_id').notNullable();
+    table.integer('foto_id');
 
     table.foreign('usuario_id').references('id').inTable('usuarios');
+    table.foreign('foto_id').references('id').inTable('fotosChurras');
 
   });
 };

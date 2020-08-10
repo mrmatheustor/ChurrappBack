@@ -12,7 +12,6 @@ exports.up = function(knex) {
     table.string('celular').unique().notNullable();
     table.string('apelido').notNullable();
     table.boolean('cadastrado').defaultTo(false);
-    table.string('fotoUrlU');
 
 
     //foreignKeys
@@ -21,12 +20,14 @@ exports.up = function(knex) {
     table.integer('quantidadeCome_id').defaultTo(0);
     table.integer('bebidaPreferida_id').defaultTo(0);
     table.integer('acompanhamentoPreferido_id').defaultTo(0);
+    table.integer('foto_id').defaultTo(1);
 
     table.foreign('pontoCarne_id').references('id').inTable('pontoCarne');
     table.foreign('carnePreferida_id').references('id').inTable('tipos');
     table.foreign('bebidaPreferida_id').references('id').inTable('tipos');
     table.foreign('acompanhamentoPreferido_id').references('id').inTable('tipos');
     table.foreign('quantidadeCome_id').references('id').inTable('quantidadeCome');
+    table.foreign('foto_id').references('id').inTable('fotosUsuarios');
   });
 };
 

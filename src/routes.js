@@ -6,6 +6,9 @@ const multerConfigItens = require('./config/multerItens')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
+const FotosItensController = require('./controllers/FotosItensController');
+const FotosChurrasController = require('./controllers/FotosChurrasController');
+const FotosUsuariosController = require('./controllers/FotosUsuariosController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
 const SessionController = require('./controllers/SessionController');
@@ -28,7 +31,6 @@ routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.patch('/usuarios/:id', UsuarioController.update);
-routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), UsuarioController.uploadFotoS3);
 
 routes.get('/perfil', ProfileController.list);
 
@@ -43,13 +45,11 @@ routes.get('/item', ItemsController.listAll);
 routes.get('/items', ItemsController.listLimit);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);
-routes.post('/fotosItens',multer(multerConfigItens).single('file'), ItemsController.uploadFotoS3);
 
 routes.get('/pontoCarne', PontoCarneController.list);
 
 routes.get('/listadochurras/:churras_id', ListaChurrascoController.list);
 routes.post('/listadochurras', ListaChurrascoController.create);
-routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), ListaChurrascoController.uploadFotoS3);
 routes.delete('/listadochurras/:id', ListaChurrascoController.delete);
 
 routes.get('/tipo', TiposController.list);
@@ -66,5 +66,23 @@ routes.get('/quantidadecome', QuantidadeComeController.list);
 routes.get('/convidados', ConvidadosController.list);
 routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
 routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
+
+
+
+
+
+// Rotas para tratamento das fotos itens usuarios churrascos
+
+routes.get('/fotosUsuarios', FotosUsuariosController.list);
+routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosUsuariosController.create);
+routes.delete('/fotosUsuarios/:key', FotosUsuariosController.delete);
+
+routes.get('/fotosChurras', FotosChurrasController.list);
+routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), FotosChurrasController.create);
+routes.delete('/fotosChurras/:key', FotosChurrasController.delete);
+
+routes.get('/fotosItens', FotosItensController.list);
+routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosItensController.create);
+routes.delete('/fotosItens/:key', FotosItensController.delete);
 
 module.exports = routes;
