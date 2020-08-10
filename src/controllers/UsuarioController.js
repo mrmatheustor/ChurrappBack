@@ -34,11 +34,10 @@ module.exports = {
     const usuarios = await connection('usuarios')
     .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
     .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
-    .join('fotosUsuarios', 'fotosUsuarios.id', '=', 'usuarios.foto_id')
     .limit(1)
     .offset((page - 1) * 1)
     .where('usuarios.id', id)
-    .select(['usuarios.*','fotosUsuarios.urlU','pontoCarne.ponto','quantidadeCome.nomeQuantidadeCome'])
+    .select(['usuarios.*','pontoCarne.ponto','quantidadeCome.nomeQuantidadeCome'])
     .catch(function(err) {
       console.error(err);
       });
@@ -47,7 +46,7 @@ module.exports = {
   },
 
   async create(request, response) {
-      const { nome, sobrenome, email, cidade, uf, idade, celular, foto_id, cadastrado, apelido,
+      const { nome, sobrenome, email, cidade, uf, idade, celular, fotoUrlU, cadastrado, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id } = request.body;
       var dateTime = require('node-datetime');
       var dt = dateTime.create();
@@ -66,7 +65,7 @@ module.exports = {
       uf,
       idade,
       joined,
-      foto_id,
+      fotoUrlU,
       celular,
       apelido,
       pontoCarne_id,
@@ -88,7 +87,7 @@ module.exports = {
       uf:uf,
       idade:idade,
       joined:joined,
-      foto_id:foto_id,
+      fotoUrlU:fotoUrlU,
       celular:celular,
       apelido:apelido,
       pontoCarne_id:pontoCarne_id,
@@ -102,7 +101,7 @@ module.exports = {
   },
   async update(request, response) {
     const {id} = request.params;
-    const { nome, sobrenome, email, cadastrado,cidade, uf, idade, foto_id, celular, apelido,
+    const { nome, sobrenome, email, cadastrado,cidade, uf, idade, fotoUrlU, celular, apelido,
       pontoCarne_id,carnePreferida_id,quantidadeCome_id,bebidaPreferida_id,acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
@@ -113,7 +112,7 @@ module.exports = {
       uf,
       idade,
       joined,
-      foto_id,
+      fotoUrlU,
       celular,
       apelido,
       pontoCarne_id,

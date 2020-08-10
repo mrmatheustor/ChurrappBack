@@ -39,8 +39,6 @@ module.exports = {
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .join('fotosUsuarios', 'usuarios.foto_id', '=', 'fotosUsuarios.id')
-      .join('fotosChurras', 'churras.foto_id', '=', 'fotosChurras.id')
       .limit(15)
       .orderBy('data')
       .offset((page - 1) * 15)
@@ -51,8 +49,7 @@ module.exports = {
         'usuarios.celular',
         'usuarios.apelido',
         'usuarios.idade',
-        'fotosUsuarios.urlU',
-        'fotosChurras.urlC',
+        'usuarios.fotoUrlU'
       ])
       .catch(function (err) {
         console.error(err);
@@ -105,7 +102,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, foto_id, valorTotal, valorPago } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
@@ -118,7 +115,7 @@ module.exports = {
       local,
       descricao,
       usuario_id,
-      foto_id,
+      fotoUrlC,
       valorTotal,
       valorPago
     }).catch(function (err) {

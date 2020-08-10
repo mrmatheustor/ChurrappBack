@@ -44,14 +44,14 @@ module.exports = {
     return response.json(item);
   },
   async create(request, response) {
-    const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, foto_id} = request.body;
+    const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, fotoUrlI} = request.body;
 
     const [id] = await connection('itens').insert({
         nomeItem,
         descricao,
         tipo_id,
         unidade_id,
-        foto_id,
+        fotoUrlI,
         precoMedio
     }).catch(function(err) {
       console.error(err);
