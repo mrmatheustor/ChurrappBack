@@ -26,7 +26,7 @@ module.exports = {
             console.error(err);
         });
 
-        response.json(request.file);
+        response.json(foto);
 
     },
 
