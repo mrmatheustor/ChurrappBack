@@ -49,6 +49,7 @@ module.exports = {
         'usuarios.celular',
         'usuarios.apelido',
         'usuarios.idade',
+        'usuarios.fotoUrlU'
       ])
       .catch(function (err) {
         console.error(err);
@@ -100,14 +101,8 @@ module.exports = {
     return response.json(churras);
   },
 
-  async uploadFotoS3(request, response) {
-
-    response.json(request.file);
-
-  },
-
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC = "https://churrappuploadteste.s3.amazonaws.com/default/usuario_default.png", valorTotal, valorPago } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
