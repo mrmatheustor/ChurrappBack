@@ -30,12 +30,11 @@ module.exports = {
   },
 
   async listLimit(request, response) {
-    const { min, max } = request.query;
+    const { tipo } = request.query;
 
     const item = await connection('itens')
       .orderBy('tipo_id')
-      .where('tipo_id', '>=', min)
-      .where('tipo_id', '<=', max)
+      .where('tipo_id', '=', tipo)
       .select(['itens.*']).catch(function (err) {
         console.error(err);
       });
