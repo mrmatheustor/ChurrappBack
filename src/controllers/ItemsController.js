@@ -32,6 +32,12 @@ module.exports = {
   async listLimit(request, response) {
     const { tipo } = request.query;
 
+    const item = await connection('itens').where('tipo_id', tipo).select('tipo_id').first();
+
+    if (item.tipo_id !== tipo) {
+      return response.status(401).json({ error: 'Não existe itens dentro deste tipo.' });
+
+    }
     const item = await connection('itens')
       .orderBy('tipo_id')
       .where('tipo_id', '=', tipo)
