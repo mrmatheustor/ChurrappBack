@@ -29,7 +29,6 @@ module.exports = {
     return response.json(item);
   },
 
-<<<<<<< HEAD
   async listLimit(request, response) {
     const { tipo } = request.query;
 
@@ -39,18 +38,6 @@ module.exports = {
       .select(['itens.*']).catch(function (err) {
         console.error(err);
       });
-=======
-  async listLimit (request, response) {
-    const {min, max} = request.query;
-
-    const item = await connection('itens')
-    .orderBy('tipo_id')
-    .where('tipo_id', '>=', min)
-    .where('tipo_id', '<=', max)
-    .select(['itens.*']).catch(function(err) {
-      console.error(err);
-    });
->>>>>>> e0422aef4f385231bf76325e00421af1b03bdf14
 
 
     return response.json(item);
