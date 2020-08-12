@@ -55,7 +55,7 @@ module.exports = {
     }).catch(function(err) {
       console.error(err);
     });
-    response.json( item );
+    response.json( {id, nomeItem} );
   },
 
   async delete(request, response) {
