@@ -45,7 +45,7 @@ module.exports = {
   async create(request, response) {
     const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, fotoUrlI} = request.body;
 
-    const item = await connection('itens').insert({
+    await connection('itens').insert({
         nomeItem,
         descricao,
         tipo_id,
@@ -55,7 +55,7 @@ module.exports = {
     }).catch(function(err) {
       console.error(err);
     });
-    response.json( {id, nomeItem} );
+    response.json( {nomeItem} );
   },
 
   async delete(request, response) {
