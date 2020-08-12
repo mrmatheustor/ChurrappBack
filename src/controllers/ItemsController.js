@@ -46,7 +46,6 @@ module.exports = {
     const { nomeItem, descricao, tipo_id, unidade_id, precoMedio, fotoUrlI} = request.body;
 
     const item = await connection('itens').insert({
-        id,
         nomeItem,
         descricao,
         tipo_id,
