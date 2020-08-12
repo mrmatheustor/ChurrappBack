@@ -51,6 +51,7 @@ routes.post('/listadochurras', ListaChurrascoController.create);
 routes.delete('/listadochurras/:id', ListaChurrascoController.delete);
 
 routes.get('/tipo', TiposController.list);
+routes.get('/tipoSubTipo', TiposController.listPorSubTipo);
 
 routes.get('/unidade', UnidadesController.list);
 routes.post('/unidade', UnidadesController.create);
