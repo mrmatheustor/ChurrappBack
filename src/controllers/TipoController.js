@@ -14,7 +14,7 @@ module.exports = {
 
     const tipo = await connection('tipos')
       .orderBy('tipo')
-      .where('subTipo', '=', subTipo)
+      .where('subTipo_id', '=', subTipo)
       .select(['tipos.*']).catch(function (err) {
         console.error(err);
       });
