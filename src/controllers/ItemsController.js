@@ -33,7 +33,7 @@ module.exports = {
     const { tipo } = request.query;
 
     const item = await connection('itens')
-      .orderBy('tipo_id')
+      .orderBy('nomeItem')
       .where('tipo_id', '=', tipo)
       .select(['itens.*']).catch(function (err) {
         console.error(err);
