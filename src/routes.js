@@ -19,6 +19,7 @@ const EstoqueController = require('./controllers/EstoqueController');
 const SugestaoController = require('./controllers/SugestaoController');
 const QuantidadeComeController = require('./controllers/QuantidadeComeControle');
 const ConvidadosController = require('./controllers/ConvidadosController');
+const SubTiposController = require('./controllers/SubTiposController');
 
 const routes = express.Router();
 
@@ -52,6 +53,8 @@ routes.delete('/listadochurras/:id', ListaChurrascoController.delete);
 
 routes.get('/tipo', TiposController.list);
 routes.get('/tipoSubTipo', TiposController.listPorSubTipo);
+
+routes.get('/subtipos', SubTiposController.list);
 
 routes.get('/unidade', UnidadesController.list);
 routes.post('/unidade', UnidadesController.create);
