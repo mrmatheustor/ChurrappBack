@@ -25,7 +25,7 @@ module.exports = {
     const { quantidade, unidade_id, item_id} = request.body;
     const {churras_id} = request.body;
 
-    const listaChurrasco = await connection('listaChurrasco').insert({
+    await connection('listaChurrasco').insert({
       quantidade,
       churras_id,
       unidade_id,
@@ -34,7 +34,7 @@ module.exports = {
       console.error(err);
       });
 
-    return response.json(listaChurrasco);
+    return response.json({quantidade, churras_id, unidade_id, item_id});
   },
   async delete(request, response) {
     const {id} = request.params;
