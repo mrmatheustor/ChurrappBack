@@ -33,10 +33,10 @@ module.exports = {
     const {subTipo} =req.query;
 
     const itens =await connection('itens')
-    .join('tipos', 'tipo.id', '=', 'itens.tipo_id')
-    .join('subTipos','subTipos.id' ,'=','tipo.subTipo_id')
+    .join('tipos', 'itens.tipo_id', '=', 'tipo.id')
+    .join('subTipos','tipo.subTipo_id' ,'=','subTipos.id')
     .where('subTipos.id',subTipo)
-    .select(['itens.*'])
+    .select('*')
     .catch(function (err) {
       console.error(err);
     });
