@@ -36,7 +36,7 @@ module.exports = {
     .join('tipos', 'itens.tipo_id', '=', 'tipos.id')
     .join('subTipos','tipos.subTipo_id' ,'=','subTipos.id')
     .where('subTipos.id',subTipo)
-    .select('*')
+    .select(['itens.*','tipos.tipo','tipos.subTipo_id','subTipos.subTipo'])
     .catch(function (err) {
       console.error(err);
     });
