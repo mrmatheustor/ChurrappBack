@@ -29,6 +29,21 @@ module.exports = {
     return response.json(item);
   },
 
+  async listItensBySubTipo(req,res){
+    const {subTipo} =req.query;
+
+    const itens =await connection('itens')
+    .join('tipos', 'tipo.id', '=', 'itens.tipo_id')
+    .join('subTipos','subTipos.id' ,'=','tipo.subTipo_id')
+    .where('subTipos.id',subTipo)
+    .select(['itens.*'])
+    .catch(function (err) {
+      console.error(err);
+    });
+
+    return res.json(itens);
+  },
+
   async listLimit(request, response) {
     const { tipo } = request.query;
 

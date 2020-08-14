@@ -42,6 +42,7 @@ routes.delete('/churras/:id', ChurrasController.delete);
 
 routes.get('/item', ItemsController.listAll);
 routes.get('/items', ItemsController.listLimit);
+routes.get('/listItem',ItemsController.listItensBySubTipo);
 routes.post('/item', ItemsController.create);
 routes.delete('/item/:id', ItemsController.delete);
 

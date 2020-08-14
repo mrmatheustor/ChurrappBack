@@ -75,7 +75,7 @@ module.exports = {
       acompanhamentoPreferido_id,
       cadastrado
     }).catch(function(err) {
-      console.error(err);
+      console.error(err.detail);
     });
 
     console.log(usuarios);
