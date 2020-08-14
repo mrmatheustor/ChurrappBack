@@ -78,6 +78,9 @@ module.exports = {
       console.error(err);
     });
 
+    console.log(usuarios);
+
+
     return response.json({
       id:id,
       nome:nome,
