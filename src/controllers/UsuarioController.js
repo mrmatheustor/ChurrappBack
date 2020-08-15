@@ -60,7 +60,7 @@ module.exports = {
         console.error(err.detail);
       });
 
-    if (jaExiste.id) {
+    if (typeof jaExiste != undefined) {
       return response.json(jaExiste)
     }
     console.log("jaExiste", jaExiste)
