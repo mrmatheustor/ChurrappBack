@@ -4,18 +4,23 @@ const crypto = require('crypto');
 module.exports = {
 
   async list(request, response) {
-    const { churras_id } = request.params;
+    const { churras_id,subTipo } = request.params;
 
     const listaChurrasco = await connection('listaChurrasco')
       .join('unidades', 'unidades.id', '=', 'listaChurrasco.unidade_id')
       .join('itens', 'itens.id', '=', 'listaChurrasco.item_id')
+      .join('tipos', 'itens.tipo_id', '=', 'tipos.id')
+      .join('subTipos', 'item.subTipo_id', '=', 'subTipos.id')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .where('churras_id', churras_id)
+      .andWhere('subTipo', subTipo)
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
         'itens.nomeItem',
         'unidades.unidade',
-        'churras.nomeChurras'])
+        'churras.nomeChurras',
+        'tipos.tipo',
+        'subTipos.subTipo'])
       .catch(function (err) {
         console.error(err);
       });
