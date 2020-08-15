@@ -57,9 +57,10 @@ module.exports = {
       .where("celular", celular)
       .select('*')
       .catch(function (err) {
-        console.error(err.detail);
+        console.error(err);
       });
 
+      console.log(jaExiste)
 
     if (jaExiste !== []) {
       console.log("ja existe", jaExiste)
