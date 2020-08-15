@@ -50,9 +50,8 @@ module.exports = {
       pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, acompanhamentoPreferido_id } = request.body;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
-    var formatted = dt.format('Y/m/d');
+    var formatted = dt.format('d/m/Y');
     const joined = formatted;
-    var nascimento = idade.split("").reverse().join("");
 
     await connection('usuarios')
       .where("celular", celular)
@@ -69,7 +68,7 @@ module.exports = {
             email,
             cidade,
             uf,
-            idade:nascimento,
+            idade,
             joined,
             fotoUrlU,
             celular,
