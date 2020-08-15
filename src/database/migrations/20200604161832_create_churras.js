@@ -3,9 +3,9 @@ exports.up = function(knex) {
   return knex.schema.createTable('churras', function(table){
     table.string('id').primary();
     table.string('nomeChurras').notNullable();
-    table.string('data').notNullable();
-    table.string('hrInicio').notNullable();
-    table.string('hrFim');
+    table.date('data').notNullable();
+    table.time('hrInicio').notNullable();
+    table.time('hrFim');
     table.string('local').notNullable();
     table.string('descricao');
     table.double('valorTotal');

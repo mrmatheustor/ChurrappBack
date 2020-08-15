@@ -7,10 +7,11 @@ exports.up = function(knex) {
     table.string('email').unique().notNullable();
     table.string('cidade').notNullable();
     table.string('uf', 2).notNullable();
-    table.integer('idade').notNullable();
-    table.string('joined').notNullable();
+    table.date('idade').notNullable();
+    table.date('joined').notNullable();
     table.string('celular').unique().notNullable();
     table.string('apelido').notNullable();
+    table.string('senha').notNullable();
     table.boolean('cadastrado').defaultTo(false);
     table.string('fotoUrlU');
 

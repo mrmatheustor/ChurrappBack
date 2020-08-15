@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.string('tipo').notNullable();
 
         //Foreing key
-        table.strin('subTipo_id').defaultTo(0);
+        table.integer('subTipo_id').defaultTo(0);
 
         table.foreign('subTipo_id').references('id').inTable('subTipos');
 
