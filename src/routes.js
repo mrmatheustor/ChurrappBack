@@ -48,7 +48,8 @@ routes.delete('/item/:id', ItemsController.delete);
 
 routes.get('/pontoCarne', PontoCarneController.list);
 
-routes.get('/listadochurras/:churras_id/:subTipo', ListaChurrascoController.list);
+routes.get('/listadochurras/:churras_id/', ListaChurrascoController.list);
+routes.get('/listadochurras/subTipo/:churras_id/:subTipo', ListaChurrascoController.listSubTipo);
 routes.post('/listadochurras', ListaChurrascoController.create);
 routes.delete('/listadochurras/:id', ListaChurrascoController.delete);
 
