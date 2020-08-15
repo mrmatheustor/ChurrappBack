@@ -61,7 +61,7 @@ module.exports = {
       });
 
 
-    if (typeof jaExiste !== 'undefined') {
+    if (jaExiste !== []) {
       console.log("ja existe", jaExiste)
       return response.json(jaExiste)
     }
