@@ -63,7 +63,7 @@ module.exports = {
     if (jaExiste.id) {
       return response.json(jaExiste)
     }
-    console.log("jaExiste", jaExiste.id)
+    console.log("jaExiste", jaExiste)
     const id = crypto.randomBytes(8).toString('HEX');
 
     await connection('usuarios').insert({
