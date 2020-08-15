@@ -56,7 +56,7 @@ module.exports = {
     await connection('usuarios')
       .select('*')
       .where("celular", celular)
-      .then(function (rows) {
+      .then(async function (rows) {
         if (rows.length === 0) {
           console.log("novo")
           const id = crypto.randomBytes(8).toString('HEX');
