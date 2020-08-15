@@ -13,7 +13,7 @@ module.exports = {
       .join('subTipos', 'tipos.subTipo_id', '=', 'subTipos.id')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .where('churras_id', churras_id)
-      .andWhere('subTipo', subTipo)
+      .andWhere('subTipos.id', subTipo)
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
         'itens.nomeItem',
