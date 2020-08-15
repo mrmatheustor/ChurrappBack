@@ -60,55 +60,53 @@ module.exports = {
         console.error(err.detail);
       });
 
-      console.log("jaExiste", jaExiste)
-      
-    if (jaExiste == []) {
-      const id = crypto.randomBytes(8).toString('HEX');
-
-      const usuarios = await connection('usuarios').insert({
-        id,
-        nome,
-        sobrenome,
-        email,
-        cidade,
-        uf,
-        idade,
-        joined,
-        fotoUrlU,
-        celular,
-        apelido,
-        pontoCarne_id,
-        carnePreferida_id,
-        quantidadeCome_id,
-        bebidaPreferida_id,
-        acompanhamentoPreferido_id,
-        cadastrado
-      }).catch(function (err) {
-        console.error(err.detail);
-      });
-
-      return response.json({
-        id: id,
-        nome: nome,
-        sobrenome: sobrenome,
-        email: email,
-        cidade: cidade,
-        uf: uf,
-        idade: idade,
-        joined: joined,
-        fotoUrlU: fotoUrlU,
-        celular: celular,
-        apelido: apelido,
-        pontoCarne_id: pontoCarne_id,
-        carnePreferida_id: carnePreferida_id,
-        quantidadeCome_id: quantidadeCome_id,
-        bebidaPreferida_id: bebidaPreferida_id,
-        acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-        cadastrado: cadastrado,
-      });
+    if (jaExiste.id) {
+      return response.json(jaExiste)
     }
+    console.log("jaExiste", jaExiste.id)
+    const id = crypto.randomBytes(8).toString('HEX');
 
-    return response.json(jaExiste)
+    await connection('usuarios').insert({
+      id,
+      nome,
+      sobrenome,
+      email,
+      cidade,
+      uf,
+      idade,
+      joined,
+      fotoUrlU,
+      celular,
+      apelido,
+      pontoCarne_id,
+      carnePreferida_id,
+      quantidadeCome_id,
+      bebidaPreferida_id,
+      acompanhamentoPreferido_id,
+      cadastrado
+    }).catch(function (err) {
+      console.error(err.detail);
+    });
+
+    return response.json({
+      id: id,
+      nome: nome,
+      sobrenome: sobrenome,
+      email: email,
+      cidade: cidade,
+      uf: uf,
+      idade: idade,
+      joined: joined,
+      fotoUrlU: fotoUrlU,
+      celular: celular,
+      apelido: apelido,
+      pontoCarne_id: pontoCarne_id,
+      carnePreferida_id: carnePreferida_id,
+      quantidadeCome_id: quantidadeCome_id,
+      bebidaPreferida_id: bebidaPreferida_id,
+      acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+      cadastrado: cadastrado,
+    });
 
   },
   async update(request, response) {
