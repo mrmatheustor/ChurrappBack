@@ -60,12 +60,13 @@ module.exports = {
         console.error(err);
       });
 
-      console.log(jaExiste)
+      console.log("olaaaa",jaExiste)
 
     if (jaExiste !== []) {
       console.log("ja existe", jaExiste)
       return response.json(jaExiste)
     }
+    
     console.log("nao existe", jaExiste)
     const id = crypto.randomBytes(8).toString('HEX');
 
