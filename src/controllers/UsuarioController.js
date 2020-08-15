@@ -53,66 +53,65 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
     const joined = formatted;
 
-    const jaExiste = await connection('usuarios')
-      .where("celular", celular)
+    await connection('usuarios')
       .select('*')
-      .catch(function (err) {
-        console.error(err);
-      });
+      .where("celular", celular)
+      .then(function (rows) {
+        if (rows.length === 0) {
+          console.log("novo")
+          const id = crypto.randomBytes(8).toString('HEX');
 
-      console.log("olaaaa",jaExiste)
+          await connection('usuarios').insert({
+            id,
+            nome,
+            sobrenome,
+            email,
+            cidade,
+            uf,
+            idade,
+            joined,
+            fotoUrlU,
+            celular,
+            apelido,
+            senha,
+            pontoCarne_id,
+            carnePreferida_id,
+            quantidadeCome_id,
+            bebidaPreferida_id,
+            acompanhamentoPreferido_id,
+            cadastrado
+          }).catch(function (err) {
+            console.error(err.detail);
+          });
 
-    if (jaExiste !== []) {
-      console.log("ja existe", jaExiste)
-      return response.json(jaExiste)
-    }
-    
-    console.log("nao existe", jaExiste)
-    const id = crypto.randomBytes(8).toString('HEX');
+          return response.json({
+            id: id,
+            nome: nome,
+            sobrenome: sobrenome,
+            email: email,
+            cidade: cidade,
+            uf: uf,
+            idade: idade,
+            joined: joined,
+            fotoUrlU: fotoUrlU,
+            celular: celular,
+            apelido: apelido,
+            senha: senha,
+            pontoCarne_id: pontoCarne_id,
+            carnePreferida_id: carnePreferida_id,
+            quantidadeCome_id: quantidadeCome_id,
+            bebidaPreferida_id: bebidaPreferida_id,
+            acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+            cadastrado: cadastrado,
+          });
+        }else{
+          console.log("ja tem")
 
-    await connection('usuarios').insert({
-      id,
-      nome,
-      sobrenome,
-      email,
-      cidade,
-      uf,
-      idade,
-      joined,
-      fotoUrlU,
-      celular,
-      apelido,
-      senha,
-      pontoCarne_id,
-      carnePreferida_id,
-      quantidadeCome_id,
-      bebidaPreferida_id,
-      acompanhamentoPreferido_id,
-      cadastrado
-    }).catch(function (err) {
-      console.error(err.detail);
-    });
+          return response.json(rows);
+        }
+      })
 
-    return response.json({
-      id: id,
-      nome: nome,
-      sobrenome: sobrenome,
-      email: email,
-      cidade: cidade,
-      uf: uf,
-      idade: idade,
-      joined: joined,
-      fotoUrlU: fotoUrlU,
-      celular: celular,
-      apelido: apelido,
-      senha:senha,
-      pontoCarne_id: pontoCarne_id,
-      carnePreferida_id: carnePreferida_id,
-      quantidadeCome_id: quantidadeCome_id,
-      bebidaPreferida_id: bebidaPreferida_id,
-      acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-      cadastrado: cadastrado,
-    });
+
 
   },
   async update(request, response) {
