@@ -61,10 +61,11 @@ module.exports = {
       });
 
 
-    if (typeof jaExiste != 'undefined') {
+    if (typeof jaExiste !== 'undefined') {
+      console.log("ja existe", jaExiste)
       return response.json(jaExiste)
     }
-    console.log("jaExiste", typeof jaExiste)
+    console.log("nao existe", jaExiste)
     const id = crypto.randomBytes(8).toString('HEX');
 
     await connection('usuarios').insert({
