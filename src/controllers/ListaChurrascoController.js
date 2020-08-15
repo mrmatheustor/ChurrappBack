@@ -23,7 +23,7 @@ module.exports = {
     return response.json(listaChurrasco);
   },
 
-  async listSubtipo(request, response) {
+  async listSubTipo(request, response) {
     const { churras_id,subTipo } = request.params;
 
     const listaChurrasco = await connection('listaChurrasco')
@@ -63,7 +63,7 @@ module.exports = {
 
     return response.json({ quantidade, churras_id, unidade_id, item_id });
   },
-  
+
   async delete(request, response) {
     const { id } = request.params;
 
