@@ -54,11 +54,11 @@ module.exports = {
     const joined = formatted;
 
     await connection('usuarios')
-      .select('*')
       .where("celular", celular)
+      .select('*')
       .then(async function (rows) {
         if (rows.length === 0) {
-          console.log("novo")
+          console.log("novo", rows)
           const id = crypto.randomBytes(8).toString('HEX');
 
           await connection('usuarios').insert({
@@ -81,7 +81,7 @@ module.exports = {
             acompanhamentoPreferido_id,
             cadastrado
           }).catch(function (err) {
-            console.error(err.detail);
+            console.error(err);
           });
 
           return response.json({
@@ -104,8 +104,8 @@ module.exports = {
             acompanhamentoPreferido_id: acompanhamentoPreferido_id,
             cadastrado: cadastrado,
           });
-        }else{
-          console.log("ja tem")
+        } else {
+          console.log("ja tem", rows)
 
           return response.json(rows);
         }
