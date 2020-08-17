@@ -40,8 +40,7 @@ module.exports = {
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.tipo',
-        'subTipos.subTipo',
-        'itens.id as item_id'])
+        'subTipos.subTipo'])
       .catch(function (err) {
         console.error(err);
       });
@@ -75,8 +74,8 @@ module.exports = {
         .catch(function (err) {
           console.error(err);
         });
+
         const quantidade2 = quantidade + quantidadeAntiga[0].quantidade;
-        console.log("quantidade2 ", quantidade2, quantidade,quantidadeAntiga[0].quantidade)
 
         await connection('listaChurrasco')
         .where('churras_id',churras_id)
@@ -94,22 +93,6 @@ module.exports = {
       }
     });
   },
-
-  // async create(request, response) {
-  //   const { quantidade, unidade_id, item_id } = request.body;
-  //   const { churras_id } = request.body;
-
-  //   await connection('listaChurrasco').insert({
-  //     quantidade,
-  //     churras_id,
-  //     unidade_id,
-  //     item_id
-  //   }).catch(function (err) {
-  //     console.error(err);
-  //   });
-
-  //   return response.json({ quantidade, churras_id, unidade_id, item_id });
-  // },
 
   async delete(request, response) {
     const { id } = request.params;
