@@ -75,8 +75,8 @@ module.exports = {
         .catch(function (err) {
           console.error(err);
         });
-        const quantidade2 = quantidade + quantidadeAntiga;
-        console.log("quantidade2 ", quantidade2, quantidade,quantidadeAntiga)
+        const quantidade2 = quantidade + quantidadeAntiga[0].quantidade;
+        console.log("quantidade2 ", quantidade2, quantidade,quantidadeAntiga[0].quantidade)
 
         await connection('listaChurrasco')
         .where('churras_id',churras_id)
