@@ -27,7 +27,7 @@ routes.post('/session', SessionController.create);
 
 routes.get('/usuarios', UsuarioController.list);
 routes.get('/usuarios/:id', UsuarioController.listLogado);
-routes.get('/usuariosCel/:celular', UsuarioController.listCelularUsuario);
+routes.get('/usuariosCel/:celular/:senha', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.patch('/usuarios/:id', UsuarioController.update);
 

@@ -15,10 +15,11 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const { celular } = request.params;
+    const { celular,senha } = request.params;
 
     const pessoa = await connection('usuarios')
       .where('celular', celular)
+      .andWhere('senha',senha)
       .select('*')
       .catch(function (err) {
         console.error(err);
