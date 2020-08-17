@@ -41,7 +41,7 @@ module.exports = {
         'churras.nomeChurras',
         'tipos.tipo',
         'subTipos.subTipo',
-        'itens.id as mopa'])
+        'itens.id as item_id'])
       .catch(function (err) {
         console.error(err);
       });
@@ -49,21 +49,56 @@ module.exports = {
     return response.json(listaChurrasco);
   },
 
-  async create(request, response) {
-    const { quantidade, unidade_id, item_id } = request.body;
-    const { churras_id } = request.body;
+  async create(req, res){
+    const { listaChurrasco_id, quantidade, unidade_id, item_id, churras_id } = request.body;
 
-    await connection('listaChurrasco').insert({
-      quantidade,
-      churras_id,
-      unidade_id,
-      item_id
-    }).catch(function (err) {
-      console.error(err);
+    await connection('listaChurrasco')
+    .select('*')
+    .where('churras_id',churras_id)
+    .andWhere('item_id',item_id)
+    .then(async function (rows) {
+      if (rows.length === 0) {
+        await connection('listaChurrasco').insert({
+          quantidade,
+          churras_id,
+          unidade_id,
+          item_id
+        }).catch(function (err) {
+          console.error(err);
+        });
+        return response.json({ quantidade, churras_id, unidade_id, item_id });
+      }else{
+        const quantidadeAntiga = await connection('listaChurrasco')
+        .where('churras_id',churras_id)
+        .andWhere('item_id',item_id)
+        .select('listaChurrasco.quantidade')
+
+        const quantidade2 = quantidade + quantidadeAntiga;
+
+        await connection('listaChurrasco')
+        .where('id',listaChurrasco_id)
+        .update({
+          quantidade:quantidade2
+        })
+      }
     });
-
-    return response.json({ quantidade, churras_id, unidade_id, item_id });
   },
+
+  // async create(request, response) {
+  //   const { quantidade, unidade_id, item_id } = request.body;
+  //   const { churras_id } = request.body;
+
+  //   await connection('listaChurrasco').insert({
+  //     quantidade,
+  //     churras_id,
+  //     unidade_id,
+  //     item_id
+  //   }).catch(function (err) {
+  //     console.error(err);
+  //   });
+
+  //   return response.json({ quantidade, churras_id, unidade_id, item_id });
+  // },
 
   async delete(request, response) {
     const { id } = request.params;
