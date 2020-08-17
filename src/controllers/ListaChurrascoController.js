@@ -76,11 +76,15 @@ module.exports = {
           console.error(err);
         });
         const quantidade2 = quantidade + quantidadeAntiga;
+        console.log("quantidade2 ", quantidade2, quantidade,quantidadeAntiga)
 
         await connection('listaChurrasco')
         .where('churras_id',churras_id)
         .andWhere('item_id',item_id)
         .update({
+          churras_id,
+          unidade_id,
+          item_id,
           quantidade:quantidade2
         })
         .catch(function (err) {
