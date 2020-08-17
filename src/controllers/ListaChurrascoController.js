@@ -50,7 +50,7 @@ module.exports = {
   },
 
   async create(req, res){
-    const { listaChurrasco_id, quantidade, unidade_id, item_id, churras_id } = request.body;
+    const { quantidade, unidade_id, item_id, churras_id } = request.body;
 
     await connection('listaChurrasco')
     .select('*')
@@ -72,14 +72,20 @@ module.exports = {
         .where('churras_id',churras_id)
         .andWhere('item_id',item_id)
         .select('listaChurrasco.quantidade')
-
+        .catch(function (err) {
+          console.error(err);
+        });
         const quantidade2 = quantidade + quantidadeAntiga;
 
         await connection('listaChurrasco')
-        .where('id',listaChurrasco_id)
+        .where('churras_id',churras_id)
+        .andWhere('item_id',item_id)
         .update({
           quantidade:quantidade2
         })
+        .catch(function (err) {
+          console.error(err);
+        });
       }
     });
   },
