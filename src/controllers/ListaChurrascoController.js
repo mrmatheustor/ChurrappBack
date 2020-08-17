@@ -49,7 +49,7 @@ module.exports = {
     return response.json(listaChurrasco);
   },
 
-  async create(req, res){
+  async create(request, response){
     const { quantidade, unidade_id, item_id, churras_id } = request.body;
 
     await connection('listaChurrasco')
@@ -86,6 +86,7 @@ module.exports = {
         .catch(function (err) {
           console.error(err);
         });
+        return response.json({ quantidade, churras_id, unidade_id, item_id });
       }
     });
   },
