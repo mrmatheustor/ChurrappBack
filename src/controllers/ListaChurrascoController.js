@@ -24,7 +24,7 @@ module.exports = {
   },
 
   async listSubTipo(request, response) {
-    const { churras_id,subTipo } = request.params;
+    const { churras_id, subTipo } = request.params;
 
     const listaChurrasco = await connection('listaChurrasco')
       .join('unidades', 'unidades.id', '=', 'listaChurrasco.unidade_id')
@@ -40,7 +40,8 @@ module.exports = {
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.tipo',
-        'subTipos.subTipo'])
+        'subTipos.subTipo',
+        'itens.id as mopa'])
       .catch(function (err) {
         console.error(err);
       });
