@@ -63,7 +63,7 @@ routes.post('/unidade', UnidadesController.create);
 
 routes.get('/estoque/:usuario_id', EstoqueController.list);
 
-routes.get('/sugestao', SugestaoController.list);
+routes.get('/sugestao/:subTipo_id', SugestaoController.list);
 
 routes.get('/quantidadecome', QuantidadeComeController.list);
 
