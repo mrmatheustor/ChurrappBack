@@ -84,11 +84,11 @@ module.exports = {
           unidade2 = unidade_id;
         }else if(unidade_id == 2 && quantidadeAntiga[0].unidadeAntiga_id == 1){
           //se o novo eh em kg e o velho eh em gramas, salva tudo em kg
-          quantidade2 = (quantidadeAntiga[0].quantidade * 1000) + quantidade;
+          quantidade2 = (quantidadeAntiga[0].quantidade / 1000) + quantidade;
           unidade2 = 2;
         }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 2){          
           //se o velho eh em kg e o novo eh em gramas, salva tudo em kg
-          quantidade2 = (quantidade * 1000) + quantidadeAntiga[0].quantidade;
+          quantidade2 = (quantidade / 1000) + quantidadeAntiga[0].quantidade;
           unidade2 = 2;
         }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 3){        
           //se o velho eh em mg e o novo eh em gramas, salva tudo em gramas
@@ -108,6 +108,16 @@ module.exports = {
           unidade2 = 2;
         }
 
+        if(unidade2 == 3 && quantidade2 >= 1000){
+          //converte de mg para g
+          unidade2 = 1;
+          quantidade2 = quantidade2 / 1000;
+        }
+        if(unidade2 == 1 && quantidade2 >= 1000){
+          //converte de g para kg
+          unidade2 = 2;
+          quantidade2 = quantidade2 / 1000;
+        }
         console.log("quantidade nova",quantidade)
         console.log("quantidade velha",quantidadeAntiga[0].quantidade)
         console.log("quantidade final",quantidade2)
