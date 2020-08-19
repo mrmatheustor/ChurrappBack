@@ -83,13 +83,13 @@ module.exports = {
           quantidade2 = quantidade + quantidadeAntiga[0].quantidade;
           unidade2 = unidade_id;
         }else if(unidade_id == 2 && quantidadeAntiga[0].unidadeAntiga_id == 1){
-          //se o novo eh em kg e o velho eh em gramas, salva tudo em gramas
-          quantidade2 = (quantidade * 1000) + quantidadeAntiga[0].quantidade;
-          unidade2 = 1;
-        }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 2){          
-          //se o velho eh em kg e o novo eh em gramas, salva tudo em gramas
+          //se o novo eh em kg e o velho eh em gramas, salva tudo em kg
           quantidade2 = (quantidadeAntiga[0].quantidade * 1000) + quantidade;
-          unidade2 = 1;
+          unidade2 = 2;
+        }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 2){          
+          //se o velho eh em kg e o novo eh em gramas, salva tudo em kg
+          quantidade2 = (quantidade * 1000) + quantidadeAntiga[0].quantidade;
+          unidade2 = 2;
         }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 3){        
           //se o velho eh em mg e o novo eh em gramas, salva tudo em gramas
           quantidade2 = (quantidadeAntiga[0].quantidade / 1000) + quantidade;
@@ -99,13 +99,13 @@ module.exports = {
           quantidade2 = ( quantidade / 1000) + quantidadeAntiga[0].quantidade;
           unidade2 = 1;
         }else if(unidade_id == 2 && quantidadeAntiga[0].unidadeAntiga_id == 3){        
-          //se o velho eh em mg e o novo eh em kg, salva tudo em gramas
-          quantidade2 = (quantidadeAntiga[0].quantidade / 1000) + (quantidade*1000);
-          unidade2 = 1;
+          //se o velho eh em mg e o novo eh em kg, salva tudo em kg
+          quantidade2 = (quantidadeAntiga[0].quantidade / 1000000) + quantidade;
+          unidade2 = 2;
         }else if(unidade_id == 3 && quantidadeAntiga[0].unidadeAntiga_id == 2){        
-          //se o novo eh em mg e o velho eh em kg, salva tudo em gramas
-          quantidade2 = ( quantidade / 1000) + (quantidadeAntiga[0].quantidade*1000);
-          unidade2 = 1;
+          //se o novo eh em mg e o velho eh em kg, salva tudo em kg
+          quantidade2 = ( quantidade / 1000000) + quantidadeAntiga[0].quantidade;
+          unidade2 = 2;
         }
 
         console.log("quantidade nova",quantidade)
