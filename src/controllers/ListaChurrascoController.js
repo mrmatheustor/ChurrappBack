@@ -57,6 +57,16 @@ module.exports = {
     .andWhere('item_id',item_id)
     .then(async function (rows) {
       if (rows.length === 0) {
+        if(unidade_id == 3 && quantidade >= 1000){
+          //converte de mg para g
+          unidade_id = 1;
+          quantidade = quantidade / 1000;
+        }
+        if(unidade_id == 1 && quantidade >= 1000){
+          //converte de g para kg
+          unidade_id = 2;
+          quantidade = quantidade / 1000;
+        }
         await connection('listaChurrasco').insert({
           quantidade,
           churras_id,
