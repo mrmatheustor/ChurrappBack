@@ -75,8 +75,8 @@ module.exports = {
           console.error(err);
         });
 
-        const quantidade2 = 0;
-        const unidade2 = 0;
+        let quantidade2 = 0;
+        let unidade2 = 0;
 
         if(unidade_id == quantidadeAntiga[0].unidadeAntiga_id){
           //se sao a mesma unidade soma as quantidades e mantem a unidade
