@@ -130,12 +130,7 @@ module.exports = {
           unidade2 = 2;
           quantidade2 = quantidade2 / 1000;
         }
-        console.log("quantidade nova",quantidade)
-        console.log("quantidade velha",quantidadeAntiga[0].quantidade)
-        console.log("quantidade final",quantidade2)
-        console.log("Unidade final",unidade2)
-
-
+        
         await connection('listaChurrasco')
         .where('churras_id',churras_id)
         .andWhere('item_id',item_id)
