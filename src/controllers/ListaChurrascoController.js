@@ -57,20 +57,22 @@ module.exports = {
     .andWhere('item_id',item_id)
     .then(async function (rows) {
       if (rows.length === 0) {
-        if(unidade_id == 3 && quantidade >= 1000){
+        let quantidade2 = quantidade;
+        let unidade2 = unidade_id;
+        if(unidade2 == 3 && quantidade2 >= 1000){
           //converte de mg para g
-          unidade_id = 1;
-          quantidade = quantidade / 1000;
+          unidade2 = 1;
+          quantidade2 = quantidade2 / 1000;
         }
-        if(unidade_id == 1 && quantidade >= 1000){
+        if(unidade2 == 1 && quantidade2 >= 1000){
           //converte de g para kg
-          unidade_id = 2;
-          quantidade = quantidade / 1000;
+          unidade2 = 2;
+          quantidade2 = quantidade2 / 1000;
         }
         await connection('listaChurrasco').insert({
-          quantidade,
+          quantidade:quantidade2,
           churras_id,
-          unidade_id,
+          unidade_id:unidade2,
           item_id
         }).catch(function (err) {
           console.error(err);
