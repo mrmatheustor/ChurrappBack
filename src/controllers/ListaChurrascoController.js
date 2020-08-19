@@ -70,19 +70,53 @@ module.exports = {
         const quantidadeAntiga = await connection('listaChurrasco')
         .where('churras_id',churras_id)
         .andWhere('item_id',item_id)
-        .select('listaChurrasco.quantidade')
+        .select(['listaChurrasco.quantidade','listaChurrasco.unidade_id as unidadeAntiga_id'])
         .catch(function (err) {
           console.error(err);
         });
 
-        const quantidade2 = quantidade + quantidadeAntiga[0].quantidade;
+        if(unidade_id == quantidadeAntiga[0].unidadeAntiga_id){
+          //se sao a mesma unidade soma as quantidades e mantem a unidade
+          const quantidade2 = quantidade + quantidadeAntiga[0].quantidade;
+          const unidade2 = unidade_id;
+        }else if(unidade_id == 2 && quantidadeAntiga[0].unidadeAntiga_id == 1){
+          //se o novo eh em kg e o velho eh em gramas, salva tudo em gramas
+          const quantidade2 = (quantidade * 1000) + quantidadeAntiga[0].quantidade;
+          const unidade2 = 1;
+        }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 2){          
+          //se o velho eh em kg e o novo eh em gramas, salva tudo em gramas
+          const quantidade2 = (quantidadeAntiga[0].quantidade * 1000) + quantidade;
+          const unidade2 = 1;
+        }else if(unidade_id == 1 && quantidadeAntiga[0].unidadeAntiga_id == 3){        
+          //se o velho eh em mg e o novo eh em gramas, salva tudo em gramas
+          const quantidade2 = (quantidadeAntiga[0].quantidade / 1000) + quantidade;
+          const unidade2 = 1;
+        }else if(unidade_id == 3 && quantidadeAntiga[0].unidadeAntiga_id == 1){        
+          //se o novo eh em mg e o velho eh em gramas, salva tudo em gramas
+          const quantidade2 = ( quantidade / 1000) + quantidadeAntiga[0].quantidade;
+          const unidade2 = 1;
+        }else if(unidade_id == 2 && quantidadeAntiga[0].unidadeAntiga_id == 3){        
+          //se o velho eh em mg e o novo eh em kg, salva tudo em gramas
+          const quantidade2 = (quantidadeAntiga[0].quantidade / 1000) + (quantidade*1000);
+          const unidade2 = 1;
+        }else if(unidade_id == 3 && quantidadeAntiga[0].unidadeAntiga_id == 2){        
+          //se o novo eh em mg e o velho eh em kg, salva tudo em gramas
+          const quantidade2 = ( quantidade / 1000) + (quantidadeAntiga[0].quantidade*1000);
+          const unidade2 = 1;
+        }
+
+        console.log("quantidade nova",quantidade)
+        console.log("quantidade velha",quantidadeAntiga[0].quantidade)
+        console.log("quantidade final",quantidade2)
+        console.log("Unidade final",unidade2)
+
 
         await connection('listaChurrasco')
         .where('churras_id',churras_id)
         .andWhere('item_id',item_id)
         .update({
           churras_id,
-          unidade_id,
+          unidade_id:unidade2,
           item_id,
           quantidade:quantidade2
         })
