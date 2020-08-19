@@ -29,7 +29,6 @@ module.exports = {
   },
 
   async logado(request, response) {
-    const { page = 1 } = request.query;
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
@@ -39,9 +38,7 @@ module.exports = {
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .limit(15)
       .orderBy('data')
-      .offset((page - 1) * 15)
       .where('usuario_id', usuario_id)
       .where('data', '>=', formatted)
       .select(['churras.*',
