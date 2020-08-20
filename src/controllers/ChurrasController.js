@@ -104,7 +104,7 @@ module.exports = {
     const id = crypto.randomBytes(8).toString('HEX');
     var dateTime = require('node-datetime');
     var dt = dateTime.create(data);
-    var data = dt.format('d/m/Y');
+    data = dt.format('d/m/Y');
 
     await connection('churras').insert({
       id,
