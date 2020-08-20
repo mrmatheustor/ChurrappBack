@@ -33,6 +33,8 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
+    var date = dateTime.create(data);
+    data = date.format('d/m/Y');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
       .count('usuario_id');
@@ -102,9 +104,6 @@ module.exports = {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create(data);
-    data = dt.format('d/m/Y');
 
     await connection('churras').insert({
       id,
