@@ -104,12 +104,12 @@ module.exports = {
     const id = crypto.randomBytes(8).toString('HEX');
     var dateTime = require('node-datetime');
     var dt = dateTime.create(data);
-    var formatado = dt.format('d/m/Y');
+    var data = dt.format('d/m/Y');
 
     await connection('churras').insert({
       id,
       nomeChurras,
-      formatado,
+      data,
       hrInicio,
       hrFim,
       local,
