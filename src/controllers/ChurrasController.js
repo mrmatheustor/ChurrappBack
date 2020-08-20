@@ -103,7 +103,7 @@ module.exports = {
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
     var dateTime = require('node-datetime');
-    data = dateTime.create().format('d/m/Y')
+    data = dateTime.format('d/m/Y')
 
     await connection('churras').insert({
       id,
