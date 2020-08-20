@@ -102,6 +102,9 @@ module.exports = {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
+    var dateTime = require('node-datetime');
+    var dt = dateTime.create();
+    var data = dt.format('d/m/Y');
 
     await connection('churras').insert({
       id,
