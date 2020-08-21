@@ -14,6 +14,7 @@ module.exports = {
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
         'itens.nomeItem',
+        'itens.fotoUrlI',
         'unidades.unidade',
         'churras.nomeChurras'])
       .catch(function (err) {
