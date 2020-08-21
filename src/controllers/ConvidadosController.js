@@ -17,7 +17,7 @@ module.exports = {
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
       .select(['churras.*', 'convidados.*', 'usuarios.nome',
-      'usuarios.apelido'])
+      'usuarios.apelido','usuarios.fotoUrlU'])
       .catch(function(err) {
         console.error(err);
       });
