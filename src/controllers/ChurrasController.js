@@ -72,7 +72,8 @@ module.exports = {
         'usuarios.nome',
         'usuarios.email',
         'usuarios.cidade',
-        'usuarios.idade']);
+        'usuarios.idade',
+      'usuarios.fotoUrlU']);
 
     return response.json(churras);
   },
@@ -93,7 +94,8 @@ module.exports = {
         'usuarios.nome',
         'usuarios.email',
         'usuarios.cidade',
-        'usuarios.idade']);
+        'usuarios.idade',
+        'usuarios.fotoUrlU']);
 
     return response.json(churras);
   },
