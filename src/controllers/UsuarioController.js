@@ -35,8 +35,10 @@ module.exports = {
       .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
       .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
       .join('itens as cp', 'cp.id','=','usuarios.carnePreferida_id')
+      .join('itens as ap', 'ap.id','=','usuarios.acompanhamentoPreferido_id')
+      .join('itens as bp', 'bp.id','=','usuarios.bebidaPreferida_id')
       .where('usuarios.id', id)
-      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida'])
+      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida','ap.nomeItem as acompanhamentoPreferido','bp.nomeItem as bebidaPreferida'])
       .catch(function (err) {
         console.error(err);
       });
