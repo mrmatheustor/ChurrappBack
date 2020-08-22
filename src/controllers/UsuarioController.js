@@ -34,8 +34,9 @@ module.exports = {
     const usuarios = await connection('usuarios')
       .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
       .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
+      .join({cP:'itens'}, 'cp.id','=','usuarios.carnePreferida_id')
       .where('usuarios.id', id)
-      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome'])
+      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida'])
       .catch(function (err) {
         console.error(err);
       });
