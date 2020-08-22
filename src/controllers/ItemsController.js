@@ -49,8 +49,9 @@ module.exports = {
 
     const item = await connection('itens')
       .orderBy('nomeItem')
+      .join('tipos','tipos.id','=','itens.tipo_id')
       .where('tipo_id', '=', tipo)
-      .select(['itens.*']).catch(function (err) {
+      .select(['itens.*','tipos.tipo']).catch(function (err) {
         console.error(err);
       });
 
