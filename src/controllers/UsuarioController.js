@@ -59,7 +59,6 @@ module.exports = {
       .select('*')
       .then(async function (rows) {
         if (rows.length === 0) {
-          console.log("novo", rows)
           const id = crypto.randomBytes(8).toString('HEX');
 
           await connection('usuarios').insert({
@@ -106,8 +105,6 @@ module.exports = {
             cadastrado: cadastrado,
           });
         } else {
-          console.log("ja tem", rows)
-
           return response.json(rows);
         }
       })
