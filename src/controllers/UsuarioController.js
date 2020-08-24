@@ -37,8 +37,9 @@ module.exports = {
       .join('itens as cp', 'cp.id','=','usuarios.carnePreferida_id')
       .join('itens as ap', 'ap.id','=','usuarios.acompanhamentoPreferido_id')
       .join('itens as bp', 'bp.id','=','usuarios.bebidaPreferida_id')
+      .join('itens as sp', 'sp.id','=','usuarios.sobremesaPreferida_id')
       .where('usuarios.id', id)
-      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida','ap.nomeItem as acompanhamentoPreferido','bp.nomeItem as bebidaPreferida'])
+      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida', 'sp.nomeItem as sobremesaPreferida','ap.nomeItem as acompanhamentoPreferido','bp.nomeItem as bebidaPreferida'])
       .catch(function (err) {
         console.error(err);
       });
@@ -48,7 +49,7 @@ module.exports = {
 
   async create(request, response) {
     const { nome, sobrenome, email, cidade, uf, senha, idade, celular, fotoUrlU, cadastrado, apelido,
-      pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, acompanhamentoPreferido_id } = request.body;
+      pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, sobremesaPreferida_id, acompanhamentoPreferido_id } = request.body;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
@@ -79,6 +80,7 @@ module.exports = {
             quantidadeCome_id,
             bebidaPreferida_id,
             acompanhamentoPreferido_id,
+            sobremesaPreferida_id,
             cadastrado
           }).catch(function (err) {
             console.error(err);
@@ -102,6 +104,7 @@ module.exports = {
             quantidadeCome_id: quantidadeCome_id,
             bebidaPreferida_id: bebidaPreferida_id,
             acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+            sobremesaPreferida_id:sobremesaPreferida_id,
             cadastrado: cadastrado,
           });
         } else {
@@ -115,7 +118,7 @@ module.exports = {
   async update(request, response) {
     const { id } = request.params;
     const { nome, sobrenome, email, cadastrado, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
-      pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, acompanhamentoPreferido_id, joined } = request.body;
+      pontoCarne_id, carnePreferida_id, quantidadeCome_id, sobremesaPreferida_id, bebidaPreferida_id, acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
       nome,
@@ -134,6 +137,7 @@ module.exports = {
       quantidadeCome_id,
       bebidaPreferida_id,
       acompanhamentoPreferido_id,
+      sobremesaPreferida_id,
       cadastrado
     }).catch(function (err) {
       console.error(err);

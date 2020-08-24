@@ -51,7 +51,7 @@ module.exports = {
       .orderBy('nomeItem')
       .join('tipos','tipos.id','=','itens.tipo_id')
       .where('tipo_id', '=', tipo)
-      .select(['itens.*','tipos.tipo']).catch(function (err) {
+      .select(['itens.*','tipos.tipo','tipos.fotoUrlT',]).catch(function (err) {
         console.error(err);
       });
 

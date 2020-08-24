@@ -3,6 +3,7 @@ const multer = require('multer');
 const multerConfigPerfil = require('./config/multerPerfil')
 const multerConfigChurrasco = require('./config/multerChurrasco')
 const multerConfigItens = require('./config/multerItens')
+const multerConfigTipo = require('./config/multerTipo')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
@@ -20,6 +21,7 @@ const SugestaoController = require('./controllers/SugestaoController');
 const QuantidadeComeController = require('./controllers/QuantidadeComeControle');
 const ConvidadosController = require('./controllers/ConvidadosController');
 const SubTiposController = require('./controllers/SubTiposController');
+const FormatosController = require('./controllers/FormatosController');
 
 const routes = express.Router();
 
@@ -58,6 +60,8 @@ routes.get('/tipoSubTipo', TiposController.listPorSubTipo);
 
 routes.get('/subtipos', SubTiposController.list);
 
+routes.get('/formatos', FormatosController.list);
+
 routes.get('/unidade', UnidadesController.list);
 routes.post('/unidade', UnidadesController.create);
 
@@ -81,5 +85,7 @@ routes.post('/fotosUsuarios',multer(multerConfigPerfil).single('file'), FotosCon
 routes.post('/fotosChurras',multer(multerConfigChurrasco).single('file'), FotosController.create);
 
 routes.post('/fotosItens',multer(multerConfigItens).single('file'), FotosController.create);
+
+routes.post('/fotosTipo',multer(multerConfigTipo).single('file'), FotosController.create);
 
 module.exports = routes;

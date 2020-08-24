@@ -50,7 +50,7 @@ module.exports = {
   },
 
   async create(request, response){
-    const { quantidade, unidade_id, item_id, churras_id } = request.body;
+    const { quantidade, unidade_id, formato_id, item_id, churras_id } = request.body;
 
     await connection('listaChurrasco')
     .select('*')
@@ -74,11 +74,12 @@ module.exports = {
           quantidade:quantidade2,
           churras_id,
           unidade_id:unidade2,
-          item_id
+          item_id,
+          formato_id
         }).catch(function (err) {
           console.error(err);
         });
-        return response.json({ quantidade, churras_id, unidade_id, item_id });
+        return response.json({ quantidade,formato_id, churras_id, unidade_id, item_id });
       }else{
         const quantidadeAntiga = await connection('listaChurrasco')
         .where('churras_id',churras_id)
@@ -139,12 +140,13 @@ module.exports = {
           churras_id,
           unidade_id:unidade2,
           item_id,
-          quantidade:quantidade2
+          quantidade:quantidade2,
+          formato_id
         })
         .catch(function (err) {
           console.error(err);
         });
-        return response.json({ quantidade, churras_id, unidade_id, item_id });
+        return response.json({ quantidade, formato_id,churras_id, unidade_id, item_id });
       }
     });
   },
