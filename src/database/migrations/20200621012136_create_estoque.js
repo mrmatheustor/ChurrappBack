@@ -17,5 +17,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTable('estoque');  
+    knex.schema.dropTable('estoque');  
 };

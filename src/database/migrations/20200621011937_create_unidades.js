@@ -8,5 +8,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTable('unidades');  
+    knex.schema.dropTable('unidades');  
 };

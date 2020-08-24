@@ -22,12 +22,14 @@ exports.up = function(knex) {
     table.integer('quantidadeCome_id').defaultTo(0);
     table.integer('bebidaPreferida_id').defaultTo(0);
     table.integer('acompanhamentoPreferido_id').defaultTo(0);
+    table.integer('sobremesaPreferida_id').defaultTo(0);
 
     table.foreign('pontoCarne_id').references('id').inTable('pontoCarne');
-    table.foreign('carnePreferida_id').references('id').inTable('tipos');
-    table.foreign('bebidaPreferida_id').references('id').inTable('tipos');
-    table.foreign('acompanhamentoPreferido_id').references('id').inTable('tipos');
+    table.foreign('carnePreferida_id').references('id').inTable('itens');
+    table.foreign('bebidaPreferida_id').references('id').inTable('itens');
+    table.foreign('acompanhamentoPreferido_id').references('id').inTable('itens');
     table.foreign('quantidadeCome_id').references('id').inTable('quantidadeCome');
+    table.foreign('sobremesaPreferida_id').references('id').inTable('itens');
   });
 };
 
