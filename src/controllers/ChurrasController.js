@@ -86,6 +86,7 @@ module.exports = {
 
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .where('data', '>=', formatted)
       .offset((page - 1) * 5)
       .orderBy('data')
