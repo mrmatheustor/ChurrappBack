@@ -7,6 +7,7 @@ const multerConfigTipo = require('./config/multerTipo')
 
 
 const UsuarioController = require('./controllers/UsuarioController');
+const NotificacoesController = require('./controllers/NotificacoesController');
 const FotosController = require('./controllers/FotosController');
 const ChurrasController = require('./controllers/ChurrasController');
 const ProfileController = require('./controllers/ProfileController');
@@ -34,6 +35,8 @@ routes.post('/usuarios', UsuarioController.create);
 routes.patch('/usuarios/:id', UsuarioController.update);
 
 routes.get('/perfil', ProfileController.list);
+
+routes.get('/notificacoes', NotificacoesController.list);
 
 routes.get('/churras', ChurrasController.list);
 routes.get('/churras/:usuario_id', ChurrasController.logado);
