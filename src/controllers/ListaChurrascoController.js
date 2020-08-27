@@ -15,6 +15,7 @@ module.exports = {
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
         'listaChurrasco.formato_id',
+        'formatos.formato',
         'itens.nomeItem',
         'itens.fotoUrlI',
         'unidades.unidade',
