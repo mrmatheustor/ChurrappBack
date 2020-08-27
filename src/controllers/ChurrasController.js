@@ -64,6 +64,7 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
+      .where('convidados.usuario_id', usuario_id)
       .where('data', '<', formatted)
       .orderBy('data')
       .select(['churras.*',
@@ -92,7 +93,9 @@ module.exports = {
       .where('data', '>=', formatted)
       .orderBy('data')
       .select(['churras.*',
-        'convidados.*',
+        'convidados.confirmado',
+        'convidados.valorpagar',
+        'convidados.churras_id',
         'usuarios.*'])
       .catch(function (err) {
         console.error(err);
