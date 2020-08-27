@@ -36,6 +36,7 @@ module.exports = {
       .join('tipos', 'itens.tipo_id', '=', 'tipos.id')
       .join('subTipos', 'tipos.subTipo_id', '=', 'subTipos.id')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
+      .join('formatos', 'formatos.id', '=', 'listaChurrasco.formato_id')
       .where('churras_id', churras_id)
       .andWhere('subTipos.id', subTipo)
       .select(['listaChurrasco.quantidade',
