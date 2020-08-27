@@ -79,6 +79,7 @@ module.exports = {
   },
 
   async dataFuturo(request, response) {
+    const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
@@ -87,7 +88,7 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .where('data', '>=', formatted)
-      .where('churras_id', '=', 'churras.id')
+      .where('usuario_id', usuario_id)
       .orderBy('data')
       .select(['churras.*',
         'usuarios.nome',
