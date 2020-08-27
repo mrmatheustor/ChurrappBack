@@ -49,7 +49,7 @@ module.exports = {
 
   async create(request, response) {
     const { nome, sobrenome, email, cidade, uf, senha, idade, celular, fotoUrlU, cadastrado, apelido,
-      pontoCarne_id, carnePreferida_id, quantidadeCome_id, bebidaPreferida_id, sobremesaPreferida_id, acompanhamentoPreferido_id } = request.body;
+      pontoCarne_id, carnePreferida_id, churrasCriados, churrasParticipados, quantidadeCome_id, bebidaPreferida_id, sobremesaPreferida_id, acompanhamentoPreferido_id } = request.body;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
@@ -75,6 +75,8 @@ module.exports = {
             celular,
             apelido,
             senha,
+            churrasCriados,
+            churrasParticipados,
             pontoCarne_id,
             carnePreferida_id,
             quantidadeCome_id,
@@ -99,6 +101,8 @@ module.exports = {
             celular: celular,
             apelido: apelido,
             senha: senha,
+            churrasCriados:churrasCriados, 
+            churrasParticipados: churrasParticipados,
             pontoCarne_id: pontoCarne_id,
             carnePreferida_id: carnePreferida_id,
             quantidadeCome_id: quantidadeCome_id,
@@ -118,7 +122,7 @@ module.exports = {
   async update(request, response) {
     const { id } = request.params;
     const { nome, sobrenome, email, cadastrado, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
-      pontoCarne_id, carnePreferida_id, quantidadeCome_id, sobremesaPreferida_id, bebidaPreferida_id, acompanhamentoPreferido_id, joined } = request.body;
+      pontoCarne_id, carnePreferida_id, churrasCriados, churrasParticipados, quantidadeCome_id, sobremesaPreferida_id, bebidaPreferida_id, acompanhamentoPreferido_id, joined } = request.body;
 
     const usuarios = await connection('usuarios').where('id', id).update({
       nome,
@@ -127,6 +131,8 @@ module.exports = {
       cidade,
       uf,
       idade,
+      churrasCriados,
+      churrasParticipados,
       joined,
       senha,
       fotoUrlU,

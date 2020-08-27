@@ -14,6 +14,8 @@ exports.up = function(knex) {
     table.string('senha').notNullable();
     table.boolean('cadastrado').defaultTo(false);
     table.string('fotoUrlU');
+    table.integer('churrasCriados').defaultTo(0);
+    table.integer('churrasParticipados').defaultTo(0);
 
 
     //foreignKeys
