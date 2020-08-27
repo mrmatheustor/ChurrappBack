@@ -36,7 +36,7 @@ routes.patch('/usuarios/:id', UsuarioController.update);
 
 routes.get('/perfil', ProfileController.list);
 
-routes.get('/notificacoes', NotificacoesController.list);
+routes.get('/notificacoes/:usuario_id', NotificacoesController.list);
 
 routes.get('/churras', ChurrasController.list);
 routes.get('/churras/:usuario_id', ChurrasController.logado);
