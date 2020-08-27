@@ -48,7 +48,7 @@ module.exports = {
     .where('usuario_id',usuario_id)
     .andWhere('churras_id',churras_id)
     .update({
-      confirmado:null,
+      confirmado:false,
     })
 
     return response.status("200");
