@@ -17,7 +17,7 @@ module.exports = {
     const { usuario_id , churras_id } = request.params;
     const { mensagem , btn1, btn2 } = request.body;
 
-    const notificacoes = await connection('notificacoes')
+    await connection('notificacoes')
     .insert({
       usuario_id,
       churras_id,
@@ -26,16 +26,16 @@ module.exports = {
       btn2 
     })
 
-    return response.json(notificacoes);
+    return response.status(204).send();
   },
 
   async delete(request, response) {
     const { id } = request.params;
 
-    const notificacoes = await connection('notificacoes')
+    await connection('notificacoes')
     .where('id',id)
     .delete()
 
-    return response.json(notificacoes);
+    return response.status(204).send();
   },
 }

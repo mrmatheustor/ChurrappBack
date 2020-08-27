@@ -37,7 +37,7 @@ module.exports = {
       confirmado:true,
     })
 
-    return response.status("200");
+    return response.status(204).send();
   },
 
   
@@ -51,7 +51,7 @@ module.exports = {
       confirmado:false,
     })
 
-    return response.status("200");
+    return response.status(204).send();
   },
   
   async deleteConvite(request, response){
@@ -61,6 +61,8 @@ module.exports = {
     .where('usuario_id',usuario_id)
     .andWhere('churras_id',churras_id)
     .delete()
+    
+    return response.status(204).send();
   },
 
   async create(request, response){
