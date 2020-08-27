@@ -37,6 +37,8 @@ routes.patch('/usuarios/:id', UsuarioController.update);
 routes.get('/perfil', ProfileController.list);
 
 routes.get('/notificacoes/:usuario_id', NotificacoesController.list);
+routes.post('/notificacoes/:usuario_id/:churras_id', NotificacoesController.create);
+routes.delete('/notificacoes/:id', NotificacoesController.delete);
 
 routes.get('/churras', ChurrasController.list);
 routes.get('/churras/:usuario_id', ChurrasController.logado);
@@ -78,6 +80,7 @@ routes.get('/convidados', ConvidadosController.list);
 routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
 routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 routes.put('/confirmaPresenca/:usuario_id/:churras_id', ConvidadosController.updatePresenca);
+routes.delete('/deletarConvite/:usuario_id/:churras_id', ConvidadosController.deleteConvite);
 
 
 

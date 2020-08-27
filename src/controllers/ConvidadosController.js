@@ -26,7 +26,6 @@ module.exports = {
 
       return response.json(convidados);
   },
-
   
   async updatePresenca(request, response){
     const {usuario_id, churras_id} = request.params;
@@ -37,6 +36,20 @@ module.exports = {
     .update({
       confirmado:true,
     })
+
+    return response.status("200");
+  },
+
+  
+  async deleteConvite(request, response){
+    const {usuario_id, churras_id} = request.params;
+
+    await connection('convidados')
+    .where('usuario_id',usuario_id)
+    .andWhere('churras_id',churras_id)
+    .delete()
+
+    return response.status("200");
   },
 
   async create(request, response){
