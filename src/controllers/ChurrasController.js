@@ -88,6 +88,7 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .where('data', '>=', formatted)
+      .where('churras_id')
       .offset((page - 1) * 5)
       .orderBy('data')
       .limit(5)
