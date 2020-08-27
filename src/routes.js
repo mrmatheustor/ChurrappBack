@@ -37,7 +37,7 @@ routes.get('/perfil', ProfileController.list);
 
 routes.get('/churras', ChurrasController.list);
 routes.get('/churras/:usuario_id', ChurrasController.logado);
-routes.get('/churraspassados', ChurrasController.dataPassado);
+routes.get('/churraspassados/:usuario_id', ChurrasController.dataPassado);
 routes.get('/churrasfuturo/:usuario_id', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
 routes.delete('/churras/:id', ChurrasController.delete);
