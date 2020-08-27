@@ -91,11 +91,12 @@ module.exports = {
       .where('data', '>=', formatted)
       .orderBy('data')
       .select(['churras.*',
-    'convidados.*',
-    'usuarios.*'])
-        .catch(function (err) {
-          console.error(err);
-        });
+      'churras.fotoUrlU',
+      'convidados.*',
+      'usuarios.*'])
+          .catch(function (err) {
+            console.error(err);
+          });
 
     return response.json(churras);
   },
