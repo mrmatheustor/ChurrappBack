@@ -85,6 +85,7 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
+      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('data', '>=', formatted)
       .where('usuario_id', usuario_id)
