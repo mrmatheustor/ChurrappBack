@@ -88,7 +88,6 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('data', '>=', formatted)
-      .where('usuario_id', usuario_id)
       .orderBy('data')
       .select(['churras.*',
         'usuarios.nome',
