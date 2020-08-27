@@ -57,7 +57,6 @@ module.exports = {
   },
 
   async dataPassado(request, response) {
-    const { page = 1 } = request.query;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
@@ -65,21 +64,21 @@ module.exports = {
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('data', '<', formatted)
-      .offset((page - 1) * 10)
       .orderBy('data')
-      .limit(10)
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.email',
         'usuarios.cidade',
         'usuarios.idade',
-      'usuarios.fotoUrlU']);
+      'usuarios.fotoUrlU'])
+      .catch(function (err) {
+        console.error(err);
+      });
 
     return response.json(churras);
   },
 
   async dataFuturo(request, response) {
-    const { page = 1 } = request.query;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
@@ -88,16 +87,17 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .where('data', '>=', formatted)
-      .where('churras_id')
-      .offset((page - 1) * 5)
+      .where('churras_id', '=', 'churras.id')
       .orderBy('data')
-      .limit(5)
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.email',
         'usuarios.cidade',
         'usuarios.idade',
-        'usuarios.fotoUrlU']);
+        'usuarios.fotoUrlU'])
+        .catch(function (err) {
+          console.error(err);
+        });
 
     return response.json(churras);
   },
