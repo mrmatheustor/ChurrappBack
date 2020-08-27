@@ -68,12 +68,7 @@ module.exports = {
       .select(['churras.*',
         'convidados.confirmado',
         'convidados.valorPagar',
-        'convidados.churras_id',
-        'usuarios.nome',
-        'usuarios.email',
-        'usuarios.cidade',
-        'usuarios.idade',
-        'usuarios.fotoUrlU'])
+        'convidados.churras_id'])
       .catch(function (err) {
         console.error(err);
       });
@@ -96,12 +91,7 @@ module.exports = {
       .select(['churras.*',
       'convidados.confirmado',
       'convidados.valorPagar',
-      'convidados.churras_id',
-      'usuarios.nome',
-      'usuarios.email',
-      'usuarios.cidade',
-      'usuarios.idade',
-      'usuarios.fotoUrlU'])
+      'convidados.churras_id'])
       .catch(function (err) {
         console.error(err);
       });
