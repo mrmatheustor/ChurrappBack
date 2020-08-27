@@ -1,5 +1,6 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
+const { update } = require('../database/connection');
 
 module.exports = {
 
@@ -9,6 +10,7 @@ module.exports = {
 
     return response.json(convidados);
   },
+
   async listChurras(request, response) {
       const {churras_id} = request.params;
 
@@ -24,6 +26,19 @@ module.exports = {
 
       return response.json(convidados);
   },
+
+  
+  async updatePresenca(request, response){
+    const {usuario_id, churras_id} = request.params;
+
+    await connection('convidados')
+    .where('usuario_id',usuario_id)
+    .andWhere('churras_id',churras_id)
+    .update({
+      confirmado:true,
+    })
+  },
+
   async create(request, response){
     const {valorPagar, churras_id} = request.body;
     const {usuario_id} = request.params;
@@ -49,4 +64,5 @@ module.exports = {
     return response.json({valorPagar, churras_id, usuario_id});
 
   },
+
 };
