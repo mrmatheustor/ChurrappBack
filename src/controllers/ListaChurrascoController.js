@@ -10,7 +10,7 @@ module.exports = {
       .join('unidades', 'unidades.id', '=', 'listaChurrasco.unidade_id')
       .join('itens', 'itens.id', '=', 'listaChurrasco.item_id')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
-      .join('formatos', 'formato.id', '=', 'listaChurrasco.formato_id')
+      .join('formatos', 'formatos.id', '=', 'listaChurrasco.formato_id')
       .where('churras_id', churras_id)
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
