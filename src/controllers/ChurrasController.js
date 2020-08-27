@@ -57,6 +57,7 @@ module.exports = {
   },
 
   async dataPassado(request, response) {
+    const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
