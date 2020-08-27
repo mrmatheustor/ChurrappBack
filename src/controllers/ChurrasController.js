@@ -3,7 +3,6 @@ const crypto = require('crypto');
 
 module.exports = {
   async list(request, response) {
-    const { page = 1 } = request.query;
 
     const [count] = await connection('churras')
       .count().catch(function (err) {
@@ -12,9 +11,7 @@ module.exports = {
 
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .limit(5)
       .orderBy('nome')
-      .offset((page - 1) * 5)
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.email',
