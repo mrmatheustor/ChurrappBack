@@ -62,7 +62,8 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
-      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
+      .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .where('data', '<', formatted)
       .orderBy('data')
       .select(['churras.*',
@@ -70,7 +71,7 @@ module.exports = {
         'usuarios.email',
         'usuarios.cidade',
         'usuarios.idade',
-      'usuarios.fotoUrlU'])
+        'usuarios.fotoUrlU'])
       .catch(function (err) {
         console.error(err);
       });
@@ -91,12 +92,11 @@ module.exports = {
       .where('data', '>=', formatted)
       .orderBy('data')
       .select(['churras.*',
-      'churras.fotoUrlU',
-      'convidados.*',
-      'usuarios.*'])
-          .catch(function (err) {
-            console.error(err);
-          });
+        'convidados.*',
+        'usuarios.*'])
+      .catch(function (err) {
+        console.error(err);
+      });
 
     return response.json(churras);
   },
