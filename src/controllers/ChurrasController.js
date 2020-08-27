@@ -95,7 +95,7 @@ module.exports = {
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
-        'convidados.valorpagar',
+        'convidados.valorPagar',
         'convidados.churras_id',
         'usuarios.*'])
       .catch(function (err) {
