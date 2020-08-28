@@ -45,7 +45,8 @@ module.exports = {
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.tipo',
-        'subTipos.subTipo'])
+        'subTipos.subTipo',
+        'itens.precoMedio'])
       .catch(function (err) {
         console.error(err);
       });
