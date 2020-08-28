@@ -149,5 +149,18 @@ module.exports = {
     await connection('churras').where('id', id).delete();
 
     return response.status(204).send();
-  }
+  },
+
+  async listByChurrasId(request, response) {
+    const {id} = request.params;
+
+    const churras = await connection('churras')
+      .where('id',id)
+      .select('*')
+      .catch(function (err) {
+        console.error(err);
+      });
+
+    return response.json(churras);
+  },
 };

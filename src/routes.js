@@ -41,6 +41,7 @@ routes.post('/notificacoes/:usuario_id/:churras_id', NotificacoesController.crea
 routes.delete('/notificacoes/:id', NotificacoesController.delete);
 
 routes.get('/churras', ChurrasController.list);
+routes.get('/churrasPeloId/:id', ChurrasController.listByChurrasId);
 routes.get('/churras/:usuario_id', ChurrasController.logado);
 routes.get('/churraspassados/:usuario_id', ChurrasController.dataPassado);
 routes.get('/churrasfuturo/:usuario_id', ChurrasController.dataFuturo);
