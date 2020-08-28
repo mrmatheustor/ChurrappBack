@@ -79,8 +79,10 @@ module.exports = {
             usuario_id
         }).then(async function(res){
           const convidadoChurras = await connection('convidados')
+          .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
           .join('churras', 'churras.id', '=', 'convidados.churras_id')
           .where('churras_id', churras_id)
+          .select(['churras.*', 'convidados.*', 'usuarios.nome'])
           .select('*')
           .catch(function(err) {
             console.error(err);
