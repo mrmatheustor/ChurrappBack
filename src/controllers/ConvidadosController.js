@@ -78,7 +78,7 @@ module.exports = {
             churras_id,
             usuario_id
         }).then(async function(res){
-          await connection('convidados')
+          const convidadoChurras = await connection('convidados')
           .where('usuario_id',usuario_id)
           .andWhere('churras_id',churras_id)
           .join('churras','churras.id','=','convidados.churras_id')
@@ -87,7 +87,7 @@ module.exports = {
             console.error(err);
           }); 
     
-          return response.json(res);
+          return response.json(convidadoChurras);
         }).catch(function(err) {
           console.error(err);
         });        
