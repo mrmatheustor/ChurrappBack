@@ -158,7 +158,7 @@ module.exports = {
       .where('id', id)
       .select('*')
       .catch(function (err) {
-        return response.status(404).send();
+        return response.status(404).send(false);
       });
 
     return response.json(churras);
