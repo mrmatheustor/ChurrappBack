@@ -18,6 +18,7 @@ module.exports = {
         'formatos.formato',
         'itens.nomeItem',
         'itens.fotoUrlI',
+        'itens.precoMedio',
         'unidades.unidade',
         'churras.nomeChurras'])
       .catch(function (err) {
@@ -45,8 +46,7 @@ module.exports = {
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.tipo',
-        'subTipos.subTipo',
-        'itens.precoMedio'])
+        'subTipos.subTipo'])
       .catch(function (err) {
         console.error(err);
       });
