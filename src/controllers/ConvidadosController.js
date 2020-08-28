@@ -1,6 +1,4 @@
 const connection = require('../database/connection');
-const crypto = require('crypto');
-const { update } = require('../database/connection');
 
 module.exports = {
 
@@ -69,25 +67,25 @@ module.exports = {
     const {valorPagar, churras_id} = request.body;
     const {usuario_id} = request.params;
 
-    // const [condicao] = await connection('convidados').select('churras_id');
-
-    // for(i = 0; i < condicao.length; i++) {
-    //   if(condicao.churras_id !== churras_id) {
-    //     return response.status(401).json({error: 'Este churrasco não existe.' })
-    //   }
-    // }
+    await connection('convidados')
+    .where('usuario_id',usuario_id)
+    .andWhere('churras_id',churras_id)
+    .select('*')
+    .then(async function (rows) {
+      if (rows.length === 0) {
+        await connection('convidados').insert({
+            valorPagar,
+            churras_id,
+            usuario_id
+        }).catch(function(err) {
+          console.error(err);
+        });        
     
-
-    await connection('convidados').insert({
-        valorPagar,
-        churras_id,
-        usuario_id
-    }).catch(function(err) {
-      console.error(err);
-    });
-    
-
-    return response.json({valorPagar, churras_id, usuario_id});
+        return response.json({valorPagar, churras_id, usuario_id});
+      }else{
+        return response.json(rows);
+      }
+    })
 
   },
 
