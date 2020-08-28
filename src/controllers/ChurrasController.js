@@ -94,14 +94,14 @@ module.exports = {
       .where('data', '>=', formatted)
       .orderBy('data')
       .select(['churras.*',
-      'convidados.confirmado',
-      'convidados.valorPagar',
-      'convidados.churras_id',
-      'usuarios.nome',
-      'usuarios.celular',
-      'usuarios.apelido',
-      'usuarios.idade',
-      'usuarios.fotoUrlU'])
+        'convidados.confirmado',
+        'convidados.valorPagar',
+        'convidados.churras_id',
+        'usuarios.nome',
+        'usuarios.celular',
+        'usuarios.apelido',
+        'usuarios.idade',
+        'usuarios.fotoUrlU'])
       .catch(function (err) {
         console.error(err);
       });
@@ -152,13 +152,13 @@ module.exports = {
   },
 
   async listByChurrasId(request, response) {
-    const {id} = request.params;
+    const { id } = request.params;
 
     const churras = await connection('churras')
-      .where('id',id)
+      .where('id', id)
       .select('*')
       .catch(function (err) {
-        console.error(err);
+        return response.status(404).send();
       });
 
     return response.json(churras);
