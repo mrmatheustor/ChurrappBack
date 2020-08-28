@@ -77,11 +77,20 @@ module.exports = {
             valorPagar,
             churras_id,
             usuario_id
+        }).then(async function(res){
+          await connection('convidados')
+          .where('usuario_id',usuario_id)
+          .andWhere('churras_id',churras_id)
+          .join('churras','churras.id','=','convidados.churras_id')
+          .select('*')
+          .catch(function(err) {
+            console.error(err);
+          }); 
+    
+          return response.json(res);
         }).catch(function(err) {
           console.error(err);
         });        
-    
-        return response.json({valorPagar, churras_id, usuario_id});
       }else{
         return response.json(rows);
       }
