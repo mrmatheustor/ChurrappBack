@@ -19,6 +19,7 @@ module.exports = {
         'itens.nomeItem',
         'itens.fotoUrlI',
         'itens.precoMedio',
+        'itens.fotoUrlI',
         'unidades.unidade',
         'churras.nomeChurras'])
       .catch(function (err) {
