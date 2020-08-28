@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.string('churras_id').notNullable();
         table.integer('unidade_id').notNullable();
         table.integer('item_id').notNullable();
-        table.integer('formato_id').notNullable();
+        table.integer('formato_id').defaultTo(0);
         
         table.foreign('churras_id').references('id').inTable('churras');
         table.foreign('unidade_id').references('id').inTable('unidades');

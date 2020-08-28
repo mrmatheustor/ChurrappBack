@@ -3,8 +3,8 @@ exports.up = function (knex) {
     return knex.schema.createTable('notificacoes', function (table) {
         table.increments();
         table.string('mensagem').notNullable();
-        table.string('btn1');
-        table.string('btn2');
+        table.string('negar');
+        table.string('confirmar');
 
         //foreingKeys
         table.string('usuario_id').notNullable();

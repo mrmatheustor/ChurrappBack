@@ -1,5 +1,4 @@
 const connection = require('../database/connection');
-const crypto = require('crypto');
 
 module.exports = {
 
@@ -15,15 +14,15 @@ module.exports = {
   
   async create(request, response) {
     const { usuario_id , churras_id } = request.params;
-    const { mensagem , btn1, btn2 } = request.body;
+    const { mensagem , negar, confirmar } = request.body;
 
     await connection('notificacoes')
     .insert({
       usuario_id,
       churras_id,
       mensagem,
-      btn1,
-      btn2 
+      negar,
+      confirmar 
     })
 
     return response.status(204).send();
