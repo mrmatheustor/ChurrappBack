@@ -60,6 +60,7 @@ module.exports = {
       .select('*')
       .then(async function (rows) {
         if (rows.length === 0) {
+          console.log("novo")
           const id = crypto.randomBytes(8).toString('HEX');
 
           await connection('usuarios').insert({
@@ -112,9 +113,10 @@ module.exports = {
             cadastrado: cadastrado,
           });
         } else {
+          console.log("else ", rows)
           if (!rows[0].cadastrado && rows[0].celular == celular) {
+            console.log("Update ", rows[0].cadastrado, " ", rows[0].celular, " ", celular)
             await connection('usuarios').where('id', rows[0].id).update({
-              id,
               nome,
               sobrenome,
               email,
@@ -140,7 +142,7 @@ module.exports = {
             });
 
             return response.json({
-              id: id,
+              id: rows[0].id,
               nome: nome,
               sobrenome: sobrenome,
               email: email,
