@@ -146,6 +146,7 @@ module.exports = {
 
     await connection('convidados').where('churras_id', id).delete();
     await connection('listaChurrasco').where('churras_id', id).delete();
+    await connection('notificacoes').where('churras_id',id).delete();
     await connection('churras').where('id', id).delete();
 
     return response.status(204).send();
