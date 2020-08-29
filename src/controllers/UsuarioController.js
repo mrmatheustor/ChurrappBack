@@ -164,6 +164,8 @@ module.exports = {
               sobremesaPreferida_id: sobremesaPreferida_id,
               cadastrado: cadastrado,
             });
+          }else{
+            return response.json({mensagem:"Usuário já cadastrado"})
           }
         }
       })
