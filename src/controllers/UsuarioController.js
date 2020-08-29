@@ -15,11 +15,11 @@ module.exports = {
   },
 
   async listCelularUsuario(request, response) {
-    const { celular,senha } = request.params;
+    const { celular, senha } = request.params;
 
     const pessoa = await connection('usuarios')
       .where('celular', celular)
-      .andWhere('senha',senha)
+      .andWhere('senha', senha)
       .select('*')
       .catch(function (err) {
         console.error(err);
@@ -34,12 +34,12 @@ module.exports = {
     const usuarios = await connection('usuarios')
       .join('pontoCarne', 'pontoCarne.id', '=', 'usuarios.pontoCarne_id')
       .join('quantidadeCome', 'quantidadeCome.id', '=', 'usuarios.quantidadeCome_id')
-      .join('itens as cp', 'cp.id','=','usuarios.carnePreferida_id')
-      .join('itens as ap', 'ap.id','=','usuarios.acompanhamentoPreferido_id')
-      .join('itens as bp', 'bp.id','=','usuarios.bebidaPreferida_id')
-      .join('itens as sp', 'sp.id','=','usuarios.sobremesaPreferida_id')
+      .join('itens as cp', 'cp.id', '=', 'usuarios.carnePreferida_id')
+      .join('itens as ap', 'ap.id', '=', 'usuarios.acompanhamentoPreferido_id')
+      .join('itens as bp', 'bp.id', '=', 'usuarios.bebidaPreferida_id')
+      .join('itens as sp', 'sp.id', '=', 'usuarios.sobremesaPreferida_id')
       .where('usuarios.id', id)
-      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome','cp.nomeItem as carnePreferida', 'sp.nomeItem as sobremesaPreferida','ap.nomeItem as acompanhamentoPreferido','bp.nomeItem as bebidaPreferida'])
+      .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome', 'cp.nomeItem as carnePreferida', 'sp.nomeItem as sobremesaPreferida', 'ap.nomeItem as acompanhamentoPreferido', 'bp.nomeItem as bebidaPreferida'])
       .catch(function (err) {
         console.error(err);
       });
@@ -101,68 +101,68 @@ module.exports = {
             celular: celular,
             apelido: apelido,
             senha: senha,
-            churrasCriados:churrasCriados, 
+            churrasCriados: churrasCriados,
             churrasParticipados: churrasParticipados,
             pontoCarne_id: pontoCarne_id,
             carnePreferida_id: carnePreferida_id,
             quantidadeCome_id: quantidadeCome_id,
             bebidaPreferida_id: bebidaPreferida_id,
             acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-            sobremesaPreferida_id:sobremesaPreferida_id,
+            sobremesaPreferida_id: sobremesaPreferida_id,
             cadastrado: cadastrado,
           });
         } else {
+          if (!rows[0].cadastrado && rows[0].celular == celular) {
+            await connection('usuarios').where('id', rows[0].id).update({
+              id,
+              nome,
+              sobrenome,
+              email,
+              cidade,
+              uf,
+              idade,
+              joined,
+              fotoUrlU,
+              celular,
+              apelido,
+              senha,
+              churrasCriados,
+              churrasParticipados,
+              pontoCarne_id,
+              carnePreferida_id,
+              quantidadeCome_id,
+              bebidaPreferida_id,
+              acompanhamentoPreferido_id,
+              sobremesaPreferida_id,
+              cadastrado
+            }).catch(function (err) {
+              console.error(err);
+            });
 
-          console.log(rows)
-          // await connection('usuarios').update({
-          //   id,
-          //   nome,
-          //   sobrenome,
-          //   email,
-          //   cidade,
-          //   uf,
-          //   idade,
-          //   joined,
-          //   fotoUrlU,
-          //   celular,
-          //   apelido,
-          //   senha,
-          //   churrasCriados,
-          //   churrasParticipados,
-          //   pontoCarne_id,
-          //   carnePreferida_id,
-          //   quantidadeCome_id,
-          //   bebidaPreferida_id,
-          //   acompanhamentoPreferido_id,
-          //   sobremesaPreferida_id,
-          //   cadastrado
-          // }).catch(function (err) {
-          //   console.error(err);
-          // });
-
-          // return response.json({
-          //   id: id,
-          //   nome: nome,
-          //   sobrenome: sobrenome,
-          //   email: email,
-          //   cidade: cidade,
-          //   uf: uf,
-          //   idade: idade,
-          //   joined: joined,
-          //   fotoUrlU: fotoUrlU,
-          //   celular: celular,
-          //   apelido: apelido,
-          //   senha: senha,
-          //   churrasCriados:churrasCriados, 
-          //   churrasParticipados: churrasParticipados,
-          //   pontoCarne_id: pontoCarne_id,
-          //   carnePreferida_id: carnePreferida_id,
-          //   quantidadeCome_id: quantidadeCome_id,
-          //   bebidaPreferida_id: bebidaPreferida_id,
-          //   acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-          //   sobremesaPreferida_id:sobremesaPreferida_id,
-          //   cadastrado: cadastrado,
-          // });
+            return response.json({
+              id: id,
+              nome: nome,
+              sobrenome: sobrenome,
+              email: email,
+              cidade: cidade,
+              uf: uf,
+              idade: idade,
+              joined: joined,
+              fotoUrlU: fotoUrlU,
+              celular: celular,
+              apelido: apelido,
+              senha: senha,
+              churrasCriados: churrasCriados,
+              churrasParticipados: churrasParticipados,
+              pontoCarne_id: pontoCarne_id,
+              carnePreferida_id: carnePreferida_id,
+              quantidadeCome_id: quantidadeCome_id,
+              bebidaPreferida_id: bebidaPreferida_id,
+              acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+              sobremesaPreferida_id: sobremesaPreferida_id,
+              cadastrado: cadastrado,
+            });
+          }
         }
       })
 
