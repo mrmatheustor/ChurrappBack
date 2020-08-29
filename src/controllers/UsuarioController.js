@@ -88,7 +88,7 @@ module.exports = {
             console.error(err);
           });
 
-          return response.json({usuario:{
+          return response.json({usuario:[{
             id: id,
             nome: nome,
             sobrenome: sobrenome,
@@ -110,7 +110,7 @@ module.exports = {
             acompanhamentoPreferido_id: acompanhamentoPreferido_id,
             sobremesaPreferida_id: sobremesaPreferida_id,
             cadastrado: cadastrado,
-          }});
+          }]});
         } else {
           if (!rows[0].cadastrado && rows[0].celular == celular) {
             await connection('usuarios').where('id', rows[0].id).update({
@@ -138,7 +138,7 @@ module.exports = {
               console.error(err);
             });
 
-            return response.json({usuario:{
+            return response.json({usuario:[{
               id: rows[0].id,
               nome: nome,
               sobrenome: sobrenome,
@@ -160,7 +160,7 @@ module.exports = {
               acompanhamentoPreferido_id: acompanhamentoPreferido_id,
               sobremesaPreferida_id: sobremesaPreferida_id,
               cadastrado: cadastrado,
-            }});
+            }]});
           }else{
             return response.json({mensagem:"Usuário já cadastrado",usuario:rows})
           }
