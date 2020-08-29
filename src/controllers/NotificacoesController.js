@@ -54,7 +54,7 @@ module.exports = {
     await connection('notificacoes')
       .insert({
         usuario_id,
-        churras_id,
+        churras_id:null,
         mensagem,
         negar,
         confirmar
