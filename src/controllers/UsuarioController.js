@@ -112,7 +112,57 @@ module.exports = {
             cadastrado: cadastrado,
           });
         } else {
-          return response.json(rows);
+
+          console.log(rows)
+          // await connection('usuarios').update({
+          //   id,
+          //   nome,
+          //   sobrenome,
+          //   email,
+          //   cidade,
+          //   uf,
+          //   idade,
+          //   joined,
+          //   fotoUrlU,
+          //   celular,
+          //   apelido,
+          //   senha,
+          //   churrasCriados,
+          //   churrasParticipados,
+          //   pontoCarne_id,
+          //   carnePreferida_id,
+          //   quantidadeCome_id,
+          //   bebidaPreferida_id,
+          //   acompanhamentoPreferido_id,
+          //   sobremesaPreferida_id,
+          //   cadastrado
+          // }).catch(function (err) {
+          //   console.error(err);
+          // });
+
+          // return response.json({
+          //   id: id,
+          //   nome: nome,
+          //   sobrenome: sobrenome,
+          //   email: email,
+          //   cidade: cidade,
+          //   uf: uf,
+          //   idade: idade,
+          //   joined: joined,
+          //   fotoUrlU: fotoUrlU,
+          //   celular: celular,
+          //   apelido: apelido,
+          //   senha: senha,
+          //   churrasCriados:churrasCriados, 
+          //   churrasParticipados: churrasParticipados,
+          //   pontoCarne_id: pontoCarne_id,
+          //   carnePreferida_id: carnePreferida_id,
+          //   quantidadeCome_id: quantidadeCome_id,
+          //   bebidaPreferida_id: bebidaPreferida_id,
+          //   acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+          //   sobremesaPreferida_id:sobremesaPreferida_id,
+          //   cadastrado: cadastrado,
+          // });
         }
       })
 
