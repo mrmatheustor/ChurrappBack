@@ -42,8 +42,24 @@ module.exports = {
           negar,
           confirmar
         })
-    }    
-      
+    }
+
+    return response.status(204).send();
+  },
+
+  async createGeral(request, response) {
+    const { usuario_id } = request.params;
+    const { mensagem, negar, confirmar } = request.body;
+
+    await connection('notificacoes')
+      .insert({
+        usuario_id,
+        churras_id,
+        mensagem,
+        negar,
+        confirmar
+      })
+
     return response.status(204).send();
   },
 

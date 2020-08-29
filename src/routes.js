@@ -38,6 +38,7 @@ routes.get('/perfil', ProfileController.list);
 
 routes.get('/notificacoes/:usuario_id', NotificacoesController.list);
 routes.post('/notificacoes/:usuario_id/:churras_id', NotificacoesController.create);
+routes.post('/notificacoesGeral/:usuario_id', NotificacoesController.createGeral);
 routes.delete('/notificacoes/:id', NotificacoesController.delete);
 
 routes.get('/churras', ChurrasController.list);
