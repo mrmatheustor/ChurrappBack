@@ -39,11 +39,10 @@ module.exports = {
   },
 
   async updatePagamento(request, response){
-    const {usuario_id, churras_id} = request.params;
+    const {id} = request.params;
 
     await connection('convidados')
-    .where('usuario_id',usuario_id)
-    .andWhere('churras_id',churras_id)
+    .where('id',id)
     .update({
       pagou:true,
     })
