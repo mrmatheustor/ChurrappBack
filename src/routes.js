@@ -82,7 +82,7 @@ routes.get('/convidados', ConvidadosController.list);
 routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
 routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 routes.put('/confirmaPresenca/:usuario_id/:churras_id', ConvidadosController.updatePresenca);
-routes.put('/confirmaPagamento/:usuario_id/:churras_id', ConvidadosController.updatePagamento);
+routes.put('/confirmaPagamento/:id', ConvidadosController.updatePagamento);
 routes.put('/negarPresenca/:usuario_id/:churras_id', ConvidadosController.negarPresenca);
 routes.delete('/deletarConvite/:usuario_id/:churras_id', ConvidadosController.deleteConvite);
 
