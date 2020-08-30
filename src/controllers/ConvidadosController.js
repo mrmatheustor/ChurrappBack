@@ -38,6 +38,18 @@ module.exports = {
     return response.status(204).send();
   },
 
+  async updatePagamento(request, response){
+    const {usuario_id, churras_id} = request.params;
+
+    await connection('convidados')
+    .where('usuario_id',usuario_id)
+    .andWhere('churras_id',churras_id)
+    .update({
+      pagou:true,
+    })
+
+    return response.status(204).send();
+  },
   
   async negarPresenca(request, response){
     const {usuario_id, churras_id} = request.params;
