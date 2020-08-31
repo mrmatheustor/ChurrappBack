@@ -64,6 +64,7 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
       .where('data', '<', formatted)
+      .whereNot('convidados.confirmado', false)
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
