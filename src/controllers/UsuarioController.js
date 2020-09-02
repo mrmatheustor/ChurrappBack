@@ -170,6 +170,17 @@ module.exports = {
 
 
   },
+  async attChurrasCriado(request,response){
+    const { id } = request.params;
+    const { churrasCriados } = request.body;
+
+    const qntCriado = await connection('usuarios').where('id', id).update({
+      churrasCriados
+    }).catch(function (err) {
+      console.error(err);
+    });
+    return response.json({ churrasCriados });
+  },
   async update(request, response) {
     const { id } = request.params;
     const { nome, sobrenome, email, cadastrado, cidade, uf, senha, idade, fotoUrlU, celular, apelido,

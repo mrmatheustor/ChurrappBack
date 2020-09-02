@@ -33,6 +33,7 @@ routes.get('/usuarios/:id', UsuarioController.listLogado);
 routes.get('/usuariosCel/:celular/:senha', UsuarioController.listCelularUsuario);
 routes.post('/usuarios', UsuarioController.create);
 routes.patch('/usuarios/:id', UsuarioController.update);
+reoutes.put('/usuariosQntCriado/:id', UsuarioController.attChurrasCriado);
 
 routes.get('/perfil', ProfileController.list);
 
