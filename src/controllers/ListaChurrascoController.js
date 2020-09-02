@@ -12,6 +12,7 @@ module.exports = {
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .join('formatos', 'formatos.id', '=', 'listaChurrasco.formato_id')
       .join('tipos', 'tipos.id', '=', 'itens.tipo_id')
+      .join('subTipos', 'subTipos.id', '=', 'tipos.subTipo_id')
       .where('churras_id', churras_id)
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
@@ -23,7 +24,8 @@ module.exports = {
         'itens.fotoUrlI',
         'unidades.unidade',
         'churras.nomeChurras',
-        'tipos.fotoUrlT'])
+        'tipos.fotoUrlT',
+      'subTipos.subTipo'])
       .catch(function (err) {
         console.error(err);
       });
