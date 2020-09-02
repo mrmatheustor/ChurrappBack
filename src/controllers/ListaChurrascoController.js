@@ -64,16 +64,14 @@ module.exports = {
     await connection('listaChurrasco')
       .where('id', id)
       .update({
-        churras_id,
         unidade_id: unidade2,
-        item_id,
         quantidade: quantidade2,
         formato_id
       })
       .catch(function (err) {
         console.error(err);
       });
-    return res.json({ quantidade, formato_id, churras_id, unidade_id, item_id });
+    return res.json({ quantidade, formato_id, unidade_id });
   },
 
   async create(request, response) {
