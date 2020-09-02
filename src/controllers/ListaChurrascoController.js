@@ -66,8 +66,8 @@ module.exports = {
     await connection('listaChurrasco')
       .where('id', id)
       .update({
-        unidade_id: unidade2,
-        quantidade: quantidade2,
+        unidade_id: unidade_id,
+        quantidade: quantidade,
         formato_id
       })
       .catch(function (err) {
