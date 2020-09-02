@@ -60,6 +60,7 @@ routes.get('/pontoCarne', PontoCarneController.list);
 routes.get('/listadochurras/:churras_id/', ListaChurrascoController.list);
 routes.get('/listadochurras/subTipo/:churras_id/:subTipo', ListaChurrascoController.listSubTipo);
 routes.post('/listadochurras', ListaChurrascoController.create);
+routes.put('/listadochurras/:id', ListaChurrascoController.update);
 routes.delete('/listadochurras/:id', ListaChurrascoController.delete);
 
 routes.get('/tipo', TiposController.list);
