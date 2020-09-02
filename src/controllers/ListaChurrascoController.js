@@ -25,7 +25,7 @@ module.exports = {
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.fotoUrlT',
-      'subTipos.subTipo'])
+        'subTipos.subTipo'])
       .catch(function (err) {
         console.error(err);
       });
@@ -60,8 +60,8 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { quantidade, unidade_id, formato_id} = req.body;
-    const {id} = req.params;
+    const { quantidade, unidade_id, formato_id } = req.body;
+    const { id } = req.params;
 
     await connection('listaChurrasco')
       .where('id', id)
