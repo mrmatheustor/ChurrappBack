@@ -138,7 +138,7 @@ module.exports = {
   },
   
   async update(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago} = request.body;
+    const { nomeChurras, data,usuario_id, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago} = request.body;
     const id = request.params;
 
     const res = await connection('churras')
