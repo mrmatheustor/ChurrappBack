@@ -138,13 +138,12 @@ module.exports = {
   },
 
 
-  async update(request, response) {
-    const {nomeChurras, data,usuario_id, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago} = request.body;
+  async updateChurrasInfo(request, response) {
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC } = request.body;
     const id = request.params;
 
     await connection('churras')
       .where('id', id)
-      .andWhere('usuario_id',usuario_id)
       .update({
         nomeChurras,
         data,
@@ -153,10 +152,9 @@ module.exports = {
         local,
         descricao,
         fotoUrlC,
-        valorTotal,
-        valorPago
       }).catch(function (err) {
         console.error(err);
+        return response.json({ mensagem: "Falha ao alterar, tente novamente mais tarde!" });
       });
 
     return response.json({ mensagem: "Alterado com sucesso!" });

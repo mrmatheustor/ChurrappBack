@@ -49,7 +49,7 @@ routes.get('/churras/:usuario_id', ChurrasController.logado);
 routes.get('/churraspassados/:usuario_id', ChurrasController.dataPassado);
 routes.get('/churrasfuturo/:usuario_id', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
-routes.patch('/churrasUpdate/:id', ChurrasController.update);
+routes.put('/churrasUpdate/:id', ChurrasController.updateChurrasInfo);
 routes.delete('/churras/:id', ChurrasController.delete);
 
 routes.get('/item', ItemsController.listAll);
