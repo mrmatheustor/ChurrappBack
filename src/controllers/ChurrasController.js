@@ -137,6 +137,29 @@ module.exports = {
     return response.json({ id: id });
   },
 
+  async update(request, response) {
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC} = request.body;
+    const id = request.params;
+
+    await connection('churras')
+    .where('id',id)
+    .update({
+      nomeChurras,
+      data,
+      hrInicio,
+      hrFim,
+      local,
+      descricao,
+      usuario_id,
+      fotoUrlC,
+    }).catch(function (err) {
+      console.error(err);
+      return response.json({mensagem:"Falha ao alterar, tente novamente mais tarde!"});
+    });
+
+    return response.json({mensagem:"Alterado com sucesso!"});
+  },
+
   async delete(request, response) {
     const { id } = request.params;
     const usuario_id = request.headers.authorization;
