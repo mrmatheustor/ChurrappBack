@@ -144,6 +144,7 @@ module.exports = {
 
     await connection('churras')
       .where('id', id)
+      .andWhere('usuario_id',usuario_id)
       .update({
         nomeChurras,
         data,
@@ -151,13 +152,11 @@ module.exports = {
         hrFim,
         local,
         descricao,
-        usuario_id,
         fotoUrlC,
         valorTotal,
         valorPago
       }).catch(function (err) {
         console.error(err);
-        return response.json({ mensagem: "Falha ao alterar, tente novamente mais tarde!" });
       });
 
     return response.json({ mensagem: "Alterado com sucesso!" });
