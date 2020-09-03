@@ -181,6 +181,17 @@ module.exports = {
     });
     return response.json({ churrasCriados });
   },
+  async attChurrasParticipado(request,response){
+    const { id } = request.params;
+    const { churrasParticipados } = request.body;
+
+    await connection('usuarios').where('id', id).update({
+      churrasParticipados
+    }).catch(function (err) {
+      console.error(err);
+    });
+    return response.json({ churrasParticipados });
+  },
   async update(request, response) {
     const { id } = request.params;
     const { nome, sobrenome, email, cadastrado, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
