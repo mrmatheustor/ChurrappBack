@@ -140,10 +140,10 @@ module.exports = {
 
   async updateChurrasInfo(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC } = request.body;
-    const {id} = request.params;
+    const { churras_id } = request.params;
 
     await connection('churras')
-      .where('id', id)
+      .where('id', churras_id)
       .update({
         nomeChurras,
         data,
