@@ -155,7 +155,7 @@ module.exports = {
       console.error(err);
       return response.json({mensagem:"Falha ao alterar, tente novamente mais tarde!"});
     });
-console.log(res)
+console.log(nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC)
     return response.json({mensagem:"Alterado com sucesso!"});
   },
 
