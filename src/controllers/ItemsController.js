@@ -36,6 +36,7 @@ module.exports = {
     .join('tipos', 'itens.tipo_id', '=', 'tipos.id')
     .join('subTipos','tipos.subTipo_id' ,'=','subTipos.id')
     .where('subTipos.id',subTipo)
+    .orderBy('tipo')
     .select(['itens.*','tipos.tipo','tipos.fotoUrlT','tipos.subTipo_id','subTipos.subTipo'])
     .catch(function (err) {
       console.error(err);
