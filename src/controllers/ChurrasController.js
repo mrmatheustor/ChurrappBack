@@ -150,7 +150,6 @@ module.exports = {
       hrFim,
       local,
       descricao,
-      usuario_id,
       fotoUrlC,
     }).catch(function (err) {
       console.error(err);
