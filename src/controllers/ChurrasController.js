@@ -141,7 +141,7 @@ module.exports = {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC} = request.body;
     const id = request.params;
 
-    await connection('churras')
+    const res = await connection('churras')
     .where('id',id)
     .update({
       nomeChurras,
@@ -155,7 +155,7 @@ module.exports = {
       console.error(err);
       return response.json({mensagem:"Falha ao alterar, tente novamente mais tarde!"});
     });
-
+console.log(res)
     return response.json({mensagem:"Alterado com sucesso!"});
   },
 
