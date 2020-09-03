@@ -87,7 +87,7 @@ module.exports = {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
-    var formatted = dt.format('Y-m-d');
+    var formatted = dt.format('Y/m/d H:M:S');
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
