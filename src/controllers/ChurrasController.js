@@ -137,6 +137,29 @@ module.exports = {
     return response.json({ id: id });
   },
 
+
+  async updateChurrasInfo(request, response) {
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC } = request.body;
+    const { churras_id } = request.params;
+
+    await connection('churras')
+      .where('id', churras_id)
+      .update({
+        nomeChurras,
+        data,
+        hrInicio,
+        hrFim,
+        local,
+        descricao,
+        fotoUrlC,
+      }).catch(function (err) {
+        console.error(err);
+        return response.json({ mensagem: "Falha ao alterar, tente novamente mais tarde!" });
+      });
+
+    return response.json({ mensagem: "Alterado com sucesso!" });
+  },
+
   async delete(request, response) {
     const { id } = request.params;
     const usuario_id = request.headers.authorization;
@@ -150,7 +173,7 @@ module.exports = {
 
     await connection('convidados').where('churras_id', id).delete();
     await connection('listaChurrasco').where('churras_id', id).delete();
-    await connection('notificacoes').where('churras_id',id).delete();
+    await connection('notificacoes').where('churras_id', id).delete();
     await connection('churras').where('id', id).delete();
 
     return response.status(204).send();
