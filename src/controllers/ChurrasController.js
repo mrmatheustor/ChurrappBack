@@ -87,13 +87,13 @@ module.exports = {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
-    var formatted = dt.format('Y/m/d H:M:S');
+    var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where('convidados.usuario_id', usuario_id)
       .where('data', '>=', formatted)
+      .where('convidados.usuario_id', usuario_id)
       .where('convidados.confirmado', true)
       .orWhere('convidados.confirmado', null)
       .orderBy('data')
