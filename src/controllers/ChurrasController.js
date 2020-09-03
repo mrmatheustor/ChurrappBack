@@ -141,6 +141,7 @@ module.exports = {
     const { nomeChurras, data,usuario_id, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago} = request.body;
     const id = request.params;
 
+    console.log(id,nomeChurras, data,usuario_id, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago)
     const res = await connection('churras')
     .where('id',id)
     .update({
