@@ -183,8 +183,8 @@ module.exports = {
     const { id } = request.params;
 
     const churras = await connection('churras')
-      .join('usuarios','usuarios.id','=','churras.usuario_id')
-      .where('id', id)
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .where('churras.id', id)
       .select(['churras.*','usuarios.fotoUrlU','usuarios.nome'])
       .catch(function (err) {
         return response.status(404).send(false);
