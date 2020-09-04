@@ -88,29 +88,31 @@ module.exports = {
             console.error(err);
           });
 
-          return response.json({usuario:[{
-            id: id,
-            nome: nome,
-            sobrenome: sobrenome,
-            email: email,
-            cidade: cidade,
-            uf: uf,
-            idade: idade,
-            joined: joined,
-            fotoUrlU: fotoUrlU,
-            celular: celular,
-            apelido: apelido,
-            senha: senha,
-            churrasCriados: churrasCriados,
-            churrasParticipados: churrasParticipados,
-            pontoCarne_id: pontoCarne_id,
-            carnePreferida_id: carnePreferida_id,
-            quantidadeCome_id: quantidadeCome_id,
-            bebidaPreferida_id: bebidaPreferida_id,
-            acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-            sobremesaPreferida_id: sobremesaPreferida_id,
-            cadastrado: cadastrado,
-          }]});
+          return response.json({
+            usuario: [{
+              id: id,
+              nome: nome,
+              sobrenome: sobrenome,
+              email: email,
+              cidade: cidade,
+              uf: uf,
+              idade: idade,
+              joined: joined,
+              fotoUrlU: fotoUrlU,
+              celular: celular,
+              apelido: apelido,
+              senha: senha,
+              churrasCriados: churrasCriados,
+              churrasParticipados: churrasParticipados,
+              pontoCarne_id: pontoCarne_id,
+              carnePreferida_id: carnePreferida_id,
+              quantidadeCome_id: quantidadeCome_id,
+              bebidaPreferida_id: bebidaPreferida_id,
+              acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+              sobremesaPreferida_id: sobremesaPreferida_id,
+              cadastrado: cadastrado,
+            }]
+          });
         } else {
           if (!rows[0].cadastrado && rows[0].celular == celular) {
             await connection('usuarios').where('id', rows[0].id).update({
@@ -138,31 +140,33 @@ module.exports = {
               console.error(err);
             });
 
-            return response.json({usuario:[{
-              id: rows[0].id,
-              nome: nome,
-              sobrenome: sobrenome,
-              email: email,
-              cidade: cidade,
-              uf: uf,
-              idade: idade,
-              joined: joined,
-              fotoUrlU: fotoUrlU,
-              celular: celular,
-              apelido: apelido,
-              senha: senha,
-              churrasCriados: churrasCriados,
-              churrasParticipados: churrasParticipados,
-              pontoCarne_id: pontoCarne_id,
-              carnePreferida_id: carnePreferida_id,
-              quantidadeCome_id: quantidadeCome_id,
-              bebidaPreferida_id: bebidaPreferida_id,
-              acompanhamentoPreferido_id: acompanhamentoPreferido_id,
-              sobremesaPreferida_id: sobremesaPreferida_id,
-              cadastrado: cadastrado,
-            }]});
-          }else{
-            return response.json({mensagem:"Usuário já cadastrado",usuario:rows})
+            return response.json({
+              usuario: [{
+                id: rows[0].id,
+                nome: nome,
+                sobrenome: sobrenome,
+                email: email,
+                cidade: cidade,
+                uf: uf,
+                idade: idade,
+                joined: joined,
+                fotoUrlU: fotoUrlU,
+                celular: celular,
+                apelido: apelido,
+                senha: senha,
+                churrasCriados: churrasCriados,
+                churrasParticipados: churrasParticipados,
+                pontoCarne_id: pontoCarne_id,
+                carnePreferida_id: carnePreferida_id,
+                quantidadeCome_id: quantidadeCome_id,
+                bebidaPreferida_id: bebidaPreferida_id,
+                acompanhamentoPreferido_id: acompanhamentoPreferido_id,
+                sobremesaPreferida_id: sobremesaPreferida_id,
+                cadastrado: cadastrado,
+              }]
+            });
+          } else {
+            return response.json({ mensagem: "Usuário já cadastrado", usuario: rows })
           }
         }
       })
@@ -170,7 +174,7 @@ module.exports = {
 
 
   },
-  async attChurrasCriado(request,response){
+  async attChurrasCriado(request, response) {
     const { id } = request.params;
     const { churrasCriados } = request.body;
 
@@ -181,7 +185,7 @@ module.exports = {
     });
     return response.json({ churrasCriados });
   },
-  async attChurrasParticipado(request,response){
+  async attChurrasParticipado(request, response) {
     const { id } = request.params;
     const { churrasParticipados } = request.body;
 
@@ -194,34 +198,34 @@ module.exports = {
   },
   async update(request, response) {
     const { id } = request.params;
-    const { nome, sobrenome, email, cadastrado, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
-      pontoCarne_id, carnePreferida_id, churrasCriados, churrasParticipados, quantidadeCome_id, sobremesaPreferida_id, bebidaPreferida_id, acompanhamentoPreferido_id, joined } = request.body;
+    const { sobrenome, email, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
+      pontoCarne_id, carnePreferida_id, quantidadeCome_id, sobremesaPreferida_id,
+      bebidaPreferida_id, acompanhamentoPreferido_id } = request.body;
 
-    const usuarios = await connection('usuarios').where('id', id).update({
-      nome,
-      sobrenome,
-      email,
-      cidade,
-      uf,
-      idade,
-      churrasCriados,
-      churrasParticipados,
-      joined,
-      senha,
-      fotoUrlU,
-      celular,
-      apelido,
-      pontoCarne_id,
-      carnePreferida_id,
-      quantidadeCome_id,
-      bebidaPreferida_id,
-      acompanhamentoPreferido_id,
-      sobremesaPreferida_id,
-      cadastrado
-    }).catch(function (err) {
-      console.error(err);
-    });
+    await connection('usuarios')
+      .where('id', id)
+      .update({
+        sobrenome,
+        email,
+        cidade,
+        uf,
+        idade,
+        senha,
+        fotoUrlU,
+        celular,
+        apelido,
+        pontoCarne_id,
+        carnePreferida_id,
+        quantidadeCome_id,
+        bebidaPreferida_id,
+        acompanhamentoPreferido_id,
+        sobremesaPreferida_id,
+      }).catch(function (err) {
+        console.error(err);
+        return response.json({ mensagem: "Falha ao atualizar perfil, tente novamente mais tarde!" })
 
-    return response.status(200).send()
+      });
+
+    return response.json({ mensagem: "Perfil atualizado com sucesso!" })
   }
 };
