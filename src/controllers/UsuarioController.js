@@ -39,6 +39,7 @@ module.exports = {
       .join('itens as bp', 'bp.id', '=', 'usuarios.bebidaPreferida_id')
       .join('itens as sp', 'sp.id', '=', 'usuarios.sobremesaPreferida_id')
       .where('usuarios.id', id)
+      .orderBy('nome')
       .select(['usuarios.*', 'pontoCarne.ponto', 'quantidadeCome.nomeQuantidadeCome', 'cp.nomeItem as carnePreferida', 'sp.nomeItem as sobremesaPreferida', 'ap.nomeItem as acompanhamentoPreferido', 'bp.nomeItem as bebidaPreferida'])
       .catch(function (err) {
         console.error(err);
