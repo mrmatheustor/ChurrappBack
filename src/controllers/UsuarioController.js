@@ -183,18 +183,20 @@ module.exports = {
     .then(async function (rows){
       if(rows.length === 0){
         let newChurrasCriados = churrasCriados;
+
         await connection('usuarios').where('id', id).update({
           churrasCriados : newChurrasCriados
         }).catch(function (err) {
           console.error(err);
         });
         return response.json({ churrasCriados });
+
       } else {
         const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
         .catch(function (err) {
           console.error(err);
         });
-        let newChurrasCriados = 0;
+        let newChurrasCriados = 20;
 
         if(churrasCriados === qntCriado.oldChurrasCriados){
           newChurrasCriados = churrasCriados;
