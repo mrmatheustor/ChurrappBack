@@ -196,25 +196,22 @@ module.exports = {
         .catch(function (err) {
           console.error(err);
         });
-        let newChurrasCriados = 20;
+        let newChurrasCriados = 0;
 
         if(churrasCriados === qntCriado.oldChurrasCriados){
           newChurrasCriados = churrasCriados;
-        } else {
-          if(churrasCriados > qntCriado.oldChurrasCriados) {
+        } else if(churrasCriados > qntCriado.oldChurrasCriados) {
             newChurrasCriados = churrasCriados + 1;
-          }
-          if(churrasCriados < qntCriado.oldChurrasCriados) {
+          } else if(churrasCriados < qntCriado.oldChurrasCriados) {
             newChurrasCriados = churrasCriados - 1;
           }
-        }
-    
-        await connection('usuarios').where('id', id).update({
+         
+          await connection('usuarios').where('id', id).update({
           churrasCriados : newChurrasCriados
         }).catch(function (err) {
           console.error(err);
         });
-        return response.json({ churrasCriados });
+        return response.json({ churrasCriados, newChurrasCriados });
       }
     })
     .catch(function (err) {
