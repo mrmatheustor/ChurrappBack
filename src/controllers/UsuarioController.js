@@ -179,11 +179,11 @@ module.exports = {
     const { id } = request.params;
     const { churrasCriados } = request.body;
 
-    const qntCriado = await connection('usuarios').where('id', id).select('usuarios.churrasCriados as oldChurrasCriados')
+    const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
     .catch(function (err) {
       console.error(err);
     });
-    let newChurrasCriados;
+    let newChurrasCriados = 0;
 
     if(churrasCriados === qntCriado.oldChurrasCriados){
       newChurrasCriados = churrasCriados;
