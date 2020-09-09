@@ -179,27 +179,41 @@ module.exports = {
     const { id } = request.params;
     const { churrasCriados } = request.body;
 
-    const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
-    .then(async function (){
-      let newChurrasCriados = 0;
-
-      if(churrasCriados === qntCriado.oldChurrasCriados){
-        newChurrasCriados = churrasCriados;
+    await connection('usuarios').where('id', id).select(['usuarios.churrasCriados'])
+    .then(async function (rows){
+      if(rows.length === 0){
+        let newChurrasCriados = churrasCriados;
+        await connection('usuarios').where('id', id).update({
+          churrasCriados : newChurrasCriados
+        }).catch(function (err) {
+          console.error(err);
+        });
+        return response.json({ churrasCriados });
       } else {
-        if(churrasCriados > qntCriado.oldChurrasCriados) {
-          newChurrasCriados = churrasCriados + 1;
+        const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
+        .catch(function (err) {
+          console.error(err);
+        });
+        let newChurrasCriados = 0;
+
+        if(churrasCriados === qntCriado.oldChurrasCriados){
+          newChurrasCriados = churrasCriados;
+        } else {
+          if(churrasCriados > qntCriado.oldChurrasCriados) {
+            newChurrasCriados = churrasCriados + 1;
+          }
+          if(churrasCriados < qntCriado.oldChurrasCriados) {
+            newChurrasCriados = churrasCriados - 1;
+          }
         }
-        if(churrasCriados < qntCriado.oldChurrasCriados) {
-          newChurrasCriados = churrasCriados - 1;
-        }
+    
+        await connection('usuarios').where('id', id).update({
+          churrasCriados : newChurrasCriados
+        }).catch(function (err) {
+          console.error(err);
+        });
+        return response.json({ churrasCriados });
       }
-  
-      await connection('usuarios').where('id', id).update({
-        churrasCriados : newChurrasCriados
-      }).catch(function (err) {
-        console.error(err);
-      });
-      return response.json({ churrasCriados });
     })
     .catch(function (err) {
       console.error(err);
