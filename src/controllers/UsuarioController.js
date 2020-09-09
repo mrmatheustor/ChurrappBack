@@ -201,9 +201,9 @@ module.exports = {
         if(churrasCriados == qntCriado[0].oldChurrasCriados){
           newChurrasCriados = churrasCriados;
         } else if(churrasCriados > qntCriado[0].oldChurrasCriados) {
-            newChurrasCriados = churrasCriados + 1;
+            newChurrasCriados = qntCriado[0].oldChurrasCriados + 1;
           } else if(churrasCriados < qntCriado[0].oldChurrasCriados) {
-            newChurrasCriados = churrasCriados - 1;
+            newChurrasCriados = qntCriado[0].oldChurrasCriados - 1;
           }
          
           await connection('usuarios').where('id', id).update({
