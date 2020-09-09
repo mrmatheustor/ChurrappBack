@@ -198,11 +198,11 @@ module.exports = {
         });
         let newChurrasCriados = 0;
 
-        if(churrasCriados == qntCriado.oldChurrasCriados){
+        if(churrasCriados == qntCriado[0].oldChurrasCriados){
           newChurrasCriados = churrasCriados;
-        } else if(churrasCriados > qntCriado.oldChurrasCriados) {
+        } else if(churrasCriados > qntCriado[0].oldChurrasCriados) {
             newChurrasCriados = churrasCriados + 1;
-          } else if(churrasCriados < qntCriado.oldChurrasCriados) {
+          } else if(churrasCriados < qntCriado[0].oldChurrasCriados) {
             newChurrasCriados = churrasCriados - 1;
           }
          
