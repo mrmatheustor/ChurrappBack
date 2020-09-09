@@ -180,28 +180,31 @@ module.exports = {
     const { churrasCriados } = request.body;
 
     const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
+    .then(async function (){
+      let newChurrasCriados = 0;
+
+      if(churrasCriados === qntCriado.oldChurrasCriados){
+        newChurrasCriados = churrasCriados;
+      } else {
+        if(churrasCriados > qntCriado.oldChurrasCriados) {
+          newChurrasCriados = churrasCriados + 1;
+        }
+        if(churrasCriados < qntCriado.oldChurrasCriados) {
+          newChurrasCriados = churrasCriados - 1;
+        }
+      }
+  
+      await connection('usuarios').where('id', id).update({
+        churrasCriados : newChurrasCriados
+      }).catch(function (err) {
+        console.error(err);
+      });
+      return response.json({ churrasCriados });
+    })
     .catch(function (err) {
       console.error(err);
     });
-    let newChurrasCriados = 0;
-
-    if(churrasCriados === qntCriado.oldChurrasCriados){
-      newChurrasCriados = churrasCriados;
-    } else {
-      if(churrasCriados > qntCriado.oldChurrasCriados) {
-        newChurrasCriados = churrasCriados + 1;
-      }
-      if(churrasCriados < qntCriado.oldChurrasCriados) {
-        newChurrasCriados = churrasCriados - 1;
-      }
-    }
-
-    await connection('usuarios').where('id', id).update({
-      churrasCriados : newChurrasCriados
-    }).catch(function (err) {
-      console.error(err);
-    });
-    return response.json({ churrasCriados });
+    
   },
   async attChurrasParticipado(request, response) {
     const { id } = request.params;
