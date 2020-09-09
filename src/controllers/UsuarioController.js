@@ -198,7 +198,7 @@ module.exports = {
         });
         let newChurrasCriados = 0;
 
-        if(churrasCriados === qntCriado.oldChurrasCriados){
+        if(churrasCriados == qntCriado.oldChurrasCriados){
           newChurrasCriados = churrasCriados;
         } else if(churrasCriados > qntCriado.oldChurrasCriados) {
             newChurrasCriados = churrasCriados + 1;
