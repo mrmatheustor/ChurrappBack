@@ -114,7 +114,8 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, valorTotal, valorPago } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, 
+      descricao, fotoUrlC, valorTotal, valorPago, limiteConfirmacao } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
@@ -129,6 +130,7 @@ module.exports = {
       usuario_id,
       fotoUrlC,
       valorTotal,
+      limiteConfirmacao,
       valorPago
     }).catch(function (err) {
       console.error(err);
@@ -139,7 +141,7 @@ module.exports = {
 
 
   async updateChurrasInfo(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC ,limiteConfirmacao} = request.body;
     const { churras_id } = request.params;
 
     await connection('churras')
@@ -150,6 +152,7 @@ module.exports = {
         hrInicio,
         hrFim,
         local,
+        limiteConfirmacao,
         descricao,
         fotoUrlC,
       }).catch(function (err) {

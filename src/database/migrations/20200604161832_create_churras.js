@@ -11,7 +11,8 @@ exports.up = function(knex) {
     table.double('valorTotal');
     table.double('valorPago');
     table.string('fotoUrlC');
-
+    table.date('limiteConfirmacao');
+    
     //foreingKeys
     table.string('usuario_id').notNullable();
 
