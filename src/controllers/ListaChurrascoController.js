@@ -17,6 +17,7 @@ module.exports = {
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
         'listaChurrasco.formato_id',
+        'listaChurrasco.precoItem',
         'formatos.formato',
         'itens.nomeItem',
         'itens.fotoUrlI',
@@ -47,6 +48,7 @@ module.exports = {
       .andWhere('subTipos.id', subTipo)
       .select(['listaChurrasco.quantidade',
         'listaChurrasco.id',
+        'listaChurrasco.precoItem',
         'itens.nomeItem',
         'unidades.unidade',
         'churras.nomeChurras',
@@ -60,7 +62,7 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { quantidade, unidade_id, formato_id } = req.body;
+    const { quantidade, unidade_id, formato_id, precoItem } = req.body;
     const { id } = req.params;
 
     await connection('listaChurrasco')
@@ -68,7 +70,8 @@ module.exports = {
       .update({
         unidade_id: unidade_id,
         quantidade: quantidade,
-        formato_id
+        formato_id,
+        precoItem
       })
       .catch(function (err) {
         console.error(err);
@@ -77,7 +80,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { quantidade, unidade_id, formato_id, item_id, churras_id } = request.body;
+    const { quantidade, unidade_id, formato_id, item_id, churras_id, precoItem } = request.body;
 
     await connection('listaChurrasco')
       .select('*')
@@ -102,11 +105,12 @@ module.exports = {
             churras_id,
             unidade_id: unidade2,
             item_id,
-            formato_id
+            formato_id,
+            precoItem
           }).catch(function (err) {
             console.error(err);
           });
-          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id });
+          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id, precoItem });
         } else {
           const quantidadeAntiga = await connection('listaChurrasco')
             .where('churras_id', churras_id)
@@ -168,12 +172,13 @@ module.exports = {
               unidade_id: unidade2,
               item_id,
               quantidade: quantidade2,
-              formato_id
+              formato_id,
+              precoItem
             })
             .catch(function (err) {
               console.error(err);
             });
-          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id });
+          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id, precoItem });
         }
       });
   },
