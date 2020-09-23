@@ -12,7 +12,7 @@ module.exports = {
     .join('tipos', 'tipos.id', '=', 'itens.tipo_id')
     .join('subTipos', 'tipos.subTipo_id','=','subTipos.id')
     .where('subTipos.id',subTipo_id)
-    .select(['sugestao.quantidade','unidades.unidade', 'unidades.id as unidade_id', 'itens.nomeItem', 'itens.id as item_id', 'tipos.tipo', 'itens.tipo_id'])
+    .select(['sugestao.quantidade','unidades.unidade', 'unidades.id as unidade_id', 'itens.nomeItem', 'itens.id as item_id', 'tipos.tipo', 'itens.tipo_id','itens.precoMedio'])
     .catch(function(err) {
       console.error(err);
       });
