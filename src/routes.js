@@ -50,6 +50,8 @@ routes.get('/churraspassados/:usuario_id', ChurrasController.dataPassado);
 routes.get('/churrasfuturo/:usuario_id', ChurrasController.dataFuturo);
 routes.post('/churras', ChurrasController.create);
 routes.put('/churrasUpdate/:churras_id', ChurrasController.updateChurrasInfo);
+routes.put('/churrasUpdate/valorTotal/:churras_id', ChurrasController.setValorTotal)
+routes.put('/churrasUpdate/valorPago/:churras_id', ChurrasController.somaConvidadoPagto)
 routes.delete('/churras/:id', ChurrasController.delete);
 
 routes.get('/item', ItemsController.listAll);

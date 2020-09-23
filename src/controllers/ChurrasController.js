@@ -139,6 +139,44 @@ module.exports = {
     return response.json({ id: id });
   },
 
+  async setValorTotal(req,res){
+    const {valorTotal} = req.body;
+    const { churras_id } = req.params;
+
+    await connection('churras')
+      .where('id', churras_id)
+      .update({
+        valorTotal
+      }).catch(function (err) {
+        console.error(err);
+        return res.json({ mensagem: "Falha ao definir valor total!" });
+      });
+
+    return res.json({ mensagem: "Valor total definido!" });
+  },
+
+  async somaConvidadoPagto(req,res){
+    const {valorPago} = req.body;
+    const { churras_id } = req.params;
+
+    var valorTotalPago = await connection('churras')
+    .where('id',churras_id)
+    .select('churras.valorPago')
+    .catch(function (err) {
+      console.error(err);
+    });
+
+    await connection('churras')
+      .where('id', churras_id)
+      .update({
+        valorPago: valorTotalPago + valorPago
+      }).catch(function (err) {
+        console.error(err);
+        return res.json({ mensagem: "Falha ao definir valor total!" });
+      });
+
+    return res.json({ mensagem: "Valor total definido!" });
+  },
 
   async updateChurrasInfo(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC ,limiteConfirmacao} = request.body;
