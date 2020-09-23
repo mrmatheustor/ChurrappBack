@@ -149,7 +149,7 @@ module.exports = {
     .catch(function (err) {
       console.error(err);
     });
-
+  console.log("Olaaa ", valorTotalAtual, valorTotal, valorTotalAtual.valorTotal+valorTotal)
     await connection('churras')
       .where('id', churras_id)
       .update({
