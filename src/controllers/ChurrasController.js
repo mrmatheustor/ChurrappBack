@@ -153,7 +153,7 @@ module.exports = {
     await connection('churras')
       .where('id', churras_id)
       .update({
-        valorTotal: valorTotalAtual+valorTotal
+        valorTotal: valorTotalAtual.valorTotal+valorTotal
       }).catch(function (err) {
         console.error(err);
         return res.json({ mensagem: "Falha ao definir valor total!" });
@@ -176,7 +176,7 @@ module.exports = {
     await connection('churras')
       .where('id', churras_id)
       .update({
-        valorPago: valorTotalPago + valorPago
+        valorPago: valorTotalPago.valorPago + valorPago
       }).catch(function (err) {
         console.error(err);
         return res.json({ mensagem: "Falha ao definir valor total!" });
