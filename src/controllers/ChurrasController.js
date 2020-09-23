@@ -143,10 +143,17 @@ module.exports = {
     const {valorTotal} = req.body;
     const { churras_id } = req.params;
 
+    var valorTotalAtual = await connection('churras')
+    .where('id',churras_id)
+    .select('churras.valorTotal')
+    .catch(function (err) {
+      console.error(err);
+    });
+
     await connection('churras')
       .where('id', churras_id)
       .update({
-        valorTotal
+        valorTotal: valorTotalAtual+valorTotal
       }).catch(function (err) {
         console.error(err);
         return res.json({ mensagem: "Falha ao definir valor total!" });
