@@ -49,6 +49,19 @@ module.exports = {
 
     return response.status(204).send();
   },
+
+  async atualizarValor(req, res){
+    const {id} = req.params;
+    const {valorPagar} = req.body;
+
+    await connection('convidados')
+    .where('id',id)
+    .update({
+      valorPagar
+    })
+
+    return res.status(200).send();
+  },
   
   async negarPresenca(request, response){
     const {usuario_id, churras_id} = request.params;

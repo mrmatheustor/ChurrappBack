@@ -90,6 +90,7 @@ routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
 routes.put('/confirmaPresenca/:usuario_id/:churras_id', ConvidadosController.updatePresenca);
 routes.put('/confirmaPagamento/:id', ConvidadosController.updatePagamento);
 routes.put('/negarPresenca/:usuario_id/:churras_id', ConvidadosController.negarPresenca);
+routes.put('/atualizarValor/:id', ConvidadosController.atualizarValor);
 routes.delete('/deletarConvite/:usuario_id/:churras_id', ConvidadosController.deleteConvite);
 
 
