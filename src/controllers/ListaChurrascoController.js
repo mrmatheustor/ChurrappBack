@@ -115,7 +115,7 @@ module.exports = {
           const quantidadeAntiga = await connection('listaChurrasco')
             .where('churras_id', churras_id)
             .andWhere('item_id', item_id)
-            .select(['listaChurrasco.quantidade', 'listaChurrasco.unidade_id as unidadeAntiga_id'])
+            .select(['listaChurrasco.quantidade', 'listaChurrasco.unidade_id as unidadeAntiga_id', 'listaChurrasco.precoItem'])
             .catch(function (err) {
               console.error(err);
             });
@@ -178,7 +178,9 @@ module.exports = {
             .catch(function (err) {
               console.error(err);
             });
-          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id, precoItem });
+
+          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id, precoItem, 
+            quantidadeAntiga: quantidadeAntiga.quantidade, precoAntigo: quantidadeAntiga.precoItem  });
         }
       });
   },
