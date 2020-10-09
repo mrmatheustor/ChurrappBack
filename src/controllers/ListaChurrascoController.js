@@ -179,8 +179,10 @@ module.exports = {
               console.error(err);
             });
 
-          return response.json({ quantidade, formato_id, churras_id, unidade_id, item_id, precoItem, 
-            quantidadeAntiga: quantidadeAntiga.quantidade, precoAntigo: quantidadeAntiga.precoItem  });
+          return response.json({
+            quantidade, formato_id, churras_id, unidade_id, item_id, precoItem,
+            quantidadeAntiga: quantidadeAntiga[0].quantidade, precoAntigo: quantidadeAntiga[0].precoItem
+          });
         }
       });
   },
