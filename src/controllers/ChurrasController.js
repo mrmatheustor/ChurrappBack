@@ -149,16 +149,22 @@ module.exports = {
     .catch(function (err) {
       console.error(err);
     });
-  console.log("Olaaa ", valorTotalAtual, valorTotal, valorTotalAtual.valorTotal+valorTotal)
+    
+    var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
+
+    console.log({valorFinal:valorFinal,valorAtual:valorTotalAtual[0].valorTotal, valorNovo:valorTotal})
+
     await connection('churras')
       .where('id', churras_id)
       .update({
-        valorTotal: valorTotalAtual[0].valorTotal+valorTotal
+        valorTotal: valorFinal
       }).catch(function (err) {
         console.error(err);
         return res.json({ mensagem: "Falha ao definir valor total!" });
       });
 
+      console.log({ mensagem: "Valor total definido!" })
+      
     return res.json({ mensagem: "Valor total definido!" });
   },
 

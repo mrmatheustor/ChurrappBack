@@ -100,6 +100,7 @@ module.exports = {
             unidade2 = 2;
             quantidade2 = quantidade2 / 1000;
           }
+          
           await connection('listaChurrasco').insert({
             quantidade: quantidade2,
             churras_id,
