@@ -94,10 +94,6 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      // .andWhere('convidados.confirmado', '=', true)
-      .andWhere(builder => {
-        builder.where('convidados.confirmado', '=', true).orWhere('convidados.confirmado', '=', null)
-      })
       .where('data', '>=', formatted)
       .orderBy('data')
       .select(['churras.*',
