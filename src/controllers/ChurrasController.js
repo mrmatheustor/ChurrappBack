@@ -81,14 +81,6 @@ module.exports = {
         console.error(err);
       });
 
-      (dados) => {
-        if(churras.body.usuario_id == usuario_id) {
-          dados.where('convidados.confirmado', '=', true)
-          console.log("TESTE DO CHURRAS " + usuario_id);
-        }
-        response.json(dados)
-      }
-
     return response.json(churras);
   },
 
@@ -102,7 +94,7 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      .where('convidados.confirmado', true)
+      .andWhere('convidados.confirmado', true)
       .orWhere('convidados.confirmado', null)
       .where('data', '>=', formatted)
       .orderBy('data')
