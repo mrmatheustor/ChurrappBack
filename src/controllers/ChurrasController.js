@@ -84,6 +84,7 @@ module.exports = {
       (dados) => {
         if(churras.body.usuario_id == usuario_id) {
           dados.where('convidados.confirmado', '=', true)
+          console.log("TESTE DO CHURRAS " + usuario_id);
         }
         response.json(dados)
       }
