@@ -82,7 +82,7 @@ module.exports = {
       });
 
       if(churras > formatted) {
-        console.log("DATA FORMAT " + json(churras.data);
+        console.log("DATA FORMAT " + json(churras.data));
       }
 
     return response.json(churras);
