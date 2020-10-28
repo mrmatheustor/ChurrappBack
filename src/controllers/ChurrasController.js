@@ -63,6 +63,7 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .from('convidados')
       .where('convidados.usuario_id', usuario_id)
       .having('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
