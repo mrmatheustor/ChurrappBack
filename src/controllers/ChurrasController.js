@@ -1,5 +1,6 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
+const { json } = require('express');
 
 module.exports = {
   async list(request, response) {
@@ -64,7 +65,7 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      .andWhere('convidados.confirmado', '=', true)
+      .orWhere('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
       .orderBy('data')
       .select(['churras.*',
@@ -79,6 +80,10 @@ module.exports = {
       .catch(function (err) {
         console.error(err);
       });
+
+      if(churras > formatted) {
+        console.log("DATA FORMAT " + json(churras.data);
+      }
 
     return response.json(churras);
   },
