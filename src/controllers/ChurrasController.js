@@ -81,10 +81,6 @@ module.exports = {
         console.error(err);
       });
 
-      if(churras > formatted) {
-        console.log("DATA FORMAT " + response.json(churras.data));
-      }
-
     return response.json(churras);
   },
 
