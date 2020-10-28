@@ -58,6 +58,7 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
+    console.log("Data de Hoje = " + formatted)
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
