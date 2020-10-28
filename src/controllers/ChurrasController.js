@@ -65,7 +65,7 @@ module.exports = {
       .where('convidados.usuario_id', usuario_id)
       .where('convidados.confirmado', true)
       .orWhere('convidados.confirmado', null)
-      .where('data', '>=', formatted)
+      .where('data', '<', formatted)
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
