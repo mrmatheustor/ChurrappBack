@@ -67,11 +67,6 @@ module.exports = {
       .where('convidados.usuario_id', '=', usuario_id)
       // .where('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
-      .then((dados) => {
-        if(dados.convidados.usuario_id == usuario_id) {
-          dados.where('convidados.confirmado', '=', true)
-        }
-      })
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
@@ -82,6 +77,12 @@ module.exports = {
         'usuarios.apelido',
         'usuarios.idade',
         'usuarios.fotoUrlU'])
+      .then((dados) => {
+        if(dados.convidados.usuario_id == usuario_id) {
+          dados.where('convidados.confirmado', '=', true)
+        }
+        response.json(dados)
+      })
       .catch(function (err) {
         console.error(err);
       });
