@@ -96,7 +96,7 @@ module.exports = {
       .where('convidados.usuario_id', usuario_id)
       // .andWhere('convidados.confirmado', '=', true)
       .andWhere(() => {
-        churras.where('convidados.confirmado', '=', true).orWhere('convidados.confirmado', '=', null)
+        this.where('convidados.confirmado', '=', true).orWhere('convidados.confirmado', '=', null)
       })
       .where('data', '>=', formatted)
       .orderBy('data')
