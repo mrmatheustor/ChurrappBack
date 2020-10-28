@@ -77,15 +77,16 @@ module.exports = {
         'usuarios.apelido',
         'usuarios.idade',
         'usuarios.fotoUrlU'])
-      .then((dados) => {
-        if(request.churras.convidados.usuario_id == usuario_id) {
-          dados.where('convidados.confirmado', '=', true)
-        }
-        response.json(dados)
-      })
       .catch(function (err) {
         console.error(err);
       });
+
+      (dados) => {
+        if(churras.body.usuario_id == usuario_id) {
+          dados.where('convidados.confirmado', '=', true)
+        }
+        response.json(dados)
+      }
 
     return response.json(churras);
   },
