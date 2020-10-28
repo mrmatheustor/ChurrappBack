@@ -78,7 +78,7 @@ module.exports = {
         'usuarios.idade',
         'usuarios.fotoUrlU'])
       .then((dados) => {
-        if(dados.convidados.usuario_id == usuario_id) {
+        if(request.churras.convidados.usuario_id == usuario_id) {
           dados.where('convidados.confirmado', '=', true)
         }
         response.json(dados)
