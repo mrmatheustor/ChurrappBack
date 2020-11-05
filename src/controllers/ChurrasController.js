@@ -64,24 +64,25 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      // .where('convidados.usuario_id', '=', usuario_id)
-      // .where('churras.usuario_id', '=', usuario_id)
-      // .where('convidados.confirmado', '=', true)
-      .whereIn(['convidados.usuario_id', 'churras.usuario_id', 'convidados.confirmado'], [[usuario_id, usuario_id, true]])
-      .andWhere('data', '<', formatted)
-      .orderBy('data')
-      .select(['churras.*',
-        'convidados.confirmado',
-        'convidados.valorPagar',
-        'convidados.churras_id',
-        'usuarios.nome',
-        'usuarios.celular',
-        'usuarios.apelido',
-        'usuarios.idade',
-        'usuarios.fotoUrlU'])
-      .catch(function (err) {
-        console.error(err);
-      });
+      .where('convidados.usuario_id', '=', usuario_id)
+      .orWhere(function () {
+        this.where('churras.usuario_id', '=', usuario_id)
+        this.where('convidados.confirmado', '=', true)
+      }
+        .andWhere('data', '<', formatted)
+        .orderBy('data')
+        .select(['churras.*',
+          'convidados.confirmado',
+          'convidados.valorPagar',
+          'convidados.churras_id',
+          'usuarios.nome',
+          'usuarios.celular',
+          'usuarios.apelido',
+          'usuarios.idade',
+          'usuarios.fotoUrlU'])
+        .catch(function (err) {
+          console.error(err);
+        });
 
     return response.json(churras);
   },
@@ -115,7 +116,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, 
+    const { nomeChurras, data, hrInicio, hrFim, local,
       descricao, fotoUrlC, valorTotal, valorPago, limiteConfirmacao } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
@@ -140,20 +141,20 @@ module.exports = {
     return response.json({ id: id });
   },
 
-  async setValorTotal(req,res){
-    const {valorTotal} = req.body;
+  async setValorTotal(req, res) {
+    const { valorTotal } = req.body;
     const { churras_id } = req.params;
 
     var valorTotalAtual = await connection('churras')
-    .where('id',churras_id)
-    .select('churras.valorTotal')
-    .catch(function (err) {
-      console.error(err);
-    });
-    
+      .where('id', churras_id)
+      .select('churras.valorTotal')
+      .catch(function (err) {
+        console.error(err);
+      });
+
     var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
 
-    console.log({valorFinal:valorFinal,valorAtual:valorTotalAtual[0].valorTotal, valorNovo:valorTotal})
+    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal })
 
     await connection('churras')
       .where('id', churras_id)
@@ -164,21 +165,21 @@ module.exports = {
         return res.json({ mensagem: "Falha ao definir valor total!" });
       });
 
-      console.log({ mensagem: "Valor total definido!" })
-      
+    console.log({ mensagem: "Valor total definido!" })
+
     return res.json({ mensagem: "Valor total definido!" });
   },
 
-  async somaConvidadoPagto(req,res){
-    const {valorPago} = req.body;
+  async somaConvidadoPagto(req, res) {
+    const { valorPago } = req.body;
     const { churras_id } = req.params;
 
     var valorTotalPago = await connection('churras')
-    .where('id',churras_id)
-    .select('churras.valorPago')
-    .catch(function (err) {
-      console.error(err);
-    });
+      .where('id', churras_id)
+      .select('churras.valorPago')
+      .catch(function (err) {
+        console.error(err);
+      });
 
     await connection('churras')
       .where('id', churras_id)
@@ -193,7 +194,7 @@ module.exports = {
   },
 
   async updateChurrasInfo(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC ,limiteConfirmacao} = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, limiteConfirmacao } = request.body;
     const { churras_id } = request.params;
 
     await connection('churras')
@@ -240,7 +241,7 @@ module.exports = {
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('churras.id', id)
-      .select(['churras.*','usuarios.fotoUrlU','usuarios.nome'])
+      .select(['churras.*', 'usuarios.fotoUrlU', 'usuarios.nome'])
       .catch(function (err) {
         return response.status(404).send(false);
       });
