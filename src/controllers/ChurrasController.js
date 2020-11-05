@@ -65,7 +65,7 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', '=', usuario_id)
-      .orWhere('churras.usuario_id', '=', usuario_id)
+      .orWhere('churras.nome', '=', 'usuarios.nome')
       .andWhere('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
       .orderBy('data')
