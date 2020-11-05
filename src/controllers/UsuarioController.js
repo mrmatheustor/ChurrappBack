@@ -246,13 +246,14 @@ module.exports = {
   },
   async getPIN(request, response) {
     const { id } = request.params;
-    await connection('usuarios')
+
+    const pin = await connection('usuarios')
       .where('id', id)
       .select(['usuarios.pin'])
       .catch(function (err) {
         console.error(err);
       });
-    return response.json({ pin })
+    return response.json(pin);
   },
   async update(request, response) {
     const { id } = request.params;
