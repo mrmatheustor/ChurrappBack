@@ -88,7 +88,7 @@ module.exports = {
       .orderBy('data')
       .select([['churras.*']])
 
-    return response.json(churras, test);
+    return response.json(churras + test);
   },
 
   async dataFuturo(request, response) {
