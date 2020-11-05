@@ -248,7 +248,7 @@ module.exports = {
     const { id } = request.params;
     await connection('usuarios')
       .where('id', id)
-      .select(['usuarios.id'])
+      .select(['usuarios.pin'])
       .catch(function (err) {
         console.error(err);
       });
