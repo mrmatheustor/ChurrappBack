@@ -23,8 +23,12 @@ const QuantidadeComeController = require('./controllers/QuantidadeComeControle')
 const ConvidadosController = require('./controllers/ConvidadosController');
 const SubTiposController = require('./controllers/SubTiposController');
 const FormatosController = require('./controllers/FormatosController');
+const BotController = require('./controllers/BotController');
+const { Router } = require('express');
 
 const routes = express.Router();
+
+routes.delete('/botNotificacoes', BotController.limpaNotificacoes)
 
 routes.post('/session', SessionController.create);
 
