@@ -1,6 +1,7 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
 const { update } = require('../database/connection');
+const { getPackedSettings } = require('http2');
 
 module.exports = {
 
@@ -193,44 +194,44 @@ module.exports = {
     const { churrasCriados } = request.body;
 
     await connection('usuarios').where('id', id).select(['usuarios.churrasCriados'])
-    .then(async function (rows){
-      if(rows.length === 0){
-        let newChurrasCriados = churrasCriados;
+      .then(async function (rows) {
+        if (rows.length === 0) {
+          let newChurrasCriados = churrasCriados;
 
-        await connection('usuarios').where('id', id).update({
-          churrasCriados : newChurrasCriados
-        }).catch(function (err) {
-          console.error(err);
-        });
-        return response.json({ churrasCriados });
+          await connection('usuarios').where('id', id).update({
+            churrasCriados: newChurrasCriados
+          }).catch(function (err) {
+            console.error(err);
+          });
+          return response.json({ churrasCriados });
 
-      } else {
-        const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
-        .catch(function (err) {
-          console.error(err);
-        });
-        let newChurrasCriados = 0;
+        } else {
+          const qntCriado = await connection('usuarios').where('id', id).select(['usuarios.churrasCriados as oldChurrasCriados'])
+            .catch(function (err) {
+              console.error(err);
+            });
+          let newChurrasCriados = 0;
 
-        if(churrasCriados == qntCriado[0].oldChurrasCriados){
-          newChurrasCriados = churrasCriados;
-        } else if(churrasCriados > qntCriado[0].oldChurrasCriados) {
+          if (churrasCriados == qntCriado[0].oldChurrasCriados) {
+            newChurrasCriados = churrasCriados;
+          } else if (churrasCriados > qntCriado[0].oldChurrasCriados) {
             newChurrasCriados = qntCriado[0].oldChurrasCriados + 1;
-          } else if(churrasCriados < qntCriado[0].oldChurrasCriados) {
+          } else if (churrasCriados < qntCriado[0].oldChurrasCriados) {
             newChurrasCriados = qntCriado[0].oldChurrasCriados - 1;
           }
-         
+
           await connection('usuarios').where('id', id).update({
-          churrasCriados : newChurrasCriados
-        }).catch(function (err) {
-          console.error(err);
-        });
-        return response.json({ churrasCriados, newChurrasCriados });
-      }
-    })
-    .catch(function (err) {
-      console.error(err);
-    });
-    
+            churrasCriados: newChurrasCriados
+          }).catch(function (err) {
+            console.error(err);
+          });
+          return response.json({ churrasCriados, newChurrasCriados });
+        }
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+
   },
   async attChurrasParticipado(request, response) {
     const { id } = request.params;
@@ -242,6 +243,16 @@ module.exports = {
       console.error(err);
     });
     return response.json({ churrasParticipados });
+  },
+  async getPIN(request, response) {
+    const { id } = request.params;
+    await connection('usuarios')
+      .where('id', id)
+      .select(['usuarios.id'])
+      .catch(function (err) {
+        console.error(err);
+      });
+    return response.json({ pin })
   },
   async update(request, response) {
     const { id } = request.params;
