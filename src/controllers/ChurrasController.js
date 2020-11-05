@@ -65,9 +65,6 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', '=', usuario_id)
-      .orWhere(function(){
-        this.where('churras.usuario_id', '=', usuario_id)
-      })
       .andWhere('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
       .orderBy('data')
@@ -84,7 +81,14 @@ module.exports = {
         console.error(err);
       });
 
-    return response.json(churras);
+      const test = await connection('churras')
+      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+      .where('churras.usuario_id', '=', usuario_id)
+      .where('data', '<', formatted)
+      .orderBy('data')
+      .select([['churras.*']])
+
+    return response.json(churras, test);
   },
 
   async dataFuturo(request, response) {
