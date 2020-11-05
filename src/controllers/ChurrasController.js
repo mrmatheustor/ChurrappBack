@@ -64,9 +64,10 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where('convidados.usuario_id', '=', usuario_id)
-      .where('churras.usuario_id', '=', usuario_id)
-      .where('convidados.confirmado', '=', true)
+      // .where('convidados.usuario_id', '=', usuario_id)
+      // .where('churras.usuario_id', '=', usuario_id)
+      // .where('convidados.confirmado', '=', true)
+      .whereIn(['convidados.usuario_id', 'churras.usuario_id', 'convidados.confirmado'], [[usuario_id, usuario_id, true]])
       .andWhere('data', '<', formatted)
       .orderBy('data')
       .select(['churras.*',
