@@ -68,21 +68,21 @@ module.exports = {
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
-      }
-        .andWhere('data', '<', formatted)
-        .orderBy('data')
-        .select(['churras.*',
-          'convidados.confirmado',
-          'convidados.valorPagar',
-          'convidados.churras_id',
-          'usuarios.nome',
-          'usuarios.celular',
-          'usuarios.apelido',
-          'usuarios.idade',
-          'usuarios.fotoUrlU'])
-        .catch(function (err) {
-          console.error(err);
-        });
+      })
+      .andWhere('data', '<', formatted)
+      .orderBy('data')
+      .select(['churras.*',
+        'convidados.confirmado',
+        'convidados.valorPagar',
+        'convidados.churras_id',
+        'usuarios.nome',
+        'usuarios.celular',
+        'usuarios.apelido',
+        'usuarios.idade',
+        'usuarios.fotoUrlU'])
+      .catch(function (err) {
+        console.error(err);
+      });
 
     return response.json(churras);
   },
