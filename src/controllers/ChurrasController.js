@@ -67,9 +67,7 @@ module.exports = {
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
-      .then(() => {
-        this.where('churras.usuario_id', '=', usuario_id)
-      })
+      // .where('churras.usuario_id', '=', usuario_id)
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
