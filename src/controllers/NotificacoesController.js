@@ -14,7 +14,7 @@ module.exports = {
 
   async create(request, response) {
     const { usuario_id, churras_id } = request.params;
-    const { mensagem, negar, confirmar } = request.body;
+    const { mensagem, negar, confirmar,validade } = request.body;
 
     if (churras_id != null) {
       await connection('notificacoes')
@@ -29,7 +29,8 @@ module.exports = {
                 churras_id,
                 mensagem,
                 negar,
-                confirmar
+                confirmar,
+                validade
               })
           }
         })
@@ -40,7 +41,8 @@ module.exports = {
           churras_id,
           mensagem,
           negar,
-          confirmar
+          confirmar,
+          validade
         })
     }
 
@@ -49,7 +51,7 @@ module.exports = {
 
   async createGeral(request, response) {
     const { usuario_id } = request.params;
-    const { mensagem, negar, confirmar } = request.body;
+    const { mensagem, negar, confirmar,validade  } = request.body;
 
     await connection('notificacoes')
       .insert({
@@ -57,7 +59,8 @@ module.exports = {
         churras_id:null,
         mensagem,
         negar,
-        confirmar
+        confirmar,
+        validade
       })
 
     return response.status(204).send();
