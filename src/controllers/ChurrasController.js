@@ -67,6 +67,9 @@ module.exports = {
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere('convidados.confirmado', '=', true)
       .where('data', '<', formatted)
+      .then(() => {
+        this.where('churras.usuario_id', '=', usuario_id)
+      })
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
@@ -81,14 +84,7 @@ module.exports = {
         console.error(err);
       });
 
-      const test = await connection('churras')
-      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where('churras.usuario_id', '=', usuario_id)
-      .where('data', '<', formatted)
-      .orderBy('data')
-      .select([['churras.*']])
-
-    return response.json(churras + test);
+    return response.json(churras);
   },
 
   async dataFuturo(request, response) {
