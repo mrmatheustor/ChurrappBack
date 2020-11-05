@@ -247,7 +247,7 @@ module.exports = {
     const { id } = request.params;
     const { sobrenome, email, cidade, uf, senha, idade, fotoUrlU, celular, apelido,
       pontoCarne_id, carnePreferida_id, quantidadeCome_id, sobremesaPreferida_id,
-      bebidaPreferida_id, acompanhamentoPreferido_id } = request.body;
+      bebidaPreferida_id, acompanhamentoPreferido_id, pin } = request.body;
 
     await connection('usuarios')
       .where('id', id)
@@ -267,6 +267,7 @@ module.exports = {
         bebidaPreferida_id,
         acompanhamentoPreferido_id,
         sobremesaPreferida_id,
+        pin,
       }).catch(function (err) {
         console.error(err);
         return response.json({ mensagem: "Falha ao atualizar perfil, tente novamente mais tarde!" })
