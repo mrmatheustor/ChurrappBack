@@ -65,11 +65,11 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', '=', usuario_id)
-      .orWhere(function () {
-        this.where('churras.usuario_id', '=', usuario_id)
-        this.where('convidados.confirmado', '=', true)
-        this.where('data', '<', formatted)
-      })
+      // .orWhere(function () {
+      //   this.where('churras.usuario_id', '=', usuario_id)
+      //   this.where('convidados.confirmado', '=', true)
+      //   this.where('data', '<', formatted)
+      // })
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
