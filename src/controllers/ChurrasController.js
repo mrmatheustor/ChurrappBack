@@ -61,8 +61,7 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
-      .joinRaw('SELECT TOP 1 * FROM "churras" INNER JOIN "convidados" ON "convidados"."churras_id" = "churras"."id"')
-      // ('convidados', 'convidados.churras_id', '=', 'churras.id')
+      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere(function () {
