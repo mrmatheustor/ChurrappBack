@@ -59,7 +59,6 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
-    console.log("Data de Hoje = " + formatted)
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
@@ -68,6 +67,7 @@ module.exports = {
       .andWhere(function () {
         this.where('convidados.confirmado', '=', true)
         this.where('data', '<', formatted)
+        this.select(this.raw('SELECT TOP 1'))
       })
       .orWhere('churras.usuario_id', '=', usuario_id)
       .orderBy('data')
