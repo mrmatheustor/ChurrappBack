@@ -61,13 +61,12 @@ module.exports = {
     var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
-      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
+      .joinRaw('SELECT TOP 1').where('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere(function () {
         this.where('convidados.confirmado', '=', true)
         this.where('data', '<', formatted)
-        this.select(raw('SELECT TOP 1'))
       })
       .orWhere('churras.usuario_id', '=', usuario_id)
       .orderBy('data')
