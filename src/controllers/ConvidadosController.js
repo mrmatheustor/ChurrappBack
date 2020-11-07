@@ -27,15 +27,14 @@ module.exports = {
 
   
   async getConvidadoPeloCelular(request, response) {
-    const { churras_id } = request.params;
-    const { telefone } = request.body;
+    const { churras_id, celular } = request.params;
 
-    console.log("Celular "+telefone+" ,Churras_id "+churras_id)
+    console.log("Celular "+celular+" ,Churras_id "+churras_id)
 
     const convidado = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .where('convidados.churras_id', churras_id)
-      .andWhere('usuarios.celular',telefone)
+      .andWhere('usuarios.celular',celular)
       .select('*')
       .catch(function (err) {
         console.error(err);
