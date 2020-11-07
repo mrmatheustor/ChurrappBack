@@ -30,16 +30,20 @@ module.exports = {
     const { churras_id } = request.params;
     const { celular } = request.body;
 
+    console.log("Celular "+celular+" ,Churras_id "+churras_id)
+
     const convidado = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
-      .where('churras_id', churras_id)
-      .andWhere('celular',celular)
+      .where('convidados.churras_id', churras_id)
+      .andWhere('usuarios.celular',celular)
       .select('*')
       .catch(function (err) {
         console.error(err);
       });
 
-    return response.json(convidado);
+      console.log(convidado)
+
+      return response.json(convidado);
   },
 
   async updatePresenca(request, response) {
