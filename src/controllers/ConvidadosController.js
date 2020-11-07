@@ -156,7 +156,11 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              var valorPagar = res[0].valorPagar            
+              if(res[0].valorPagar == undefined){
+                var valorPagar = 0
+              }else{
+                var valorPagar = res[0].valorPagar 
+              }           
               await connection('convidados').insert({
                 valorPagar:valorPagar,
                 churras_id,
