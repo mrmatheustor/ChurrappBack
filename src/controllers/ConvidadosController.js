@@ -10,116 +10,155 @@ module.exports = {
   },
 
   async listChurras(request, response) {
-      const {churras_id} = request.params;
+    const { churras_id } = request.params;
 
-      const convidados = await connection('convidados')
+    const convidados = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
       .select(['churras.*', 'convidados.*', 'usuarios.nome',
-      'usuarios.apelido','usuarios.celular','usuarios.fotoUrlU'])
-      .catch(function(err) {
+        'usuarios.apelido', 'usuarios.celular', 'usuarios.fotoUrlU'])
+      .catch(function (err) {
         console.error(err);
       });
 
-      return response.json(convidados);
+    return response.json(convidados);
   },
-  
-  async updatePresenca(request, response){
-    const {usuario_id, churras_id} = request.params;
+
+  async updatePresenca(request, response) {
+    const { usuario_id, churras_id } = request.params;
 
     await connection('convidados')
-    .where('usuario_id',usuario_id)
-    .andWhere('churras_id',churras_id)
-    .update({
-      confirmado:true,
-    })
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .update({
+        confirmado: true,
+      })
 
     return response.status(204).send();
   },
 
-  async updatePagamento(request, response){
-    const {id} = request.params;
+  async updatePagamento(request, response) {
+    const { id } = request.params;
 
     await connection('convidados')
-    .where('id',id)
-    .update({
-      pagou:true,
-    })
+      .where('id', id)
+      .update({
+        pagou: true,
+      })
 
     return response.status(204).send();
   },
 
-  async atualizarValor(req, res){
-    const {id} = req.params;
-    const {valorPagar} = req.body;
+  async atualizarValor(req, res) {
+    const { id } = req.params;
+    const { valorPagar } = req.body;
 
     await connection('convidados')
-    .where('id',id)
-    .update({
-      valorPagar
-    })
+      .where('id', id)
+      .update({
+        valorPagar
+      })
 
     return res.status(200).send();
   },
-  
-  async negarPresenca(request, response){
-    const {usuario_id, churras_id} = request.params;
+
+  async negarPresenca(request, response) {
+    const { usuario_id, churras_id } = request.params;
 
     await connection('convidados')
-    .where('usuario_id',usuario_id)
-    .andWhere('churras_id',churras_id)
-    .update({
-      confirmado:false,
-    })
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .update({
+        confirmado: false,
+      })
 
     return response.status(204).send();
   },
-  
-  async deleteConvite(request, response){
-    const {usuario_id, churras_id} = request.params;
+
+  async deleteConvite(request, response) {
+    const { usuario_id, churras_id } = request.params;
 
     await connection('convidados')
-    .where('usuario_id',usuario_id)
-    .andWhere('churras_id',churras_id)
-    .delete()
-    
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .delete()
+
     return response.status(204).send();
   },
 
-  async create(request, response){
-    const {valorPagar, churras_id} = request.body;
-    const {usuario_id} = request.params;
+  async create(request, response) {
+    const { valorPagar, churras_id } = request.body;
+    const { usuario_id } = request.params;
 
     await connection('convidados')
-    .where('usuario_id',usuario_id)
-    .andWhere('churras_id',churras_id)
-    .select('*')
-    .then(async function (rows) {
-      if (rows.length === 0) {
-        await connection('convidados').insert({
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .select('*')
+      .then(async function (rows) {
+        if (rows.length === 0) {
+          await connection('convidados').insert({
             valorPagar,
             churras_id,
             usuario_id
-        }).then(async function(res){
-          const convidadoChurras = await connection('convidados')
-          .join('churras', 'churras.id', '=', 'convidados.churras_id')
-          .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-          .where('churras_id', churras_id)
-          .select(['churras.*', 'convidados.*', 'usuarios.nome'])
-          .catch(function(err) {
+          }).then(async function (res) {
+            const convidadoChurras = await connection('convidados')
+              .join('churras', 'churras.id', '=', 'convidados.churras_id')
+              .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+              .where('churras_id', churras_id)
+              .select(['churras.*', 'convidados.*', 'usuarios.nome'])
+              .catch(function (err) {
+                console.error(err);
+              });
+
+            return response.json(convidadoChurras);
+          }).catch(function (err) {
             console.error(err);
-          }); 
-    
-          return response.json(convidadoChurras);
-        }).catch(function(err) {
-          console.error(err);
-        });        
-      }else{
-        return response.json(rows);
-      }
-    })
+          });
+        } else {
+          return response.json(rows);
+        }
+      })
 
   },
 
+  async adicionar(request, response) {
+    const { churras_id } = request.body;
+    const { usuario_id } = request.params;
+
+    await connection('convidados')
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .select('*')
+      .then(async function (rows) {
+        if (rows.length === 0) {
+          await connection('convidados')
+            .where('churras_id', churras_id)
+            .select('*')
+            .then(async (res) => {
+              console.log("Adicionar convidado")
+              console.log(res)            
+              await connection('convidados').insert({
+                valorPagar,
+                churras_id,
+                usuario_id
+              }).then(async function (res) {
+                const convidadoChurras = await connection('convidados')
+                  .join('churras', 'churras.id', '=', 'convidados.churras_id')
+                  .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+                  .where('churras_id', churras_id)
+                  .select(['churras.*', 'convidados.*', 'usuarios.nome'])
+                  .catch(function (err) {
+                    console.error(err);
+                  });
+                return response.json(convidadoChurras);
+              }).catch(function (err) {
+                console.error(err);
+              });
+            });
+        } else {
+          return response.json(rows);
+        }
+      })
+  },
 };
