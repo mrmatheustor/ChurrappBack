@@ -156,7 +156,8 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              if(res[0].valorPagar == undefined){
+              console.log(res)
+              if(res.length === 0){
                 var valorPagar = 0
               }else{
                 var valorPagar = res[0].valorPagar 
