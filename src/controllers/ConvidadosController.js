@@ -25,6 +25,23 @@ module.exports = {
     return response.json(convidados);
   },
 
+  
+  async getConvidadoPeloCelular(request, response) {
+    const { churras_id } = request.params;
+    const {celular } = request.body;
+
+    const convidado = await connection('convidados')
+      .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
+      .where('churras_id', churras_id)
+      .andWhere('usuarios.celular',celular)
+      .select(['convidados.*'])
+      .catch(function (err) {
+        console.error(err);
+      });
+
+    return response.json(convidado);
+  },
+
   async updatePresenca(request, response) {
     const { usuario_id, churras_id } = request.params;
 
