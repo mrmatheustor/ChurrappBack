@@ -28,13 +28,13 @@ module.exports = {
   
   async getConvidadoPeloCelular(request, response) {
     const { churras_id } = request.params;
-    const {celular } = request.body;
+    const { celular } = request.body;
 
     const convidado = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .where('churras_id', churras_id)
-      .andWhere('usuarios.celular',celular)
-      .select(['convidados.*'])
+      .andWhere('celular',celular)
+      .select('*')
       .catch(function (err) {
         console.error(err);
       });
