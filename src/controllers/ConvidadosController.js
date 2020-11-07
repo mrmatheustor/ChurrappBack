@@ -33,7 +33,7 @@ module.exports = {
 
     const convidado = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
-      .where('convidados.churras_id', churras_id)
+      .where('churras_id', churras_id)
       .andWhere('celular',celular)
       .select('*')
       .catch(function (err) {
