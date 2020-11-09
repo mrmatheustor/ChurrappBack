@@ -154,7 +154,7 @@ module.exports = {
       console.log(item_id)
     var valorADeduzir = await connection('listaChurrasco')
     .where('churras_id',churras_id)
-    .andHaving('item_id',item_id)
+    .andWhere('item_id',item_id)
     .select('listaChurrasco.*')
 
     console.log(valorADeduzir)
