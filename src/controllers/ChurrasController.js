@@ -151,9 +151,10 @@ module.exports = {
         console.error(err);
       });
 
+      console.log(item)
     var valorADeduzir = await connection('listaChurrasco')
     .where('id',item)
-    .select('*')
+    .select('listaChurrasco.*')
 
     var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
     var valorFinal = valorTotalAtual[0].valorTotal + valorTotal - valorFinalDeduzir
