@@ -142,7 +142,7 @@ module.exports = {
 
   async setValorTotal(req, res) {
     const { churras_id } = req.params;
-    const { valorTotal, item_id } = req.body;
+    const { valorTotal } = req.body;
 
     var valorTotalAtual = await connection('churras')
       .where('id', churras_id)
@@ -151,24 +151,9 @@ module.exports = {
         console.error(err);
       });
 
-      console.log(item_id)
-    var valorADeduzir = await connection('listaChurrasco')
-    .where('churras_id',churras_id)
-    .andWhere('item_id',item_id)
-    .select('listaChurrasco.*')
+    var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
 
-    console.log(valorADeduzir)
-    if(valorTotal < 0){
-      var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
-      console.log("valorFinal a Deduzir "+valorFinalDeduzir)
-    }else{
-      var valorFinalDeduzir = 0
-      console.log("valorFinal a Deduzir 0 = "+valorFinalDeduzir)
-    }
-    
-    var valorFinal = valorTotalAtual[0].valorTotal + valorTotal - valorFinalDeduzir
-
-    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal, valorTotal: valorFinalDeduzir })
+    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal })
 
     await connection('churras')
       .where('id', churras_id)
