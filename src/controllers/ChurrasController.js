@@ -145,17 +145,17 @@ module.exports = {
     const { churras_id } = req.params;
 
     var valorTotalAtual = await connection('churras')
-      .join('listaChurrasco','listaChurrasco.churras_id','=','churras.id')
+      .join('listaChurrasco','churras.id','=','listaChurrasco.churras_id')
       .where('id', churras_id)
       .andWhere('item_id',item_id)
-      .select('churras.*')
+      .select(['churras.*','listaChurrasco.*'])
       .catch(function (err) {
         console.error(err);
       });
 
       console.log(valorTotalAtual)
     var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
-    var valorADeduzir = valorTotalAtual[0].
+   
     console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal })
 
     await connection('churras')
