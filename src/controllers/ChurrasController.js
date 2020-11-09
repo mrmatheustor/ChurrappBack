@@ -142,7 +142,7 @@ module.exports = {
 
   async setValorTotal(req, res) {
     const { valorTotal } = req.body;
-    const { churras_id, item } = req.params;
+    const { churras_id, item_id } = req.params;
 
     var valorTotalAtual = await connection('churras')
       .where('id', churras_id)
@@ -151,12 +151,17 @@ module.exports = {
         console.error(err);
       });
 
-      console.log(item)
+      console.log(item_id)
     var valorADeduzir = await connection('listaChurrasco')
-    .where('id',item)
+    .where('id',item_id)
     .select('listaChurrasco.*')
 
-    var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
+    if(valorTotal<0){
+      var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
+    }else{
+      var valorFinalDeduzir = 0
+    }
+    
     var valorFinal = valorTotalAtual[0].valorTotal + valorTotal - valorFinalDeduzir
 
     console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal, valorTotal: valorFinalDeduzir })
