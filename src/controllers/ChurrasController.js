@@ -141,22 +141,24 @@ module.exports = {
   },
 
   async setValorTotal(req, res) {
-    const { valorTotal, item_id } = req.body;
-    const { churras_id } = req.params;
+    const { valorTotal } = req.body;
+    const { churras_id, item } = req.params;
 
-    var valorTotalAtual = await connection('listaChurrasco')
-      .join('churras','churras.id','=','listaChurrasco.churras_id')
+    var valorTotalAtual = await connection('churras')
       .where('id', churras_id)
-      .andWhere('item_id',item_id)
-      .select(['churras.*','listaChurrasco.*'])
+      .select('churras.valorTotal')
       .catch(function (err) {
         console.error(err);
       });
 
-      console.log(valorTotalAtual)
-    var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
-   
-    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal })
+    var valorADeduzir = await connection('listaChurrasco')
+    .where('id',item)
+    .select('*')
+
+    var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
+    var valorFinal = valorTotalAtual[0].valorTotal + valorTotal - valorFinalDeduzir
+
+    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal, valorTotal: valorFinalDeduzir })
 
     await connection('churras')
       .where('id', churras_id)
