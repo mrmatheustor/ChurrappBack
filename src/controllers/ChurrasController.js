@@ -148,7 +148,7 @@ module.exports = {
       .join('listaChurrasco','listaChurrasco.id','=','churras.id')
       .where('id', churras_id)
       .andWhere('item_id',item_id)
-      .select('*')
+      .select('churras.*')
       .catch(function (err) {
         console.error(err);
       });
