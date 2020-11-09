@@ -145,9 +145,9 @@ module.exports = {
     const { churras_id } = req.params;
 
     var valorTotalAtual = await connection('churras')
-      .join('listaChurrasco as lc','lc.id','=','churras.id')
+      .join('listaChurrasco','listaChurrasco.id','=','churras.id')
       .where('id', churras_id)
-      .andWhere('lc.item_id',item_id)
+      .andWhere('item_id',item_id)
       .select('*')
       .catch(function (err) {
         console.error(err);
