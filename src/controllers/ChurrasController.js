@@ -141,8 +141,8 @@ module.exports = {
   },
 
   async setValorTotal(req, res) {
-    const { valorTotal } = req.body;
-    const { churras_id, item_id } = req.params;
+    const { churras_id } = req.params;
+    const { valorTotal, item_id } = req.body;
 
     var valorTotalAtual = await connection('churras')
       .where('id', churras_id)
