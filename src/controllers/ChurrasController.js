@@ -156,7 +156,7 @@ module.exports = {
     .where('id',item_id)
     .select('listaChurrasco.*')
 
-    if(valorTotal < 0){
+    if(valorTotal > 0){
       var valorFinalDeduzir = valorADeduzir[0].precoItem *  valorADeduzir[0].quantidade
       console.log("valorFinal a Deduzir "+valorFinalDeduzir)
     }else{
