@@ -153,7 +153,8 @@ module.exports = {
             .select('*')
             .then(async (res) => {
               var convidQtd = res.length
-              console.log(res)
+              var valorConvid = res[0].valorPagar
+              var valorTotalFinal = valorConvid*(convidQtd+1)
               if(convidQtd == 0){
                 var valorPagar = 0
               }else{
@@ -163,9 +164,8 @@ module.exports = {
               await connection('churras')
               .where('id',churras_id)
               .select('*')
-              .then(async (res) =>{
-                var valorTotalFinal = (res[0].valorTotal/convidQtd)+res[0].valorTotal
-                console.log(res,valorTotalFinal)
+              .then(async (res2) =>{               
+                console.log(res2,valorTotalFinal)
                 await connection('churras')
                 .where('id',churras_id)
                 .update('valorTotal',valorTotalFinal)
@@ -174,8 +174,8 @@ module.exports = {
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
               .select('*')
-              .then(async(res)=>{
-                res.forEach(item => {
+              .then(async(res2)=>{
+                res2.forEach(item => {
                   connection('listaChurrasco')
                   .where('churras_id',churras_id)
                   .andWhere('id',item.id)
