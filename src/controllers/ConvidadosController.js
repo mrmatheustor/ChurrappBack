@@ -164,7 +164,7 @@ module.exports = {
               .where('churras_id',churras_id)
               .select('*')
               .then(async(res)=>{
-                console.log("Itens "+itens)
+                console.log("Itens ")
                 console.log(res)
               })
               .catch(function (err) {
