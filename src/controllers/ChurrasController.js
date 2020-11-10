@@ -63,13 +63,14 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where('convidados.usuario_id', '=', usuario_id)
-      .andWhere(function () {
+      .where(function () {
+        this.where('convidados.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
         this.andWhere('data', '<', formatted)
       })
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
+        this.andWhere('data', '<', formatted)
         this.first()
       })
       .orderBy('data')
