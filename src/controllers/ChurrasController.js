@@ -69,7 +69,7 @@ module.exports = {
         this.where('data', '<', formatted)
       })
       .orWhere('churras.usuario_id', '=', usuario_id)
-      .distinct()
+      .distinctOn ('churras.id')
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
