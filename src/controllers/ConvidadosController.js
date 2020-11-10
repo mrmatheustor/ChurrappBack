@@ -154,7 +154,7 @@ module.exports = {
             .then(async (res) => {
               var convidQtd = res.length
               var valorConvid = res[0].valorPagar
-              var valorTotalFinal = valorConvid*(convidQtd+1)
+              var valorTotalFinal = valorConvid*(convidQtd+2)
               if(convidQtd == 0){
                 var valorPagar = 0
               }else{
