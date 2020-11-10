@@ -66,18 +66,24 @@ module.exports = {
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere(function () {
         this.where('convidados.confirmado', '=', true)
-        this.orWhere('churras.usuario_id', '=', usuario_id)
         this.where('data', '<', formatted)
       })      
       .first()
       .orderBy('data')
       .select(['churras.*',
+        'convidados.confirmado',
+        'convidados.valorPagar',
+        'convidados.churras_id',
         'usuarios.nome',
-        ])
+        'usuarios.celular',
+        'usuarios.apelido',
+        'usuarios.idade',
+        'usuarios.fotoUrlU'])
       .catch(function (err) {
         console.error(err);
       });
 
+      console.log(churras[0])
     return response.json(churras);
   },
 
