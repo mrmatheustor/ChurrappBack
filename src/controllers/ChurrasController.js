@@ -72,9 +72,6 @@ module.exports = {
       .first()
       .orderBy('data')
       .select(['churras.*',
-        'convidados.confirmado',
-        'convidados.valorPagar',
-        'convidados.churras_id',
         'usuarios.nome',
         'usuarios.celular',
         'usuarios.apelido',
