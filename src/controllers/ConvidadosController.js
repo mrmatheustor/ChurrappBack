@@ -152,7 +152,6 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              console.log(res)
               var convidQtd = res.length
               if(convidQtd == 0){
                 var valorPagar = 0
@@ -164,8 +163,17 @@ module.exports = {
               .where('churras_id',churras_id)
               .select('*')
               .then(async(res)=>{
-                console.log("Itens ")
-                console.log(res)
+                res.forEach(item => {
+                  await connection('listaChurrasco')
+                  .where('churras_id',churras_id)
+                  .andWhere('id',item.id)
+                  .update({
+                    quantidade:item.quantidade*multiplicador
+                  })  
+                  .catch(function (err) {
+                    console.error(err);
+                  });                
+                });
               })
               .catch(function (err) {
                 console.error(err);
