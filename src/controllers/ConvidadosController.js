@@ -164,7 +164,7 @@ module.exports = {
               .where('id',churras_id)
               .select('*')
               .then(async (res) =>{
-                var valorTotalFinal = (res[0].valorFinal/convidQtd)+res[0].valorFinal
+                var valorTotalFinal = (res[0].valorTotal/convidQtd)+res[0].valorTotal
                 console.log(res,valorTotalFinal)
                 await connection('churras')
                 .where('id',churras_id)
