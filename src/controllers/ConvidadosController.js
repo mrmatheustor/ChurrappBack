@@ -163,7 +163,7 @@ module.exports = {
               console.log("Multiplicador "+multiplicador)
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
-              .update('listaChurrasco.quantidade', 'listaChurrasco.quantidade'*multiplicador )
+              .update('quantidade', 'listaChurrasco.quantidade'*multiplicador )
               .catch(function (err) {
                 console.error(err);
               });
