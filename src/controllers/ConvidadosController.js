@@ -156,7 +156,6 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              console.log(res)
               if(res.length === 0){
                 var valorPagar = 0
               }else{
@@ -181,7 +180,7 @@ module.exports = {
               });
             });
         } else {
-          return response.json({mensagem: "Você ja está participando deste churrasco!"});
+          return response.json(rows);
         }
       })
   },
