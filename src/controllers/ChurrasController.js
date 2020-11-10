@@ -66,8 +66,8 @@ module.exports = {
       .where('convidados.usuario_id', '=', usuario_id)
       .andWhere(function () {
         this.where('convidados.confirmado', '=', true)
+        this.orWhere('churras.usuario_id', '=', usuario_id)
         this.where('data', '<', formatted)
-        this.where('churras.usuario_id', '=', usuario_id)
       })      
       .first()
       .orderBy('data')
