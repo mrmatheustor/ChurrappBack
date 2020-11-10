@@ -29,8 +29,6 @@ module.exports = {
   async getConvidadoPeloCelular(request, response) {
     const { churras_id, celular } = request.params;
 
-    console.log("Celular "+celular+" ,Churras_id "+churras_id)
-
     const convidado = await connection('convidados')
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .where('churras_id', churras_id)
@@ -39,8 +37,6 @@ module.exports = {
       .catch(function (err) {
         console.error(err);
       });
-
-      console.log(convidado)
 
       return response.json(convidado);
   },
@@ -156,11 +152,22 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              if(res.length === 0){
+              var convidQtd = res.data.length
+              if(convidQtd == 0){
                 var valorPagar = 0
               }else{
                 var valorPagar = res[0].valorPagar 
-              }           
+              }        
+              var multiplicador = (1/convidQtd)+1
+              console.log("Multiplicador "+multiplicador)
+              await connection('listaChurrasco')
+              .where('churras_id',churras_id)
+              .update({
+                quantidade: quantidade*multiplicador
+              }).catch(function (err) {
+                console.error(err);
+              });
+
               await connection('convidados').insert({
                 valorPagar:valorPagar,
                 churras_id,
