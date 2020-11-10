@@ -164,10 +164,11 @@ module.exports = {
               .where('id',churras_id)
               .select('*')
               .then(async (res) =>{
-                var valorTotalFinal = res[0].valorFinal/convidQtd
+                var valorTotalFinal = (res[0].valorFinal/convidQtd)+res[0].valorFinal
+                console.log(res,valorTotalFinal)
                 await connection('churras')
                 .where('id',churras_id)
-                .update('valorTotal',+valorTotalFinal)
+                .update('valorTotal',valorTotalFinal)
               })
 
               await connection('listaChurrasco')
