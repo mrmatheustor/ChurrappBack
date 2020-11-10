@@ -160,10 +160,13 @@ module.exports = {
                 var valorPagar = res[0].valorPagar 
               }        
               var multiplicador = (1/convidQtd)+1
-              console.log("Multiplicador "+multiplicador)
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
-              .update('quantidade', 'listaChurrasco.quantidade'*multiplicador )
+              .select('*')
+              .then(async(res)=>{
+                console.log("Itens "+itens)
+                console.log(res)
+              })
               .catch(function (err) {
                 console.error(err);
               });
