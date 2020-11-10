@@ -180,7 +180,7 @@ module.exports = {
               });
             });
         } else {
-          return response.json({mensagem: "Você ja está participando deste churrasco!"});
+          return response.json(rows);
         }
       })
   },
