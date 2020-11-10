@@ -152,7 +152,7 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
-              console.log(res.data)
+              console.log(res)
               var convidQtd = res.data.length
               if(convidQtd == 0){
                 var valorPagar = 0
