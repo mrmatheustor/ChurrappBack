@@ -1,3 +1,4 @@
+const { where } = require('../database/connection');
 const connection = require('../database/connection');
 
 module.exports = {
@@ -62,6 +63,26 @@ module.exports = {
       .update({
         pagou: true,
       })
+
+    await connection('convidados')
+    .where('id',id)
+    .select('*')
+    .then(async res =>{
+      await connection('convidados')
+      .where('churras_id',res[0].churras_id)
+      .select('*')
+      .then(async res2 =>{
+        var convidQtd = res2.length+1
+        await connection('churras')
+        .where('id',res[0].churras_id)
+        .then(async res3 =>{
+          var valorPagoConvid = res3[0].valorPago+(res3[0].valorTotal/convidQtd)
+          await connection('churras')
+          .where('id',res[0].churras_id)
+          .update('valorPago',valorPagoConvid)
+        })
+      })
+    })
 
     return response.status(204).send();
   },
@@ -160,7 +181,7 @@ module.exports = {
               }else{
                 var valorPagar = res[0].valorPagar 
               }        
-              var multiplicador = (1/convidQtd)+1
+              var multiplicador = (1/(convidQtd+1))+1
               await connection('churras')
               .where('id',churras_id)
               .select('*')
