@@ -73,10 +73,7 @@ module.exports = {
       .orderBy('data')
       .select(['churras.*',
         'usuarios.nome',
-        'usuarios.celular',
-        'usuarios.apelido',
-        'usuarios.idade',
-        'usuarios.fotoUrlU'])
+        ])
       .catch(function (err) {
         console.error(err);
       });
