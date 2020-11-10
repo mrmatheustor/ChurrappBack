@@ -72,7 +72,6 @@ module.exports = {
         this.where('churras.usuario_id', '=', usuario_id)
         this.first()
       })
-      .distinct ('id')
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
