@@ -164,7 +164,7 @@ module.exports = {
               .select('*')
               .then(async(res)=>{
                 res.forEach(item => {
-                  await connection('listaChurrasco')
+                  connection('listaChurrasco')
                   .where('churras_id',churras_id)
                   .andWhere('id',item.id)
                   .update({
