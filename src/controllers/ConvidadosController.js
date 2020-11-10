@@ -160,6 +160,16 @@ module.exports = {
                 var valorPagar = res[0].valorPagar 
               }        
               var multiplicador = (1/convidQtd)+1
+              await connection('churras')
+              .where('id',churras_id)
+              .select('*')
+              .then(async (res) =>{
+                var valorTotalFinal = res[0].valorFinal/convidQtd
+                await connection('churras')
+                .where('id',churras_id)
+                .update('valorTotal',+valorTotalFinal)
+              })
+
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
               .select('*')
