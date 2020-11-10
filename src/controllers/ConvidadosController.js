@@ -153,7 +153,7 @@ module.exports = {
             .select('*')
             .then(async (res) => {
               console.log(res)
-              var convidQtd = res.data.length
+              var convidQtd = res.length
               if(convidQtd == 0){
                 var valorPagar = 0
               }else{
