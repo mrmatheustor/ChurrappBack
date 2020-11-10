@@ -70,7 +70,7 @@ module.exports = {
       })
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
-        this.first()
+        this.first('churras.id')
       })
       .orderBy('data')
       .select(['churras.*',
