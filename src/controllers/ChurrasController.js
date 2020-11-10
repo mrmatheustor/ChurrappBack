@@ -68,7 +68,6 @@ module.exports = {
         this.where('convidados.confirmado', '=', true)
         this.where('data', '<', formatted)
       })      
-      .first()
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
