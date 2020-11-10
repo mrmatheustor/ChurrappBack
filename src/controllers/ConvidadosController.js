@@ -152,17 +152,21 @@ module.exports = {
             .where('churras_id', churras_id)
             .select('*')
             .then(async (res) => {
+              console.log(res)
               var convidQtd = res.length
               if(convidQtd == 0){
                 var valorPagar = 0
               }else{
                 var valorPagar = res[0].valorPagar 
               }        
-
               var multiplicador = (1/convidQtd)+1
-              
+              console.log("Multiplicador "+multiplicador)
               await connection('listaChurrasco')
-              .raw('SET quantidade = quantidade* ? WHERE churras_id = ?',[multiplicador,churras_id ])
+              .where('churras_id',churras_id)
+              .update('quantidade','*=',multiplicador)
+              .catch(function (err) {
+                console.error(err);
+              });
 
               await connection('convidados').insert({
                 valorPagar:valorPagar,
