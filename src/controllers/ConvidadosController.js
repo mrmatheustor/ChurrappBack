@@ -160,11 +160,12 @@ module.exports = {
                 var valorPagar = res[0].valorPagar 
               }        
               var multiplicador = (1/convidQtd)+1
-              console.log("Multiplicador "+multiplicador)
+              
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
-              .raw('set quantidade = ?' ,[ quantidade*multiplicador])
-              .catch(function (err) {
+              .update({
+                quantidade: listaChurrasco.quantidade*multiplicador
+              }).catch(function (err) {
                 console.error(err);
               });
 
