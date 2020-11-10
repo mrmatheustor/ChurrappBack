@@ -163,8 +163,9 @@ module.exports = {
               
               await connection('listaChurrasco')
               .where('churras_id',churras_id)
+              .select(`quantidade*${multiplicador} as novoValor`)
               .update({
-                quantidade: listaChurrasco.quantidade*multiplicador
+                quantidade: 'novoValor'
               }).catch(function (err) {
                 console.error(err);
               });
