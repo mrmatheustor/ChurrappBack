@@ -171,6 +171,8 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
+        console.log("rows")
+        console.log(rows)
         if (rows.length === 0) {
           await connection('convidados')
             .where('churras_id', churras_id)
