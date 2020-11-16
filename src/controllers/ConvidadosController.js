@@ -167,10 +167,10 @@ module.exports = {
     const { usuario_id } = request.params;
 
     await connection('convidados')
-      .join('churras','churras.id','=','convidados.churras_id')
-      .where('convidados.usuario_id as convidUsu_id', usuario_id)
+      .join('churras as churras','churras.id','=','convidados.churras_id')
+      .where('convidados.usuario_id', usuario_id)
       .andWhere('churras_id', churras_id)
-      .select('*')
+      .select(['*','churras.usuario_id as churrasUsuId'])
       .then(async function (rows) {
         console.log("rows")
         console.log(rows)
