@@ -129,34 +129,35 @@ module.exports = {
     const { usuario_id } = request.params;
 
     await connection('convidados')
+      .join('churras as churras', 'churras.id', '=', 'convidados.churras_id')
       .where('usuario_id', usuario_id)
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
-        console.log("rows")
-        console.log(rows)
-        if (rows.length === 0) {
-          await connection('convidados')
-            .insert({
-              valorPagar,
-              churras_id,
-              usuario_id
-            }).then(async function (res) {
-              const convidadoChurras = await connection('convidados')
-                .join('churras', 'churras.id', '=', 'convidados.churras_id')
-                .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-                .where('churras_id', churras_id)
-                .select(['churras.*', 'convidados.*', 'usuarios.nome'])
-                .catch(function (err) {
-                  console.error(err);
-                });
+        if (rows[0].usuario_id != usuario_id) {
+          if (rows.length === 0) {
+            await connection('convidados')
+              .insert({
+                valorPagar,
+                churras_id,
+                usuario_id
+              }).then(async function (res) {
+                const convidadoChurras = await connection('convidados')
+                  .join('churras', 'churras.id', '=', 'convidados.churras_id')
+                  .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+                  .where('churras_id', churras_id)
+                  .select(['churras.*', 'convidados.*', 'usuarios.nome'])
+                  .catch(function (err) {
+                    console.error(err);
+                  });
 
-              return response.json(convidadoChurras);
-            }).catch(function (err) {
-              console.error(err);
-            });
-        } else {
-          return response.json(rows);
+                return response.json(convidadoChurras);
+              }).catch(function (err) {
+                console.error(err);
+              });
+          } else {
+            return response.json(rows);
+          }
         }
       })
 
@@ -172,9 +173,6 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select(['*'])
       .then(async function (rows) {
-        console.log("rows")
-        console.log(rows)
-        console.log(usuario_id)
         if (rows[0].usuario_id != usuario_id) {
           if (rows.length === 0) {
             await connection('convidados')
