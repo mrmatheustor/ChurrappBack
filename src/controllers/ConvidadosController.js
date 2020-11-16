@@ -125,7 +125,7 @@ module.exports = {
   },
 
   async create(request, response) {
-    const { valorPagar, churras_id , usuarioLogado_id} = request.body;
+    const { valorPagar, churras_id, usuarioLogado_id} = request.body;
     const { usuario_id } = request.params;
 
     await connection('convidados')
@@ -163,7 +163,7 @@ module.exports = {
   },
 
   async adicionar(request, response) {
-    const { churras_id, usuarioLogado_id } = request.body;
+    const { churras_id} = request.body;
     const { usuario_id } = request.params;
 
     await connection('convidados')
