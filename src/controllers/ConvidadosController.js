@@ -167,6 +167,7 @@ module.exports = {
     const { usuario_id } = request.params;
 
     await connection('convidados')
+      .join('churras','churras.id','=',churras_id)
       .where('usuario_id', usuario_id)
       .andWhere('churras_id', churras_id)
       .select('*')
