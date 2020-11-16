@@ -168,7 +168,7 @@ module.exports = {
 
     await connection('convidados')
       .join('churras','churras.id','=','convidados.churras_id')
-      .where('convidados.usuario_id', usuario_id)
+      .where('convidados.usuario_id as convidUsu_id', usuario_id)
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
