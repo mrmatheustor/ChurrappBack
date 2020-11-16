@@ -133,8 +133,11 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
+        console.log("rows")
+        console.log(rows)
         if (rows.length === 0) {
-          await connection('convidados').insert({
+          await connection('convidados')
+          .insert({
             valorPagar,
             churras_id,
             usuario_id
