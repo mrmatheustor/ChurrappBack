@@ -158,6 +158,8 @@ module.exports = {
           } else {
             return response.json(rows);
           }
+        }else{
+          return response.status(204).send();
         }
       })
 
@@ -239,6 +241,8 @@ module.exports = {
           } else {
             return response.json(rows);
           }
+        }else{
+          return response.status(204).send();
         }
       })
   },
