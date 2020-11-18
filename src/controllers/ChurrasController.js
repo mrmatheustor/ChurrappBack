@@ -61,6 +61,7 @@ module.exports = {
     var dt = dateTime.create();
     dt.offsetInDays(-1)
     var formatted = dt.format('yy-m-d');
+    console.log(formatted)
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
