@@ -59,7 +59,7 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     dt.offsetInDays(-1)
-    var formatted = dt.format('y-m-d');
+    var formatted = dt.format('yy-m-d');
 
     console.log(dt,formatted, new Date())
 
