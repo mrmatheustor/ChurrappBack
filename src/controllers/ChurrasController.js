@@ -57,11 +57,12 @@ module.exports = {
 
   async dataPassado(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    dt.offsetInDays(-1)
-    var formatted = dt._now
-    console.log(dt._now)
+    // var dateTime = require('node-datetime');
+    // var dt = dateTime.create();
+    // dt.offsetInDays(-1)
+    // var formatted = dt._now
+    var teste = new Date()
+    console.log(teste)
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
@@ -69,11 +70,11 @@ module.exports = {
       .where(function () {
         this.where('convidados.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
-        this.andWhere('churras.data', '<', new Date())
+        this.andWhere('churras.data', '<', teste)
       })
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
-        this.andWhere('churras.data', '<', new Date())
+        this.andWhere('churras.data', '<', teste)
         this.first()
       })
       .orderBy('churras.data')
