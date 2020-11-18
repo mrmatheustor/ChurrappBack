@@ -57,7 +57,7 @@ module.exports = {
   async dataPassado(request, response) {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
-    var dt = dateTime.create();
+    var dt = dateTime.create().offsetInDays(-1);
     var formatted = dt.format('d/m/Y');
 
     console.log(dt,formatted, new Date())
