@@ -31,13 +31,13 @@ module.exports = {
     const { usuario_id } = request.params;
 
     const [count] = await connection('churras').where('usuario_id', usuario_id)
-      .whereRaw("data >= now()")
+      .whereRaw("data >= (now() - interval '1 day')")
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .orderBy('data')
       .where('usuario_id', usuario_id)
-      .whereRaw("data >= now()")
+      .whereRaw("data >= (now() - interval '1 day')")
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.celular',
@@ -103,7 +103,7 @@ module.exports = {
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      .whereRaw('data >= NOW()')
+      .whereRaw("data >= (now() - interval '1 day')")
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
