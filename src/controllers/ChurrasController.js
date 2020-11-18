@@ -60,7 +60,7 @@ module.exports = {
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
     dt.offsetInDays(-1)
-    var formatted = dt.format('yy-m-d');
+    var formatted = dt._now
     console.log(dt._now)
 
     const churras = await connection('churras')
