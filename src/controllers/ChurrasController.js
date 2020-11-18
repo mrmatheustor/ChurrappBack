@@ -62,36 +62,47 @@ module.exports = {
     // var dt = dateTime.create();
     // dt.offsetInDays(-1)
     // var formatted = dt._now
-    var teste = new Date()
-    console.log(teste)
+    var data = new Date()
+    console.log(data)
 
-    const churras = await connection('churras')
-      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
-      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where(function () {
-        this.where('convidados.usuario_id', '=', usuario_id)
-        this.where('convidados.confirmado', '=', true)
-        this.andWhere('churras.data', '<', teste)
-      })
-      .orWhere(function () {
-        this.where('churras.usuario_id', '=', usuario_id)
-        this.andWhere('churras.data', '<', teste)
-      })      
-      .distinctOn('id')
-      .orderBy('churras.data')
-      .select (['churras.*',
-        'convidados.confirmado',
-        'convidados.valorPagar',
-        'convidados.churras_id',
-        'usuarios.nome',
-        'usuarios.celular',
-        'usuarios.apelido',
-        'usuarios.idade',
-        'usuarios.fotoUrlU'])
-      .catch(function (err) {
-        console.error(err);
-      });
+    // const churras = await connection('churras')
+    //   .join('convidados', 'convidados.churras_id', '=', 'churras.id')
+    //   .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+    //   .where(function () {
+    //     this.where('convidados.usuario_id', '=', usuario_id)
+    //     this.where('convidados.confirmado', '=', true)
+    //     this.andWhere('churras.data', '<', data)
+    //   })
+    //   .orWhere(function () {
+    //     this.where('churras.usuario_id', '=', usuario_id)
+    //     this.andWhere('churras.data', '<', data)
+    //   })      
+    //   .distinctOn('id')
+    //   .orderBy('churras.data')
+    //   .select (['churras.*',
+    //     'convidados.confirmado',
+    //     'convidados.valorPagar',
+    //     'convidados.churras_id',
+    //     'usuarios.nome',
+    //     'usuarios.celular',
+    //     'usuarios.apelido',
+    //     'usuarios.idade',
+    //     'usuarios.fotoUrlU'])
+    //   .catch(function (err) {
+    //     console.error(err);
+    //   });
 
+    const churras = await connection.raw('select DISTINCT on (churras.id) churras.id, * from churras' +
+      'join convidados on convidados.churras_id = churras.id' +
+      'join usuarios on usuarios.id = churras.usuario_id' +
+      'where (convidados.usuario_id = ?' +
+      'and convidados.confirmado = ?' +
+      'and churras.data < ?)' +
+      'or(churras.usuario_id = ?' +
+      ' and churras.data < ?)',
+      [usuario_id, true, data, usuario_id, data])
+
+    console.log(churras)
     return response.json(churras);
   },
 
