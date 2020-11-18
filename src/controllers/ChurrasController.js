@@ -69,11 +69,11 @@ module.exports = {
       .where(function () {
         this.where('convidados.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
-        this.andWhere('churras.data', '<', formatted)
+        this.andWhere('churras.data', '<', new Date())
       })
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
-        this.andWhere('churras.data', '<', formatted)
+        this.andWhere('churras.data', '<', new Date())
         this.first()
       })
       .orderBy('churras.data')
