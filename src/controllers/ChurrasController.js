@@ -29,18 +29,15 @@ module.exports = {
 
   async logado(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    dt.offsetInDays(-1)
-    var formatted = dt.format('yy-m-d');
+    var data = new Date()
 
-    const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
+    const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', data)
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .orderBy('data')
       .where('usuario_id', usuario_id)
-      .where('data', '>=', formatted)
+      .where('data', '>=', data)
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.celular',
@@ -58,12 +55,7 @@ module.exports = {
 
   async dataPassado(request, response) {
     const { usuario_id } = request.params;
-    // var dateTime = require('node-datetime');
-    // var dt = dateTime.create();
-    // dt.offsetInDays(-1)
-    // var formatted = dt._now
     var data = new Date()
-    console.log(data)
 
     // const churras = await connection('churras')
     //   .join('convidados', 'convidados.churras_id', '=', 'churras.id')
@@ -103,21 +95,18 @@ module.exports = {
       [usuario_id, true, data, usuario_id, data])
 
     console.log(churras)
-    return response.json(churras);
+    return response.json(churras.rows);
   },
 
   async dataFuturo(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    dt.offsetInDays(-1)
-    var formatted = dt.format('yy-m-d');
+    var data = new Date()
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      .where('data', '>=', formatted)
+      .where('data', '>=', data)
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
