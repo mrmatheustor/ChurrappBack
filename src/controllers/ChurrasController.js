@@ -1,6 +1,7 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
 const { json } = require('express');
+const { distinctOn } = require('../database/connection');
 
 module.exports = {
   async list(request, response) {
@@ -75,10 +76,10 @@ module.exports = {
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
         this.andWhere('churras.data', '<', teste)
-        this.first()
       })
       .orderBy('churras.data')
-      .select(['churras.*',
+      .distinctOn('churras.id')
+      .select (['churras.*',
         'convidados.confirmado',
         'convidados.valorPagar',
         'convidados.churras_id',
