@@ -60,10 +60,12 @@ module.exports = {
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
 
+    console.log(formatted)
+
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .orWhere(function () {
+      .where(function () {
         this.where('convidados.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
         this.andWhere('data', '<', formatted)
