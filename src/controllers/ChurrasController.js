@@ -60,7 +60,7 @@ module.exports = {
     var dt = dateTime.create();
     var formatted = dt.format('d/m/Y');
 
-    console.log(dt.now())
+    console.log(dt,formatted, new Date())
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
