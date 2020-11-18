@@ -57,10 +57,10 @@ module.exports = {
   async dataPassado(request, response) {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
-    var dt = dateTime.create();
+    var dt = dateTime.create(now);
     var formatted = dt.format('d/m/Y');
 
-    console.log(formatted)
+    console.log(dateTime.now())
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
