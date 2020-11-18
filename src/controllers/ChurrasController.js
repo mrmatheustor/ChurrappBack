@@ -76,9 +76,9 @@ module.exports = {
       .orWhere(function () {
         this.where('churras.usuario_id', '=', usuario_id)
         this.andWhere('churras.data', '<', teste)
-      })
-      .orderBy('churras.data')
+      })      
       .distinctOn('churras.id')
+      .orderBy('churras.data')
       .select (['churras.*',
         'convidados.confirmado',
         'convidados.valorPagar',
