@@ -84,7 +84,8 @@ module.exports = {
     //   });
 
     const churras = await connection.raw('select DISTINCT on (churras.id) churras.id, ' +
-      'churras.id, churras."fotoUrlC", churras."nomeChurras", usuarios.nome, churras.data, churras."hrInicio", churras."hrFim" ' +
+      'churras.id, churras."fotoUrlC", ' +
+      'churras."nomeChurras", usuarios.nome, churras.data, churras."hrInicio", churras."hrFim" ' +
       'from churras ' +
       'full outer join convidados on churras.id = convidados.churras_id ' +
       'join usuarios on usuarios.id = churras.usuario_id ' +
