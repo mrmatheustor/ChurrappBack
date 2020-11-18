@@ -84,15 +84,15 @@ module.exports = {
     //     console.error(err);
     //   });
 
-    const churras = await connection.raw('select DISTINCT on (churras.id) churras.id, * from churras ' +
-      'join convidados on convidados.churras_id = churras.id ' +
-      'join usuarios on usuarios.id = churras.usuario_id ' +
-      'where (convidados.usuario_id = ? ' +
-      'and convidados.confirmado = ? ' +
-      'and churras.data < ?) ' +
-      'or(churras.usuario_id = ? ' +
-      ' and churras.data < ?)',
-      [usuario_id, true, data, usuario_id, data])
+    const churras = await connection.raw('select DISTINCT on (churras.id) churras.id, * from churras '+
+    'full outer join convidados on churras.id = convidados.churras_id '+
+    'join usuarios on usuarios.id = churras.usuario_id '+
+   'where ((convidados.usuario_id = ? '+ 
+         'and convidados.confirmado = ? '+
+         'and churras.data < NOW())'+
+    'or(churras.usuario_id = ? '+
+       'and churras.data < NOW()))',
+      [usuario_id, true, usuario_id])
 
     console.log(churras)
     return response.json(churras.rows);
