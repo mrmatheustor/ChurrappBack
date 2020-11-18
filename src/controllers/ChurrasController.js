@@ -30,7 +30,8 @@ module.exports = {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
-    var formatted = dt.format('d/m/Y');
+    dt.offsetInDays(-1)
+    var formatted = dt.format('yy-m-d');
 
     const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
       .count('usuario_id');
@@ -60,8 +61,6 @@ module.exports = {
     var dt = dateTime.create();
     dt.offsetInDays(-1)
     var formatted = dt.format('yy-m-d');
-
-    console.log(dt,formatted, new Date())
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
@@ -97,7 +96,8 @@ module.exports = {
     const { usuario_id } = request.params;
     var dateTime = require('node-datetime');
     var dt = dateTime.create();
-    var formatted = dt.format('d/m/Y');
+    dt.offsetInDays(-1)
+    var formatted = dt.format('yy-m-d');
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
