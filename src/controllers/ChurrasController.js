@@ -63,7 +63,7 @@ module.exports = {
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where(function () {
+      .orWhere(function () {
         this.where('convidados.usuario_id', '=', usuario_id)
         this.where('convidados.confirmado', '=', true)
         this.andWhere('data', '<', formatted)
