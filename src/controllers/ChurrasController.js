@@ -83,7 +83,7 @@ module.exports = {
     //     console.error(err);
     //   });
 
-    const churras = await connection.raw('select DISTINCT on (churras.id) churras.id, ' +
+    const churras = await connection.raw('select DISTINCT on (churras.id, churras.data) ' +
       'churras.id, churras."fotoUrlC", ' +
       'churras."nomeChurras", usuarios.nome, churras.data, churras."hrInicio", churras."hrFim" ' +
       'from churras ' +
@@ -93,7 +93,7 @@ module.exports = {
       'and convidados.confirmado = ? ' +
       "and churras.data < (now() - interval '1 day'))" +
       'or(churras.usuario_id = ? ' +
-      "and churras.data < (now() - interval '1 day')))",
+      "and churras.data < (now() - interval '1 day'))) order by churras.data desc",
       [usuario_id, true, usuario_id])
 
     return response.json(churras.rows);
