@@ -134,7 +134,6 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
-        if (rows[0].usuario_id != usuario_id) {
           if (rows.length === 0) {
             await connection('convidados')
               .insert({
@@ -158,9 +157,6 @@ module.exports = {
           } else {
             return response.json(rows);
           }
-        }else{
-          return response.status(204).send();
-        }
       })
 
   },
