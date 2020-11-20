@@ -176,7 +176,7 @@ module.exports = {
       .select(['*'])
       .then(async function (rows) {
         console.log(rows)
-          if (rows.length === 0 || rows[0].usuario_id != usuario_id) {
+          if (rows.length === 0) {
             await connection('convidados')
               .where('churras_id', churras_id)
               .select('*')
