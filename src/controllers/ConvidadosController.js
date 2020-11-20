@@ -176,10 +176,7 @@ module.exports = {
       .select(['*'])
       .then(async function (rows) {
         console.log(rows)
-        if (rows[0].usuario_id == usuario_id) {
-          return response.status(204).send();
-        }
-          if (rows.length === 0) {
+          if (rows.length === 0 || rows[0].usuario_id != usuario_id) {
             await connection('convidados')
               .where('churras_id', churras_id)
               .select('*')
