@@ -130,7 +130,7 @@ module.exports = {
 
     await connection('convidados')
       .join('churras as churras', 'churras.id', '=', 'convidados.churras_id')
-      .where('usuario_id', usuario_id)
+      .where('convidados.usuario_id', usuario_id)
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
@@ -175,7 +175,6 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select(['*'])
       .then(async function (rows) {
-        console.log(rows)
           if (rows.length === 0) {
             await connection('convidados')
               .where('churras_id', churras_id)
