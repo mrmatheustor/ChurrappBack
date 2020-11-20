@@ -181,7 +181,6 @@ module.exports = {
               .where('churras_id', churras_id)
               .select('*')
               .then(async (res) => {
-                console.log(res)
                 var convidQtd = res.length
                 var valorConvid = res[0].valorPagar
                 var valorTotalFinal = valorConvid * (convidQtd + 2)
