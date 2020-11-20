@@ -176,7 +176,9 @@ module.exports = {
       .select(['*'])
       .then(async function (rows) {
         console.log(rows)
-        if (rows == [] || rows[0].usuario_id != usuario_id) {
+        if (rows[0].usuario_id == usuario_id) {
+          return response.status(204).send();
+        }
           if (rows.length === 0) {
             await connection('convidados')
               .where('churras_id', churras_id)
@@ -241,10 +243,7 @@ module.exports = {
               });
           } else {
             return response.json(rows);
-          }
-        }else{
-          return response.status(204).send();
-        }
+          }        
       })
   },
 };
