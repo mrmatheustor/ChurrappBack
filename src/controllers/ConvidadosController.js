@@ -168,8 +168,6 @@ module.exports = {
   async adicionar(request, response) {
     const { churras_id } = request.body;
     const { usuario_id } = request.params;
-    console.log("oi")
-    console.log(usuario_id)
 
     await connection('convidados')
       .join('churras as churras', 'churras.id', '=', 'convidados.churras_id')
@@ -183,6 +181,7 @@ module.exports = {
               .where('churras_id', churras_id)
               .select('*')
               .then(async (res) => {
+                console.log(res)
                 var convidQtd = res.length
                 var valorConvid = res[0].valorPagar
                 var valorTotalFinal = valorConvid * (convidQtd + 2)
