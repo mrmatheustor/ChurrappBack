@@ -168,6 +168,8 @@ module.exports = {
   async adicionar(request, response) {
     const { churras_id } = request.body;
     const { usuario_id } = request.params;
+    console.log("oi")
+    console.log(usuario_id)
 
     await connection('convidados')
       .join('churras as churras', 'churras.id', '=', 'convidados.churras_id')
