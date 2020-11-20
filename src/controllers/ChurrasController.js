@@ -13,7 +13,7 @@ module.exports = {
 
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .orderBy('nome')
+      .orderBy('data', 'desc')
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.email',
@@ -35,7 +35,7 @@ module.exports = {
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .orderBy('data')
+      .orderBy('data', 'desc')
       .where('usuario_id', usuario_id)
       .whereRaw("data >= (now() - interval '1 day')")
       .select(['churras.*',
@@ -107,7 +107,7 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
       .whereRaw("data >= (now() - interval '1 day')")
-      .orderBy('data')
+      .orderBy('data', 'desc')
       .select(['churras.*',
         'convidados.confirmado',
         'convidados.valorPagar',
