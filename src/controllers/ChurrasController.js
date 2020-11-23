@@ -249,7 +249,7 @@ module.exports = {
       .timeout(1000)
       .select(['churras.*', 'usuarios.fotoUrlU', 'usuarios.nome'])
       .catch(function (err) {
-        return response.status(404).send(false);
+        return response.status(404).send();
       });
 
     return response.json(churras);
