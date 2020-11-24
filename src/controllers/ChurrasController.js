@@ -1,6 +1,7 @@
 const connection = require('../database/connection');
 const crypto = require('crypto');
 const { json } = require('express');
+const { distinctOn } = require('../database/connection');
 
 module.exports = {
   async list(request, response) {
@@ -12,7 +13,7 @@ module.exports = {
 
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .orderBy('nome')
+      .orderBy('data')
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.email',
@@ -28,17 +29,15 @@ module.exports = {
 
   async logado(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    var formatted = dt.format('d/m/Y');
 
-    const [count] = await connection('churras').where('usuario_id', usuario_id).where('data', '>=', formatted)
+    const [count] = await connection('churras').where('usuario_id', usuario_id)
+      .whereRaw("data >= (now() - interval '1 day')")
       .count('usuario_id');
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .orderBy('data')
       .where('usuario_id', usuario_id)
-      .where('data', '>=', formatted)
+      .whereRaw("data >= (now() - interval '1 day')")
       .select(['churras.*',
         'usuarios.nome',
         'usuarios.celular',
@@ -56,47 +55,58 @@ module.exports = {
 
   async dataPassado(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    var formatted = dt.format('d/m/Y');
 
-    const churras = await connection('churras')
-      .join('convidados', 'convidados.churras_id', '=', 'churras.id')
-      .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-      .where('convidados.usuario_id', '=', usuario_id)
-      .andWhere(function () {
-        this.where('convidados.confirmado', '=', true)
-        this.where('data', '<', formatted)
-      })
-      .orWhere('churras.usuario_id', '=', usuario_id)
-      .orderBy('data')
-      .select(['churras.*',
-        'convidados.confirmado',
-        'convidados.valorPagar',
-        'convidados.churras_id',
-        'usuarios.nome',
-        'usuarios.celular',
-        'usuarios.apelido',
-        'usuarios.idade',
-        'usuarios.fotoUrlU'])
-      .catch(function (err) {
-        console.error(err);
-      });
+    // const churras = await connection('churras')
+    //   .join('convidados', 'convidados.churras_id', '=', 'churras.id')
+    //   .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+    //   .where(function () {
+    //     this.where('convidados.usuario_id', '=', usuario_id)
+    //     this.where('convidados.confirmado', '=', true)
+    //     this.andWhere('churras.data', '<', data)
+    //   })
+    //   .orWhere(function () {
+    //     this.where('churras.usuario_id', '=', usuario_id)
+    //     this.andWhere('churras.data', '<', data)
+    //   })      
+    //   .distinctOn('id')
+    //   .orderBy('churras.data')
+    //   .select (['churras.*',
+    //     'convidados.confirmado',
+    //     'convidados.valorPagar',
+    //     'convidados.churras_id',
+    //     'usuarios.nome',
+    //     'usuarios.celular',
+    //     'usuarios.apelido',
+    //     'usuarios.idade',
+    //     'usuarios.fotoUrlU'])
+    //   .catch(function (err) {
+    //     console.error(err);
+    //   });
 
-    return response.json(churras);
+    const churras = await connection.raw('select DISTINCT on (churras.id, churras.data) ' +
+      'churras.id, churras."fotoUrlC", ' +
+      'churras."nomeChurras", usuarios.nome, churras.data, churras."hrInicio", churras."hrFim" ' +
+      'from churras ' +
+      'full outer join convidados on churras.id = convidados.churras_id ' +
+      'join usuarios on usuarios.id = churras.usuario_id ' +
+      'where ((convidados.usuario_id = ? ' +
+      'and convidados.confirmado = ? ' +
+      "and churras.data < (now() - interval '1 day'))" +
+      'or(churras.usuario_id = ? ' +
+      "and churras.data < (now() - interval '1 day'))) order by churras.data desc",
+      [usuario_id, true, usuario_id])
+
+    return response.json(churras.rows);
   },
 
   async dataFuturo(request, response) {
     const { usuario_id } = request.params;
-    var dateTime = require('node-datetime');
-    var dt = dateTime.create();
-    var formatted = dt.format('d/m/Y');
 
     const churras = await connection('churras')
       .join('convidados', 'convidados.churras_id', '=', 'churras.id')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('convidados.usuario_id', usuario_id)
-      .where('data', '>=', formatted)
+      .whereRaw("data >= (now() - interval '1 day')")
       .orderBy('data')
       .select(['churras.*',
         'convidados.confirmado',
@@ -141,8 +151,8 @@ module.exports = {
   },
 
   async setValorTotal(req, res) {
-    const { valorTotal } = req.body;
     const { churras_id } = req.params;
+    const { valorTotal } = req.body;
 
     var valorTotalAtual = await connection('churras')
       .where('id', churras_id)
@@ -153,8 +163,6 @@ module.exports = {
 
     var valorFinal = valorTotalAtual[0].valorTotal + valorTotal
 
-    console.log({ valorFinal: valorFinal, valorAtual: valorTotalAtual[0].valorTotal, valorNovo: valorTotal })
-
     await connection('churras')
       .where('id', churras_id)
       .update({
@@ -163,8 +171,6 @@ module.exports = {
         console.error(err);
         return res.json({ mensagem: "Falha ao definir valor total!" });
       });
-
-    console.log({ mensagem: "Valor total definido!" })
 
     return res.json({ mensagem: "Valor total definido!" });
   },
@@ -240,9 +246,10 @@ module.exports = {
     const churras = await connection('churras')
       .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
       .where('churras.id', id)
+      .timeout(1000)
       .select(['churras.*', 'usuarios.fotoUrlU', 'usuarios.nome'])
       .catch(function (err) {
-        return response.status(404).send(false);
+        return response.status(404).send();
       });
 
     return response.json(churras);

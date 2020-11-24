@@ -92,7 +92,9 @@ routes.get('/quantidadecome', QuantidadeComeController.list);
 
 routes.get('/convidados', ConvidadosController.list);
 routes.get('/convidados/:churras_id', ConvidadosController.listChurras);
+routes.get('/convidadosPorCelular/:churras_id/:celular', ConvidadosController.getConvidadoPeloCelular);
 routes.post('/convidadosChurras/:usuario_id', ConvidadosController.create);
+routes.post('/convidadosChurrasCriado/:usuario_id', ConvidadosController.adicionar);
 routes.put('/confirmaPresenca/:usuario_id/:churras_id', ConvidadosController.updatePresenca);
 routes.put('/confirmaPagamento/:id', ConvidadosController.updatePagamento);
 routes.put('/negarPresenca/:usuario_id/:churras_id', ConvidadosController.negarPresenca);
