@@ -66,6 +66,10 @@ module.exports = {
     const { quantidade, unidade_id, formato_id, precoItem } = req.body;
     const { id } = req.params;
 
+    var antigo = await connection ('listaChurrasco')
+    .where('id',id)
+    .select('*')
+
     await connection('listaChurrasco')
       .where('id', id)
       .update({
@@ -77,7 +81,7 @@ module.exports = {
       .catch(function (err) {
         console.error(err);
       });
-    return res.json({ quantidade, formato_id, unidade_id });
+    return res.json({ quantidade, formato_id, unidade_id,antigo });
   },
 
   async create(request, response) {
