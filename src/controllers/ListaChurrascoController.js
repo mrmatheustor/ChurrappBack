@@ -24,6 +24,7 @@ module.exports = {
         'itens.precoMedio',
         'itens.fotoUrlI',
         'itens.id as item_id',
+        'itens.tipo_id',
         'unidades.unidade',
         'churras.nomeChurras',
         'tipos.fotoUrlT',
