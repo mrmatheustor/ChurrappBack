@@ -75,7 +75,7 @@ module.exports = {
       .where('id', id)
       .update({
         unidade_id: unidade_id,
-        quantidade: quantidade,
+        quantidade: +quantidade,
         formato_id,
         precoItem
       })
