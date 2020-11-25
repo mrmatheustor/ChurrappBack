@@ -71,12 +71,11 @@ module.exports = {
     .where('id',id)
     .select('*')
 
-    console.log(antigo[0].quantidade)
     await connection('listaChurrasco')
       .where('id', id)
       .update({
         unidade_id: unidade_id,
-        quantidade: +quantidade,
+        quantidade: antigo[0].quantidade+quantidade,
         formato_id,
         precoItem
       })
