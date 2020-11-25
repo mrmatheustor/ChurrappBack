@@ -71,6 +71,7 @@ module.exports = {
     .where('id',id)
     .select('*')
 
+    console.log(antigo[0].quantidade)
     await connection('listaChurrasco')
       .where('id', id)
       .update({
