@@ -91,9 +91,9 @@ module.exports = {
       'join usuarios on usuarios.id = churras.usuario_id ' +
       'where ((convidados.usuario_id = ? ' +
       'and convidados.confirmado = ? ' +
-      "and churras.data < (now() - interval '1 day'))" +
+      "and churras.data < (now() - interval '2 day'))" +
       'or(churras.usuario_id = ? ' +
-      "and churras.data < (now() - interval '1 day'))) order by churras.data desc",
+      "and churras.data < (now() - interval '2 day'))) order by churras.data desc",
       [usuario_id, true, usuario_id])
 
     return response.json(churras.rows);
