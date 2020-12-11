@@ -25,6 +25,22 @@ module.exports = {
 
     return response.json(convidados);
   },
+  async listChurrasNaoVai(request, response) {
+    const { churras_id } = request.params;
+
+    const convidados = await connection('convidados')
+      .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
+      .join('churras', 'churras.id', '=', 'convidados.churras_id')
+      .where('churras_id', churras_id)
+      .where('convidados.confirmado', '=', false)
+      .select(['churras.*', 'convidados.*', 'usuarios.nome',
+        'usuarios.apelido', 'usuarios.celular', 'usuarios.fotoUrlU'])
+      .catch(function (err) {
+        console.error(err);
+      });
+
+    return response.json(convidados);
+  },
 
 
   async getConvidadoPeloCelular(request, response) {
