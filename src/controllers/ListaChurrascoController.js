@@ -73,7 +73,7 @@ module.exports = {
       .select('*')
 
     await connection('listaChurrasco')
-      .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
+      .join('churras', 'churras.id as churras_id', '=', 'listaChurrasco.churras_id')
       .where('id', id)
       .select('*')
       .update({
