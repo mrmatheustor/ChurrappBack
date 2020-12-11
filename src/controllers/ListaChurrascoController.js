@@ -78,6 +78,7 @@ module.exports = {
       .where('churras.valorTotal', 'valorTotal')
       .select('listaChurrasco.*', 'churras.id as churras_id', 'churras.valorTotal')
       .from('listaChurrasco')
+      .from('churras')
       .update({
         unidade_id: unidade_id,
         quantidade: antigo[0].quantidade + quantidade,
