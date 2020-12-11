@@ -64,7 +64,7 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { quantidade, unidade_id, formato_id, precoItem, valorTotal } = req.body;
+    const { quantidade, unidade_id, formato_id, precoItem } = req.body;
     const { id } = req.params;
 
     var antigo = await connection('listaChurrasco')
