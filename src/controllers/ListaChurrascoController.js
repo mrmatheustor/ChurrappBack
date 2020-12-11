@@ -75,6 +75,7 @@ module.exports = {
     await connection('listaChurrasco')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .where('listaChurrasco.id', id)
+      .where('listaChurrasco.valorTotal', 'churras.valorTotal')
       .select('listaChurrasco.*', 'churras.id as churras_id', 'churras.valorTotal')
       .update({
         unidade_id: unidade_id,
