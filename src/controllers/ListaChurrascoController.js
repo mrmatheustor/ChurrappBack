@@ -68,28 +68,22 @@ module.exports = {
     const { id } = req.params;
 
     var antigo = await connection('listaChurrasco')
-      .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .where('listaChurrasco.id', id)
-      .select('listaChurrasco.*', 'churras.id as churras_id', 'churras.valorTotal')
+      .select('*')
 
     await connection('listaChurrasco')
-      .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
       .where('listaChurrasco.id', id)
-      .from('listaChurrasco')
-      .where('churras.valorTotal', 'valorTotal')
-      .from('churras')
-      .select('listaChurrasco.*', 'churras.id as churras_id', 'churras.valorTotal')
+      .select('*')
       .update({
         unidade_id: unidade_id,
         quantidade: antigo[0].quantidade + quantidade,
         formato_id,
-        precoItem,
-        valorTotal: valorTotal +  antigo[0].valorTotal
+        precoItem
       })
       .catch(function (err) {
         console.error(err);
       });
-    return res.json({ quantidade, formato_id, unidade_id, valorTotal, antigo });
+    return res.json({ quantidade, formato_id, unidade_id, antigo });
   },
 
   async create(request, response) {
