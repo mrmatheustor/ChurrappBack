@@ -69,12 +69,12 @@ module.exports = {
 
     var antigo = await connection('listaChurrasco')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
-      .where('id', id)
+      .where('listaChurrasco.id', id)
       .select('listaChurrasco.*', 'churras.id as churras_id')
 
     await connection('listaChurrasco')
       .join('churras', 'churras.id', '=', 'listaChurrasco.churras_id')
-      .where('id', id)
+      .where('listaChurrasco.id', id)
       .select('listaChurrasco.*', 'churras.id as churras_id')
       .update({
         unidade_id: unidade_id,
