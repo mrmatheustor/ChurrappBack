@@ -110,6 +110,49 @@ module.exports = {
         confirmado: false,
       })
 
+    await connection('convidados')
+      .where('usuario_id', usuario_id)
+      .andWhere('churras_id', churras_id)
+      .select('*')
+      .then(async res => {
+        var valorPagar = res[0].valorPagar;
+        await connection('churras')
+          .where('id', res[0].churras_id)
+          .then(async res3 => {
+            var valorTotalFinal = res3[0].valorTotal - valorPagar
+            await connection('churras')
+              .where('id', res[0].churras_id)
+              .update('valorTotal', valorTotalFinal)
+          })
+      })
+
+      await connection('convidados')
+      .where('churras_id', churras_id)
+      .andWhere('confirmado',true)
+      .whereNull('convidados')
+      .select('*')
+      .then(async res =>{
+        var convQtd = res.length +2
+        await connection('listaChurrasco')
+        .where('churras_id',churras_id)
+        .select('*')
+        .then(async res2 =>{
+          res2.forEach(item => {
+            var sub = item.quantidade/convQtd
+            var valorFinal = item.quantidade - sub
+            connection('listaChurrasco')
+              .where('churras_id', churras_id)
+              .andWhere('id', item.id)
+              .update({
+                quantidade: valorFinal
+              })
+              .catch(function (err) {
+                console.error(err);
+              });
+          });
+        })
+      })
+
     return response.status(204).send();
   },
 
@@ -134,29 +177,29 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select('*')
       .then(async function (rows) {
-          if (rows.length === 0) {
-            await connection('convidados')
-              .insert({
-                valorPagar,
-                churras_id,
-                usuario_id
-              }).then(async function (res) {
-                const convidadoChurras = await connection('convidados')
-                  .join('churras', 'churras.id', '=', 'convidados.churras_id')
-                  .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-                  .where('churras_id', churras_id)
-                  .select(['churras.*', 'convidados.*', 'usuarios.nome'])
-                  .catch(function (err) {
-                    console.error(err);
-                  });
+        if (rows.length === 0) {
+          await connection('convidados')
+            .insert({
+              valorPagar,
+              churras_id,
+              usuario_id
+            }).then(async function (res) {
+              const convidadoChurras = await connection('convidados')
+                .join('churras', 'churras.id', '=', 'convidados.churras_id')
+                .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
+                .where('churras_id', churras_id)
+                .select(['churras.*', 'convidados.*', 'usuarios.nome'])
+                .catch(function (err) {
+                  console.error(err);
+                });
 
-                return response.json(convidadoChurras);
-              }).catch(function (err) {
-                console.error(err);
-              });
-          } else {
-            return response.json(rows);
-          }
+              return response.json(convidadoChurras);
+            }).catch(function (err) {
+              console.error(err);
+            });
+        } else {
+          return response.json(rows);
+        }
       })
 
   },
@@ -171,71 +214,73 @@ module.exports = {
       .andWhere('churras_id', churras_id)
       .select(['*'])
       .then(async function (rows) {
-          if (rows.length === 0) {
-            await connection('convidados')
-              .where('churras_id', churras_id)
-              .select('*')
-              .then(async (res) => {
-                var convidQtd = res.length
-                var valorConvid = res[0].valorPagar
-                var valorTotalFinal = valorConvid * (convidQtd + 2)
-                if (convidQtd == 0) {
-                  var valorPagar = 0
-                } else {
-                  var valorPagar = res[0].valorPagar
-                }
-                var multiplicador = (1 / (convidQtd + 1)) + 1
-                await connection('churras')
-                  .where('id', churras_id)
-                  .select('*')
-                  .then(async (res2) => {
-                    console.log(res2, valorTotalFinal)
-                    await connection('churras')
-                      .where('id', churras_id)
-                      .update('valorTotal', valorTotalFinal)
-                  })
+        if (rows.length === 0) {
+          await connection('convidados')
+            .where('churras_id', churras_id)
+            .andWhere('confirmado', true)
+            .whereNull('convifirmado')
+            .select('*')
+            .then(async (res) => {
+              var convidQtd = res.length
+              var valorConvid = res[0].valorPagar
+              var valorTotalFinal = valorConvid * (convidQtd + 2)
+              if (convidQtd == 0) {
+                var valorPagar = 0
+              } else {
+                var valorPagar = res[0].valorPagar
+              }
+              var multiplicador = (1 / (convidQtd + 1)) + 1
+              await connection('churras')
+                .where('id', churras_id)
+                .select('*')
+                .then(async (res2) => {
+                  console.log(res2, valorTotalFinal)
+                  await connection('churras')
+                    .where('id', churras_id)
+                    .update('valorTotal', valorTotalFinal)
+                })
 
-                await connection('listaChurrasco')
+              await connection('listaChurrasco')
+                .where('churras_id', churras_id)
+                .select('*')
+                .then(async (res2) => {
+                  res2.forEach(item => {
+                    connection('listaChurrasco')
+                      .where('churras_id', churras_id)
+                      .andWhere('id', item.id)
+                      .update({
+                        quantidade: item.quantidade * multiplicador
+                      })
+                      .catch(function (err) {
+                        console.error(err);
+                      });
+                  });
+                })
+                .catch(function (err) {
+                  console.error(err);
+                });
+
+              await connection('convidados').insert({
+                valorPagar: valorPagar,
+                churras_id,
+                usuario_id
+              }).then(async function (res) {
+                const convidadoChurras = await connection('convidados')
+                  .join('churras', 'churras.id', '=', 'convidados.churras_id')
+                  .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
                   .where('churras_id', churras_id)
-                  .select('*')
-                  .then(async (res2) => {
-                    res2.forEach(item => {
-                      connection('listaChurrasco')
-                        .where('churras_id', churras_id)
-                        .andWhere('id', item.id)
-                        .update({
-                          quantidade: item.quantidade * multiplicador
-                        })
-                        .catch(function (err) {
-                          console.error(err);
-                        });
-                    });
-                  })
+                  .select(['churras.*', 'convidados.*', 'usuarios.nome'])
                   .catch(function (err) {
                     console.error(err);
                   });
-
-                await connection('convidados').insert({
-                  valorPagar: valorPagar,
-                  churras_id,
-                  usuario_id
-                }).then(async function (res) {
-                  const convidadoChurras = await connection('convidados')
-                    .join('churras', 'churras.id', '=', 'convidados.churras_id')
-                    .join('usuarios', 'usuarios.id', '=', 'churras.usuario_id')
-                    .where('churras_id', churras_id)
-                    .select(['churras.*', 'convidados.*', 'usuarios.nome'])
-                    .catch(function (err) {
-                      console.error(err);
-                    });
-                  return response.json(convidadoChurras);
-                }).catch(function (err) {
-                  console.error(err);
-                });
+                return response.json(convidadoChurras);
+              }).catch(function (err) {
+                console.error(err);
               });
-          } else {
-            return response.json(rows);
-          }        
+            });
+        } else {
+          return response.json(rows);
+        }
       })
   },
 };
