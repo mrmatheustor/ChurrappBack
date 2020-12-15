@@ -67,22 +67,23 @@ module.exports = {
     const { quantidade, unidade_id, formato_id, precoItem } = req.body;
     const { id } = req.params;
 
-    var antigo = await connection ('listaChurrasco')
-    .where('id',id)
-    .select('*')
+    var antigo = await connection('listaChurrasco')
+      .where('listaChurrasco.id', id)
+      .select('*')
 
     await connection('listaChurrasco')
-      .where('id', id)
+      .where('listaChurrasco.id', id)
+      .select('*')
       .update({
         unidade_id: unidade_id,
-        quantidade: antigo[0].quantidade+quantidade,
+        quantidade: antigo[0].quantidade + quantidade,
         formato_id,
         precoItem
       })
       .catch(function (err) {
         console.error(err);
       });
-    return res.json({ quantidade, formato_id, unidade_id,antigo });
+    return res.json({ quantidade, formato_id, unidade_id, antigo });
   },
 
   async create(request, response) {
@@ -106,7 +107,7 @@ module.exports = {
             unidade2 = 2;
             quantidade2 = quantidade2 / 1000;
           }
-          
+
           await connection('listaChurrasco').insert({
             quantidade: quantidade2,
             churras_id,

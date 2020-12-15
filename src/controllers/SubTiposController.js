@@ -5,7 +5,8 @@ module.exports = {
 
   async list(request, response) {
     const subTipos = await connection('subTipos')
-      .select('*');
+    .orderBy('id')  
+    .select('*');
 
     return response.json(subTipos);
   },
