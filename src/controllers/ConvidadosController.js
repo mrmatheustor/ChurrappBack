@@ -64,8 +64,66 @@ module.exports = {
     await connection('convidados')
       .where('usuario_id', usuario_id)
       .andWhere('churras_id', churras_id)
-      .update({
-        confirmado: true,
+      .select('*')
+      .then(async res => {
+        if (res[0].confirmado == null) {
+          await connection('convidados')
+            .where('usuario_id', usuario_id)
+            .andWhere('churras_id', churras_id)
+            .update({
+              confirmado: true,
+            })
+        } else if (!res[0].confirmado) {
+          await connection('convidados')
+            .where('usuario_id', usuario_id)
+            .andWhere('churras_id', churras_id)
+            .update({
+              confirmado: true,
+            })
+
+          await connection('convidados')
+            .where('usuario_id', usuario_id)
+            .andWhere('churras_id', churras_id)
+            .select('*')
+            .then(async res => {
+              var valorPagar = res[0].valorPagar;
+              await connection('churras')
+                .where('id', res[0].churras_id)
+                .then(async res3 => {
+                  var valorTotalFinal = res3[0].valorTotal + valorPagar
+                  await connection('churras')
+                    .where('id', res[0].churras_id)
+                    .update('valorTotal', valorTotalFinal)
+                })
+            })
+
+          await connection('convidados')
+            .where('churras_id', churras_id)
+            .andWhere('confirmado', true)
+            .whereNull('convidados')
+            .select('*')
+            .then(async res => {
+              var convQtd = res.length
+              await connection('listaChurrasco')
+                .where('churras_id', churras_id)
+                .select('*')
+                .then(async res2 => {
+                  res2.forEach(item => {
+                    var sum = item.quantidade / convQtd
+                    var valorFinal = item.quantidade + sum
+                    connection('listaChurrasco')
+                      .where('churras_id', churras_id)
+                      .andWhere('id', item.id)
+                      .update({
+                        quantidade: valorFinal
+                      })
+                      .catch(function (err) {
+                        console.error(err);
+                      });
+                  });
+                })
+            })
+        }
       })
 
     return response.status(204).send();
@@ -142,31 +200,31 @@ module.exports = {
           })
       })
 
-      await connection('convidados')
+    await connection('convidados')
       .where('churras_id', churras_id)
-      .andWhere('confirmado',true)
+      .andWhere('confirmado', true)
       .whereNull('convidados')
       .select('*')
-      .then(async res =>{
-        var convQtd = res.length +2
+      .then(async res => {
+        var convQtd = res.length + 2
         await connection('listaChurrasco')
-        .where('churras_id',churras_id)
-        .select('*')
-        .then(async res2 =>{
-          res2.forEach(item => {
-            var sub = item.quantidade/convQtd
-            var valorFinal = item.quantidade - sub
-            connection('listaChurrasco')
-              .where('churras_id', churras_id)
-              .andWhere('id', item.id)
-              .update({
-                quantidade: valorFinal
-              })
-              .catch(function (err) {
-                console.error(err);
-              });
-          });
-        })
+          .where('churras_id', churras_id)
+          .select('*')
+          .then(async res2 => {
+            res2.forEach(item => {
+              var sub = item.quantidade / convQtd
+              var valorFinal = item.quantidade - sub
+              connection('listaChurrasco')
+                .where('churras_id', churras_id)
+                .andWhere('id', item.id)
+                .update({
+                  quantidade: valorFinal
+                })
+                .catch(function (err) {
+                  console.error(err);
+                });
+            });
+          })
       })
 
     return response.status(204).send();
