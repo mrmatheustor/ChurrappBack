@@ -103,7 +103,7 @@ module.exports = {
             .whereNull('convidados')
             .select('*')
             .then(async res => {
-              var convQtd = res.length
+              var convQtd = res.length + 1
               console.log("convQtd ",res.length)
               await connection('listaChurrasco')
                 .where('churras_id', churras_id)
