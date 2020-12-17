@@ -201,7 +201,7 @@ module.exports = {
   },
 
   async updateChurrasInfo(request, response) {
-    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, limiteConfirmacao } = request.body;
+    const { nomeChurras, data, hrInicio, hrFim, local, descricao, fotoUrlC, limiteConfirmacao, latitude, longitude } = request.body;
     const { churras_id } = request.params;
 
     await connection('churras')
@@ -215,6 +215,8 @@ module.exports = {
         limiteConfirmacao,
         descricao,
         fotoUrlC,
+        latitude,
+        longitude
       }).catch(function (err) {
         console.error(err);
         return response.json({ mensagem: "Falha ao alterar, tente novamente mais tarde!" });
