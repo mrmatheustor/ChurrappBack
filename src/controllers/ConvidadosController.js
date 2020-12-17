@@ -33,6 +33,7 @@ module.exports = {
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
       .where('convidados.confirmado', '=', true)
+      .whereNull('convidados.confirmado')
       .select(['churras.*', 'convidados.*', 'usuarios.nome',
         'usuarios.apelido', 'usuarios.celular', 'usuarios.fotoUrlU'])
       .catch(function (err) {
