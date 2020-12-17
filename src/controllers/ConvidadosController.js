@@ -101,10 +101,10 @@ module.exports = {
           await connection('convidados')
             .where('churras_id', churras_id)
             .andWhere('confirmado', true)
-            .whereNull('convidados')
+            .whereNull('confirmado')
             .select('*')
             .then(async res => {
-              var convQtd = res.length + 1
+              var convQtd = res.length 
               console.log("convQtd ",res.length)
               await connection('listaChurrasco')
                 .where('churras_id', churras_id)
@@ -208,7 +208,7 @@ module.exports = {
     await connection('convidados')
       .where('churras_id', churras_id)
       .andWhere('confirmado', true)
-      .whereNull('convidados')
+      .whereNull('confirmado')
       .select('*')
       .then(async res => {
         var convQtd = res.length + 2
@@ -297,7 +297,7 @@ module.exports = {
           await connection('convidados')
             .where('churras_id', churras_id)
             .andWhere('confirmado', true)
-            .whereNull('convifirmado')
+            .whereNull('confirmado')
             .select('*')
             .then(async (res) => {
               var convidQtd = res.length
