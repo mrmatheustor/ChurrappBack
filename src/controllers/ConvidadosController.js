@@ -33,7 +33,7 @@ module.exports = {
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
       .where('convidados.confirmado', '=', true)
-      .whereNull('convidados.confirmado')
+      .orWhereNull('convidados.confirmado')
       .select(['churras.*', 'convidados.*', 'usuarios.nome',
         'usuarios.apelido', 'usuarios.celular', 'usuarios.fotoUrlU'])
       .catch(function (err) {
@@ -101,7 +101,7 @@ module.exports = {
           await connection('convidados')
             .where('churras_id', churras_id)
             .andWhere('confirmado', true)
-            .whereNull('confirmado')
+            .orWhereNull('confirmado')
             .select('*')
             .then(async res => {
               var convQtd = res.length 
@@ -208,7 +208,7 @@ module.exports = {
     await connection('convidados')
       .where('churras_id', churras_id)
       .andWhere('confirmado', true)
-      .whereNull('confirmado')
+      .orWhereNull('confirmado')
       .select('*')
       .then(async res => {
         var convQtd = res.length + 2
@@ -297,7 +297,7 @@ module.exports = {
           await connection('convidados')
             .where('churras_id', churras_id)
             .andWhere('confirmado', true)
-            .whereNull('confirmado')
+            .orWhereNull('confirmado')
             .select('*')
             .then(async (res) => {
               var convidQtd = res.length
