@@ -126,7 +126,7 @@ module.exports = {
 
   async create(request, response) {
     const { nomeChurras, data, hrInicio, hrFim, local,
-      descricao, fotoUrlC, valorTotal, valorPago, limiteConfirmacao, latitute, longitude } = request.body;
+      descricao, fotoUrlC, valorTotal, valorPago, limiteConfirmacao, latitude, longitude } = request.body;
     const usuario_id = request.headers.authorization;
     const id = crypto.randomBytes(8).toString('HEX');
 
@@ -143,7 +143,7 @@ module.exports = {
       valorTotal,
       limiteConfirmacao,
       valorPago,
-      latitute,
+      latitude,
       longitude
     }).catch(function (err) {
       console.error(err);
