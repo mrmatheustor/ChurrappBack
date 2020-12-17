@@ -32,8 +32,10 @@ module.exports = {
       .join('usuarios', 'usuarios.id', '=', 'convidados.usuario_id')
       .join('churras', 'churras.id', '=', 'convidados.churras_id')
       .where('churras_id', churras_id)
-      .where('convidados.confirmado', '=', true)
-      .orWhereNull('convidados.confirmado')
+      .where(function () {
+        this.where('convidados.confirmado', '=', true)
+        this.orWhereNull('convidados.confirmado')
+      })
       .select(['churras.*', 'convidados.*', 'usuarios.nome',
         'usuarios.apelido', 'usuarios.celular', 'usuarios.fotoUrlU'])
       .catch(function (err) {
@@ -100,12 +102,14 @@ module.exports = {
 
           await connection('convidados')
             .where('churras_id', churras_id)
-            .andWhere('confirmado', true)
-            .orWhereNull('confirmado')
+            .andWhere(function () {
+              this.where('convidados.confirmado', '=', true)
+              this.orWhereNull('convidados.confirmado')
+            })
             .select('*')
             .then(async res => {
-              var convQtd = res.length 
-              console.log("convQtd ",res.length)
+              var convQtd = res.length
+              console.log("convQtd ", res.length)
               await connection('listaChurrasco')
                 .where('churras_id', churras_id)
                 .select('*')
@@ -113,9 +117,9 @@ module.exports = {
                   res2.forEach(item => {
                     var sum = item.quantidade / convQtd
                     var valorFinal = item.quantidade + sum
-                    console.log("sum ",sum)
-                    console.log("item.quantidade ",item.quantidade)
-                    console.log("valorFinal ",valorFinal)
+                    console.log("sum ", sum)
+                    console.log("item.quantidade ", item.quantidade)
+                    console.log("valorFinal ", valorFinal)
                     connection('listaChurrasco')
                       .where('churras_id', churras_id)
                       .andWhere('id', item.id)
@@ -207,8 +211,10 @@ module.exports = {
 
     await connection('convidados')
       .where('churras_id', churras_id)
-      .andWhere('confirmado', true)
-      .orWhereNull('confirmado')
+      .andWhere(function () {
+        this.where('convidados.confirmado', '=', true)
+        this.orWhereNull('convidados.confirmado')
+      })
       .select('*')
       .then(async res => {
         var convQtd = res.length + 2
@@ -296,8 +302,10 @@ module.exports = {
         if (rows.length === 0) {
           await connection('convidados')
             .where('churras_id', churras_id)
-            .andWhere('confirmado', true)
-            .orWhereNull('confirmado')
+            .andWhere(function () {
+              this.where('convidados.confirmado', '=', true)
+              this.orWhereNull('convidados.confirmado')
+            })
             .select('*')
             .then(async (res) => {
               var convidQtd = res.length
