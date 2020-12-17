@@ -104,6 +104,7 @@ module.exports = {
             .select('*')
             .then(async res => {
               var convQtd = res.length
+              console.log("convQtd ",res.length)
               await connection('listaChurrasco')
                 .where('churras_id', churras_id)
                 .select('*')
@@ -111,6 +112,9 @@ module.exports = {
                   res2.forEach(item => {
                     var sum = item.quantidade / convQtd
                     var valorFinal = item.quantidade + sum
+                    console.log("sum ",sum)
+                    console.log("item.quantidade ",item.quantidade)
+                    console.log("valorFinal ",valorFinal)
                     connection('listaChurrasco')
                       .where('churras_id', churras_id)
                       .andWhere('id', item.id)
