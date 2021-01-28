@@ -5,6 +5,7 @@ import {ACCOUNT_SID, AUTH_TOKEN} from './auth.js'
 
 const accountSid = ACCOUNT_SID;
 const authToken = AUTH_TOKEN;
+
 const client = require('twilio')(accountSid, authToken);
 
 client.messages
