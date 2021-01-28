@@ -11,7 +11,7 @@ const client = require('twilio')(accountSid, authToken);
 
 client.messages
   .create({
-     body: 'SEU PIN É: ',
+     body: 'SEU PIN: ',
      from: '+13512009099',
      to: '+5502119996071004'
    })
