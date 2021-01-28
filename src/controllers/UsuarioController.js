@@ -295,7 +295,7 @@ module.exports = {
     }
 
     // Now we can run a script and invoke a callback when complete, e.g.
-    runScript('../send_sms.js', function (err) {
+    runScript('./../../send_sms.js', function (err) {
       if (err) throw err;
       console.log('finished running some-script.js');
     });
