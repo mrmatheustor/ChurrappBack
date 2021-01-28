@@ -1,6 +1,8 @@
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // and set the environment variables. See http://twil.io/secure
+import {} from './auth.js'
+
 const accountSid = 'AC6f94f2c79fec585315f8039d832c5376';
 const authToken = '253707d97b947685b8e045d0f16fb5ca';
 const client = require('twilio')(accountSid, authToken);
