@@ -255,6 +255,53 @@ module.exports = {
       });
     return response.json(pin);
   },
+  async updatePin(request, response) {
+    const { id } = request.params;
+    const { pin } = request.body;
+    var childProcess = require('child_process');
+
+    await connection('usuarios')
+      .where('id', id)
+      .update({
+        pin
+      }).catch(function (err) {
+        console.error(err);
+        return response.json({ mensagem: "Falha ao atualizar perfil, tente novamente mais tarde!" })
+
+      });
+
+    function runScript(scriptPath, callback) {
+
+      // keep track of whether callback has been invoked to prevent multiple invocations
+      var invoked = false;
+
+      var process = childProcess.fork(scriptPath);
+
+      // listen for errors as they may prevent the exit event from firing
+      process.on('error', function (err) {
+        if (invoked) return;
+        invoked = true;
+        callback(err);
+      });
+
+      // execute the callback once the process has finished running
+      process.on('exit', function (code) {
+        if (invoked) return;
+        invoked = true;
+        var err = code === 0 ? null : new Error('exit code ' + code);
+        callback(err);
+      });
+
+    }
+
+    // Now we can run a script and invoke a callback when complete, e.g.
+    runScript('../send_sms.js', function (err) {
+      if (err) throw err;
+      console.log('finished running some-script.js');
+    });
+
+    return response.json({ mensagem: "Perfil atualizado com sucesso!" })
+  },
   async update(request, response) {
     const { id } = request.params;
     const { sobrenome, email, cidade, uf, senha, idade, fotoUrlU, celular, apelido,

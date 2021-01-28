@@ -9,7 +9,7 @@ const client = require('twilio')(accountSid, authToken);
 
 client.messages
   .create({
-     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+     body: 'SEU PIN É: ',
      from: '+13512009099',
      to: '+5502119996071004'
    })

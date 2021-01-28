@@ -41,6 +41,7 @@ routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
 routes.put('/usuariosQntCriado/:id', UsuarioController.attChurrasCriado);
 routes.put('/usuariosQntParticipado/:id', UsuarioController.attChurrasParticipado)
+routes.put('/atualizaPin/:id', UsuarioController.updatePin);
 
 routes.get('/perfil', ProfileController.list);
 
