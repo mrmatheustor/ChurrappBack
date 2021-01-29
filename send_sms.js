@@ -8,7 +8,7 @@ const client = require('twilio')(accountSid, authToken);
 
 client.messages
   .create({
-     body: 'SEU PIN: ' + pin,
+     body: 'Seu codigo para alteração da senha é: ' + pin,
      from: twilioCel,
      to: '+55021'+celular
    })
