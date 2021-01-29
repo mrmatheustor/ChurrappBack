@@ -257,12 +257,13 @@ module.exports = {
   },
   async updatePin(request, response) {
     const { id } = request.params;
-    const { pin } = request.body;
+    const { celular, pin } = request.body;
     var childProcess = require('child_process');
 
     await connection('usuarios')
       .where('id', id)
       .update({
+        celular,
         pin
       }).catch(function (err) {
         console.error(err);
@@ -270,7 +271,7 @@ module.exports = {
 
       });
       
-      require('child_process').fork('send_sms.js'); //change the path depending on where the file is.
+      require('child_process').fork('send_sms.js', celular); //change the path depending on where the file is.
 
 
     // function runScript(scriptPath, callback) {
