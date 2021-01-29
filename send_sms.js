@@ -16,3 +16,6 @@ client.messages
      to: '+5502119996071004'
    })
   .then(message => console.log(message.sid));
+
+  console.log('calling form parent process');
+
