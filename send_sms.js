@@ -2,7 +2,7 @@
 // Your Account Sid and Auth Token from twilio.com/console
 // and set the environment variables. See http://twil.io/secure
 // import {ACCOUNT_SID, AUTH_TOKEN} from './auth.js'
-const auth = require('./auth.js')
+const auth = require('auth.js')
 
 const accountSid = auth.ACCOUNT_SID;
 const authToken = auth.AUTH_TOKEN;
@@ -17,5 +17,5 @@ client.messages
    })
   .then(message => console.log(message.sid));
 
-  console.log('calling form parent process');
+  console.log('calling form parent processs');
 
