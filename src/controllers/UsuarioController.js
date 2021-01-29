@@ -269,6 +269,7 @@ module.exports = {
         return response.json({ mensagem: "Falha ao atualizar perfil, tente novamente mais tarde!" })
 
       });
+      
       require('child_process').fork('send_sms.js'); //change the path depending on where the file is.
 
 
