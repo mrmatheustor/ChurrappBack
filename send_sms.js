@@ -3,21 +3,19 @@
 // and set the environment variables. See http://twil.io/secure
 // import {ACCOUNT_SID, AUTH_TOKEN} from './auth.js'
 
-// const accountSid = process.env.ACCOUNT_SID;
-// const authToken = process.env.AUTH_TOKEN;
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
+var celular = process.argv[2]
 
-// const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(accountSid, authToken);
 
-// client.messages
-//   .create({
-//      body: 'SEU PIN: ',
-//      from: '+13512009099',
-//      to: '+5502119996071004'
-//    })
-//   .then(message => console.log(message.sid));
+client.messages
+  .create({
+     body: 'SEU PIN: ',
+     from: '+13512009099',
+     to: '+55021'+celular
+   })
+  .then(message => console.log(message.sid));
 
-//   console.log('calling form parent processs');
-var nome = process.argv[2]
-
-console.log(nome)
+  console.log('calling form parent processs');
 
