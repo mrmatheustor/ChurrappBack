@@ -267,7 +267,7 @@ module.exports = {
         pin
       }).catch(function (err) {
         console.error(err);
-        return response.json({ mensagem: "Falha ao atualizar perfil, tente novamente mais tarde!" })
+        return response.json({ mensagem: "Falha ao enviar SMS, tente novamente mais tarde!" })
 
       });
       
@@ -304,7 +304,7 @@ module.exports = {
     //   console.log('finished running some-script.js');
     // });
 
-    return response.json({ mensagem: "Perfil atualizado com sucesso!" })
+    return response.json({ mensagem: "SMS enviado com sucesso!" })
   },
   async update(request, response) {
     const { id } = request.params;
