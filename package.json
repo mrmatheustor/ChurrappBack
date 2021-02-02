@@ -21,6 +21,7 @@
     "node-datetime": "^2.1.2",
     "pg": "^8.2.1",
     "sqlite3": "^4.2.0",
+    "telesignsdk": "^2.2.1",
     "twilio": "^3.55.1"
   },
   "devDependencies": {
