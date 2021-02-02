@@ -271,7 +271,7 @@ module.exports = {
 
       });
       
-      require('child_process').fork('send_sms_tele.js', [`${celular}`, `${pin}`]); //change the path depending on where the file is.
+      require('child_process').fork('send_sms.js', [`${celular}`, `${pin}`]); //change the path depending on where the file is.
 
 
     // function runScript(scriptPath, callback) {
